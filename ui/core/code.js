@@ -738,8 +738,8 @@ Code.init = function() {
 
             }
           };
-          console.log("Trying to get /beta2/ui/pylibs/" + lib + '.py' + ' from server');
-          xmlhttp.open('GET', '/beta2/ui/pylibs/' + lib + '.py');
+          console.log("Trying to get /pages/beta2/ui/pylibs/" + lib + '.py' + ' from server');
+          xmlhttp.open('GET', '/pages/beta2/ui/pylibs/' + lib + '.py');
           xmlhttp.send();
 
 
