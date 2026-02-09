@@ -14261,9 +14261,15 @@ Blockly.Blocks['mpu9250_temp'] = {
 // 完全对齐AHT10的块定义写法，只改业务逻辑
 Blockly.Blocks['ba111tds_init'] = {
   init: function() {
-    // 第一步：appendDummyInput（和AHT10的appendDummyInput一致）
+    // 第一步：appendDummyInput（新增图标FieldImage，和AHT10风格一致）
     this.appendDummyInput()
-        .appendField("Init BA111TDS Sensor");
+        .appendField("Init BA111TDS Sensor")
+        // 【改动1：添加图标】- 需确保ui/media/ba111tds.png文件存在
+        .appendField(new Blockly.FieldImage(
+          "media/ba111tds.png", // 图标路径（BIPES根目录/ui/media/下）
+          55, 55, // 图标尺寸（官方NeoPixel示例用55x55）
+          "*" // 图标alt文本
+        ));
     
     // 第二步：appendValueInput（和AHT10的appendValueInput结构一致）
     this.appendValueInput("uart_port")
@@ -14294,7 +14300,8 @@ Blockly.Blocks['ba111tds_init'] = {
     // 第四步：setColour/setTooltip/setHelpUrl（和AHT10一致）
     this.setColour(230); // AHT10用的230，统一用这个颜色
     this.setTooltip("Init BA111TDS sensor via UART");
-    this.setHelpUrl("http://www.bipes.net.br");
+    // 【改动2：更新helpUrl】
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14306,7 +14313,8 @@ Blockly.Blocks['ba111tds_read'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read TDS and Temperature from BA111TDS");
-    this.setHelpUrl("http://www.bipes.net.br");
+    // 【改动2：更新helpUrl】
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14319,7 +14327,8 @@ Blockly.Blocks['ba111tds_calibrate'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Calibrate BA111TDS sensor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    // 【改动2：更新helpUrl】
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -14339,6 +14348,7 @@ Blockly.Blocks['ba111tds_set_ntc'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set NTC resistance/B value for BA111TDS");
-    this.setHelpUrl("http://www.bipes.net.br");
+    // 【改动2：更新helpUrl】
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };

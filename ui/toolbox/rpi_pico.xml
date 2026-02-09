@@ -1585,9 +1585,9 @@
     <!-- 完全对齐AHT10的XML写法，只改名称和参数 -->
     <category name="BA111TDS Sensor">
       <!-- 第一步：label标注库来源（和AHT10一致） -->
-      <label text="Library: https://xxx/ba111tds.py"></label>
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
       <!-- 第二步：安装按钮（文本=Install ba111tds library，和AHT10的按钮格式一致） -->
-      <button text="Install ba111tds library" callbackKey="installPyLib"></button>
+      <button text="Install ba111_tds library" callbackKey="installPyLib"></button>
 
       <!-- 第三步：label说明传感器（和AHT10一致） -->
       <label text="BA111TDS TDS and Temperature Sensor"></label>
@@ -1596,7 +1596,7 @@
       <block type="ba111tds_init">
         <value name="uart_port">
           <shadow type="math_number">
-            <field name="NUM">1</field>
+            <field name="NUM">0</field>
           </shadow>
         </value>
         <value name="tx_pin">

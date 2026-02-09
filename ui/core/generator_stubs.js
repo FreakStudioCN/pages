@@ -7547,35 +7547,35 @@ Blockly.Python['ba111tds_init'] = function(block) {
 	var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
 	var baudrate = block.getFieldValue('BAUDRATE');
   
-	// 第二步：导入语句（和AHT10的导入写法一致，库名=ba111tds）
+	// 第二步：导入语句（【改动3：适配新驱动文件名ba111_tds.py】）
 	Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART'; // AHT10用Pin/I2C，这里改UART
-	Blockly.Python.definitions_['import_ba111tds'] = 'import ba111tds'; // 和库文件名ba111tds.py一致
+	Blockly.Python.definitions_['import_ba111tds'] = 'import ba111_tds'; // 原：import ba111tds → 改：import ba111_tds
   
-	// 第三步：代码拼接（和AHT10的拼接写法完全一致）
+	// 第三步：代码拼接（【改动4：实例化类时适配新库名】）
 	var code = 'uart_tds=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
-	code += 'ba111tds_sensor=ba111tds.BA111TDS(uart_tds)\n'; // 对齐AHT10的ahtx0=ahtx0.AHT20(...)
+	code += 'ba111tds_sensor=ba111_tds.BA111TDS(uart_tds)\n'; // 原：ba111tds.BA111TDS → 改：ba111_tds.BA111TDS
   
 	return code;
-  };
+};
   
-  // 对齐AHT10的aht_read_temp写法
-  Blockly.Python['ba111tds_read'] = function(block) {
+// 对齐AHT10的aht_read_temp写法（无需改动，因为实例名ba111tds_sensor不变）
+Blockly.Python['ba111tds_read'] = function(block) {
 	var code = 'ba111tds_sensor.detect()';
 	return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10的写法）
-  };
+};
   
-  // 对齐AHT10的代码生成逻辑
-  Blockly.Python['ba111tds_calibrate'] = function(block) {
+// 对齐AHT10的代码生成逻辑（无需改动，实例名不变）
+Blockly.Python['ba111tds_calibrate'] = function(block) {
 	var code = 'cal_result=ba111tds_sensor.calibrate()\n';
 	code += 'if cal_result:\n';
 	code += '\tprint("Calibration OK")\n';
 	code += 'else:\n';
 	code += '\tprint("Calibration FAIL")\n';
 	return code;
-  };
+};
   
-  // 对齐AHT10的代码生成逻辑
-  Blockly.Python['ba111tds_set_ntc'] = function(block) {
+// 对齐AHT10的代码生成逻辑（无需改动，实例名不变）
+Blockly.Python['ba111tds_set_ntc'] = function(block) {
 	var ntc_type = block.getFieldValue('NTC_TYPE');
 	var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 	var code = '';
@@ -7588,4 +7588,4 @@ Blockly.Python['ba111tds_init'] = function(block) {
 	  code += 'print("Set NTC B OK" if set_result else "Set NTC B FAIL")\n';
 	}
 	return code;
-  };
+};
