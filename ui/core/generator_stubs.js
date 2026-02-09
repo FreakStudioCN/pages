@@ -7539,48 +7539,52 @@ Blockly.Python['mpu9250_temp'] = function(block) {
 };
 
 
-// 放在generator_stubs.js末尾，注意：全用Blockly.Python，无模板字符串
+// 完全对齐AHT10的aht_init写法
 Blockly.Python['ba111tds_init'] = function(block) {
-	// 导入依赖（对齐官方neopixel的import写法）
-	Blockly.Python.definitions_['import_machine'] = 'import machine';
-	Blockly.Python.definitions_['import_ba111tds'] = 'from ba111tds import BA111TDS';
-  
-	// 取值：用Blockly.Python.valueToCode（官方规范）
+	// 第一步：取值（和AHT10的取值逻辑一致）
 	var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
 	var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
 	var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
 	var baudrate = block.getFieldValue('BAUDRATE');
   
-	// 字符串拼接（官方neopixel的写法，无模板字符串，避免缩进错误）
-	var code = 'uart_tds = machine.UART(' + uart_port + ', baudrate=' + baudrate + ', tx=machine.Pin(' + tx_pin + '), rx=machine.Pin(' + rx_pin + '), timeout=2000)\n';
-	code += 'tds_sensor = BA111TDS(uart_tds)\n';
+	// 第二步：导入语句（和AHT10的导入写法一致，库名=ba111tds）
+	Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART'; // AHT10用Pin/I2C，这里改UART
+	Blockly.Python.definitions_['import_ba111tds'] = 'import ba111tds'; // 和库文件名ba111tds.py一致
+  
+	// 第三步：代码拼接（和AHT10的拼接写法完全一致）
+	var code = 'uart_tds=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+	code += 'ba111tds_sensor=ba111tds.BA111TDS(uart_tds)\n'; // 对齐AHT10的ahtx0=ahtx0.AHT20(...)
+  
 	return code;
   };
   
+  // 对齐AHT10的aht_read_temp写法
   Blockly.Python['ba111tds_read'] = function(block) {
-	var code = 'tds_sensor.detect()';
-	return [code, Blockly.Python.ORDER_NONE]; // 官方规范：用Python的ORDER_NONE
+	var code = 'ba111tds_sensor.detect()';
+	return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10的写法）
   };
   
+  // 对齐AHT10的代码生成逻辑
   Blockly.Python['ba111tds_calibrate'] = function(block) {
-	var code = 'cal_result = tds_sensor.calibrate()\n';
+	var code = 'cal_result=ba111tds_sensor.calibrate()\n';
 	code += 'if cal_result:\n';
-	code += '\tprint("Calibration OK")\n'; // \t缩进（官方SHT20示例的写法）
+	code += '\tprint("Calibration OK")\n';
 	code += 'else:\n';
 	code += '\tprint("Calibration FAIL")\n';
 	return code;
   };
   
+  // 对齐AHT10的代码生成逻辑
   Blockly.Python['ba111tds_set_ntc'] = function(block) {
 	var ntc_type = block.getFieldValue('NTC_TYPE');
 	var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
 	var code = '';
   
 	if (ntc_type === 'R') {
-	  code = 'set_result = tds_sensor.set_ntc_resistance(' + value + ')\n';
+	  code = 'set_result=ba111tds_sensor.set_ntc_resistance(' + value + ')\n';
 	  code += 'print("Set NTC R OK" if set_result else "Set NTC R FAIL")\n';
 	} else {
-	  code = 'set_result = tds_sensor.set_ntc_b_value(' + value + ')\n';
+	  code = 'set_result=ba111tds_sensor.set_ntc_b_value(' + value + ')\n';
 	  code += 'print("Set NTC B OK" if set_result else "Set NTC B FAIL")\n';
 	}
 	return code;

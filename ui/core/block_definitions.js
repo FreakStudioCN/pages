@@ -14258,62 +14258,87 @@ Blockly.Blocks['mpu9250_temp'] = {
   }
 };
 
+// 完全对齐AHT10的块定义写法，只改业务逻辑
 Blockly.Blocks['ba111tds_init'] = {
   init: function() {
-    this.setColour(200);
+    // 第一步：appendDummyInput（和AHT10的appendDummyInput一致）
     this.appendDummyInput()
         .appendField("Init BA111TDS Sensor");
+    
+    // 第二步：appendValueInput（和AHT10的appendValueInput结构一致）
     this.appendValueInput("uart_port")
-        .setCheck("Number")
-        .appendField("UART Port");
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
     this.appendValueInput("tx_pin")
-        .setCheck("Number")
-        .appendField("TX Pin");
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
     this.appendValueInput("rx_pin")
-        .setCheck("Number")
-        .appendField("RX Pin");
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
     this.appendValueInput("baudrate")
-        .setCheck("Number")
-        .appendField("Baudrate")
-        .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    // 第三步：setPrevious/NextStatement（和AHT10一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    
+    // 第四步：setColour/setTooltip/setHelpUrl（和AHT10一致）
+    this.setColour(230); // AHT10用的230，统一用这个颜色
     this.setTooltip("Init BA111TDS sensor via UART");
+    this.setHelpUrl("http://www.bipes.net.br");
   }
 };
 
+// 对齐AHT10的aht_read_temp写法
 Blockly.Blocks['ba111tds_read'] = {
   init: function() {
-    this.setColour(200);
     this.appendDummyInput()
         .appendField("Read BA111TDS TDS & Temp");
-    this.setOutput(true, "Array");
-    this.setTooltip("Read TDS and temperature from BA111TDS");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read TDS and Temperature from BA111TDS");
+    this.setHelpUrl("http://www.bipes.net.br");
   }
 };
 
+// 对齐AHT10的块定义写法
 Blockly.Blocks['ba111tds_calibrate'] = {
   init: function() {
-    this.setColour(200);
     this.appendDummyInput()
         .appendField("Calibrate BA111TDS (pure water)");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
     this.setTooltip("Calibrate BA111TDS sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
   }
 };
 
+// 对齐AHT10的块定义写法
 Blockly.Blocks['ba111tds_set_ntc'] = {
   init: function() {
-    this.setColour(200);
     this.appendDummyInput()
         .appendField("Set BA111TDS NTC")
         .appendField(new Blockly.FieldDropdown([["Resistance", "R"], ["B Value", "B"]]), "NTC_TYPE");
+    
     this.appendValueInput("value")
-        .setCheck("Number")
-        .appendField("Value");
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
     this.setTooltip("Set NTC resistance/B value for BA111TDS");
+    this.setHelpUrl("http://www.bipes.net.br");
   }
 };
