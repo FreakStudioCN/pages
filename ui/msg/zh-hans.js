@@ -165,6 +165,32 @@ var MSG = {
   mqtt_disconnect: "断开 MQTT 客户端连接",
   mqtt_disconnect_tooltip: "断开 MQTT 客户端与服务器的连接。",
 
+  // ========== BA111TDS传感器专属翻译 ==========
+  ba111tdsInitTitle: "初始化BA111TDS传感器",
+  ba111tdsUartPort: "UART端口",
+  ba111tdsTxPin: "TX引脚",
+  ba111tdsRxPin: "RX引脚",
+  ba111tdsBaudrate: "波特率",
+  ba111tdsInitTooltip: "通过UART初始化BA111TDS传感器",
+
+  ba111tdsReadTitle: "读取BA111TDS的TDS值与温度",
+  ba111tdsReadTooltip: "从BA111TDS传感器读取TDS值和温度",
+
+  ba111tdsCalibrateTitle: "校准BA111TDS（纯净水）",
+  ba111tdsCalibrateTooltip: "校准BA111TDS传感器",
+
+  ba111tdsSetNtcTitle: "设置BA111TDS的NTC参数",
+  ba111tdsNtcResistance: "电阻值",
+  ba111tdsNtcBValue: "B值",
+  ba111tdsNtcValue: "数值",
+  ba111tdsSetNtcTooltip: "设置BA111TDS传感器的NTC电阻/ B值",
+
+  // ========== 工具箱BA111TDS相关翻译 ==========
+  ba111tdsCategoryName: "BA111TDS传感器",
+  ba111tdsLibraryDesc: "库来源：https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython",
+  ba111tdsInstallButton: "安装ba111_tds驱动库",
+  ba111tdsSensorDesc: "BA111TDS TDS与温度传感器",
+
   // ========== 启动页 ==========
   splash_welcome: "欢迎使用 BIPES！",
   splash_footer: "不再显示此页面",

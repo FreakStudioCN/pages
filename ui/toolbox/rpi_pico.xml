@@ -1582,17 +1582,17 @@
       </block>
     </category>
 
-    <!-- 完全对齐AHT10的XML写法，只改名称和参数 -->
-    <category name="BA111TDS Sensor">
-      <!-- 第一步：label标注库来源（和AHT10一致） -->
-      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-      <!-- 第二步：安装按钮（文本=Install ba111tds library，和AHT10的按钮格式一致） -->
-      <button text="Install ba111_tds library" callbackKey="installPyLib"></button>
+    <!-- 完全对齐AHT10的XML写法，替换硬编码英文为MSG键名 -->
+    <category name="%{MSG.ba111tdsCategoryName}">
+      <!-- 第一步：label标注库来源（替换为MSG调用） -->
+      <label text="%{MSG.ba111tdsLibraryDesc}"></label>
+      <!-- 第二步：安装按钮（文本替换为MSG调用） -->
+      <button text="%{MSG.ba111tdsInstallButton}" callbackKey="installPyLib"></button>
 
-      <!-- 第三步：label说明传感器（和AHT10一致） -->
-      <label text="BA111TDS TDS and Temperature Sensor"></label>
+      <!-- 第三步：label说明传感器（替换为MSG调用） -->
+      <label text="%{MSG.ba111tdsSensorDesc}"></label>
       
-      <!-- 第四步：块配置（带shadow默认值，和AHT10的块结构一致） -->
+      <!-- 第四步：块配置（带shadow默认值，保持不变） -->
       <block type="ba111tds_init">
         <value name="uart_port">
           <shadow type="math_number">
@@ -1625,7 +1625,7 @@
         </value>
       </block>
     </category>
-
+    
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

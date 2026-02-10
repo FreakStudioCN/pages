@@ -14263,44 +14263,40 @@ Blockly.Blocks['ba111tds_init'] = {
   init: function() {
     // 第一步：appendDummyInput（新增图标FieldImage，和AHT10风格一致）
     this.appendDummyInput()
-        .appendField("Init BA111TDS Sensor")
-        // 【改动1：添加图标】- 需确保ui/media/ba111tds.png文件存在
+        .appendField(MSG['ba111tdsInitTitle']) // 替换："Init BA111TDS Sensor"
         .appendField(new Blockly.FieldImage(
-          "media/ba111tds.png", // 图标路径（BIPES根目录/ui/media/下）
-          300, 300, // 图标尺寸（官方NeoPixel示例用55x55）
-          "*" // 图标alt文本
+          "media/ba111tds.png", 
+          300, 300, 
+          "*" 
         ));
     
-    // 第二步：appendValueInput（和AHT10的appendValueInput结构一致）
+    // 第二步：appendValueInput（替换所有英文文本为MSG调用）
     this.appendValueInput("uart_port")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("UART Port");
+      .appendField(MSG['ba111tdsUartPort']); // 替换："UART Port"
 
     this.appendValueInput("tx_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("TX Pin");
+      .appendField(MSG['ba111tdsTxPin']); // 替换："TX Pin"
 
     this.appendValueInput("rx_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("RX Pin");
+      .appendField(MSG['ba111tdsRxPin']); // 替换："RX Pin"
 
     this.appendValueInput("baudrate")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Baudrate")
+      .appendField(MSG['ba111tdsBaudrate']) // 替换："Baudrate"
       .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
 
-    // 第三步：setPrevious/NextStatement（和AHT10一致）
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     
-    // 第四步：setColour/setTooltip/setHelpUrl（和AHT10一致）
-    this.setColour(230); // AHT10用的230，统一用这个颜色
-    this.setTooltip("Init BA111TDS sensor via UART");
-    // 【改动2：更新helpUrl】
+    this.setColour(230);
+    this.setTooltip(MSG['ba111tdsInitTooltip']); // 替换："Init BA111TDS sensor via UART"
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -14309,11 +14305,10 @@ Blockly.Blocks['ba111tds_init'] = {
 Blockly.Blocks['ba111tds_read'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Read BA111TDS TDS & Temp");
+        .appendField(MSG['ba111tdsReadTitle']); // 替换："Read BA111TDS TDS & Temp"
     this.setOutput(true, null);
     this.setColour(230);
-    this.setTooltip("Read TDS and Temperature from BA111TDS");
-    // 【改动2：更新helpUrl】
+    this.setTooltip(MSG['ba111tdsReadTooltip']); // 替换："Read TDS and Temperature from BA111TDS"
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -14322,12 +14317,11 @@ Blockly.Blocks['ba111tds_read'] = {
 Blockly.Blocks['ba111tds_calibrate'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Calibrate BA111TDS (pure water)");
+        .appendField(MSG['ba111tdsCalibrateTitle']); // 替换："Calibrate BA111TDS (pure water)"
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Calibrate BA111TDS sensor");
-    // 【改动2：更新helpUrl】
+    this.setTooltip(MSG['ba111tdsCalibrateTooltip']); // 替换："Calibrate BA111TDS sensor"
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -14336,19 +14330,22 @@ Blockly.Blocks['ba111tds_calibrate'] = {
 Blockly.Blocks['ba111tds_set_ntc'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Set BA111TDS NTC")
-        .appendField(new Blockly.FieldDropdown([["Resistance", "R"], ["B Value", "B"]]), "NTC_TYPE");
+        .appendField(MSG['ba111tdsSetNtcTitle']) // 替换："Set BA111TDS NTC"
+        // 下拉菜单选项也替换为MSG调用
+        .appendField(new Blockly.FieldDropdown([
+          [MSG['ba111tdsNtcResistance'], "R"], 
+          [MSG['ba111tdsNtcBValue'], "B"]
+        ]), "NTC_TYPE");
     
     this.appendValueInput("value")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Value");
+      .appendField(MSG['ba111tdsNtcValue']); // 替换："Value"
 
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Set NTC resistance/B value for BA111TDS");
-    // 【改动2：更新helpUrl】
+    this.setTooltip(MSG['ba111tdsSetNtcTooltip']); // 替换："Set NTC resistance/B value for BA111TDS"
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
