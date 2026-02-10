@@ -1,13 +1,14 @@
 var MSG = {
+  // ========== 基础界面核心项 ==========
   title: "BIPES", // 专有名称保留
-  blocks: "积木块", // Blockly标准译法，替代原“块”更易理解
+  blocks: "积木块",
   files: "文件",
   shared: "共享",
   device: "设备",
   linkTooltip: "保存积木块并生成分享链接。",
   runTooltip: "运行工作区中积木块定义的程序。",
   badCode: "程序错误：\n%1",
-  timeout: "超出最大执行行数限制。",
+  timeout: "超出最大执行次数限制。",
   trashTooltip: "清空所有积木块。",
   catLogic: "逻辑",
   catLoops: "循环",
@@ -21,9 +22,9 @@ var MSG = {
   textVariable: "文本",
   httpRequestError: "请求处理异常。",
   linkAlert: "通过以下链接分享您的积木块：\n\n%1",
-  hashError: "抱歉，没有找到与'%1'对应的已保存程序。",
-  xmlError: "无法加载保存的文件。该文件是否由其他版本的Blockly创建？",
-  badXml: "XML解析错误：\n%1\n\n选择“确定”放弃对XML的修改，或选择“取消”继续编辑XML。",
+  hashError: "抱歉，'%1' 未匹配到任何已保存的程序。",
+  xmlError: "无法加载保存的文件。该文件可能由其他版本的 Blockly 创建？",
+  badXml: "XML 解析错误：\n%1\n\n选择“确定”放弃修改，或选择“取消”继续编辑 XML。",
   saveTooltip: "将积木块保存到文件。",
   loadTooltip: "从文件加载积木块。",
   notificationTooltip: "通知面板。",
@@ -31,22 +32,22 @@ var MSG = {
   invalidDevice: "无效设备。",
   languageTooltip: "切换界面语言。",
   noToolbox: "该设备未配置工具箱。",
-  networkTooltip: "通过网络连接（WebREPL、HTTP协议）。",
-  serialTooltip: "通过串口/USB或蓝牙连接（Web Serial API，基于HTTPS）。",
+  networkTooltip: "通过网络连接（WebREPL、HTTP 协议）。",
+  serialTooltip: "通过串口/USB 或蓝牙连接（Web Serial API，基于 HTTPS）。",
   toolbarTooltip: "显示工具栏",
   wrongDevicePin: "请检查引脚配置，目标设备已变更！",
   notDefined: "未定义",
   editAsFileValue: "以文件形式编辑",
-  editAsFileTooltip: "编辑Python代码并保存到设备文件系统。",
+  editAsFileTooltip: "编辑 Python 代码并保存到设备文件系统。",
   forumTooltip: "帮助论坛。",
   accountTooltip: "您的项目与设置。",
-  blocksLoadedFromFile: "已从文件'%1'加载积木块。",
-  deviceUnavailable: "设备'%1'不可用。",
+  blocksLoadedFromFile: "已从文件 '%1' 加载积木块。",
+  deviceUnavailable: "设备 '%1' 不可用。",
   notConnected: "无可用连接用于发送数据。",
   serialFroozen: "串口连接无响应。",
-  notAvailableFlag: "$1功能在当前浏览器中不可用。\r\n请确认$1功能开关已启用。",
+  notAvailableFlag: "$1 功能在当前浏览器中不可用。\r\n请确认 $1 功能开关已启用。",
 
-  // 积木块相关
+  // ========== 积木块基础功能 ==========
   block_delay: "延时",
   seconds: "秒",
   milliseconds: "毫秒",
@@ -66,14 +67,14 @@ var MSG = {
   hour: "时",
   minute: "分",
   second: "秒",
-  wifi_scan: "扫描WiFi网络",
-  wifi_connect: "连接到WiFi网络",
+  wifi_scan: "扫描 WiFi 网络",
+  wifi_connect: "连接到 WiFi 网络",
   wifi_name: "网络名称",
   wifi_key: "密钥/密码",
-  easymqtt_start: "启动EasyMQTT（轻量级MQTT协议）",
-  easymqtt_publish: "EasyMQTT发布数据",
+  easymqtt_start: "启动 EasyMQTT（轻量级 MQTT）",
+  easymqtt_publish: "EasyMQTT 发布数据",
   topic: "主题",
-  session_id: "会话ID",
+  session_id: "会话 ID",
   file_open: "打开文件",
   file_name: "文件名",
   file_mode: "模式",
@@ -83,15 +84,15 @@ var MSG = {
   file_line: "行内容",
   try1: "尝试执行",
   exp1: "捕获异常",
-  ntp_sync: "通过NTP（网络时间协议）同步日期和时间",
+  ntp_sync: "通过 NTP 同步日期和时间",
   timezone: "时区",
   project_info: "项目信息",
   project_info_author: "作者",
   project_info_desc: "描述",
-  easymqtt_subscribe: "EasyMQTT订阅主题",
+  easymqtt_subscribe: "EasyMQTT 订阅主题",
   when: "当",
   data_received: "数据接收时",
-  easymqtt_receive: "EasyMQTT接收数据",
+  easymqtt_receive: "EasyMQTT 接收数据",
   relay: "继电器",
   on: "开启",
   off: "关闭",
@@ -99,31 +100,90 @@ var MSG = {
   yes: "是",
   no: "否",
   wait_for_data: "等待数据",
-  dht_start: "启动DHT传感器",
-  dht_measure: "更新DHT11/22传感器读数",
-  dht_temp: "获取DHT11/22温度值",
-  dht_humi: "获取DHT11/22湿度值",
+  dht_start: "启动 DHT 传感器",
+  dht_measure: "更新 DHT11/22 传感器读数",
+  dht_temp: "获取 DHT11/22 温度值",
+  dht_humi: "获取 DHT11/22 湿度值",
   type: "类型",
 
-  // 网络相关
-  net_http_get: "HTTP GET请求",
-  net_http_get_status: "HTTP状态码",
-  net_http_get_content: "HTTP响应内容",
+  // ========== 超声波传感器（HCSR04） ==========
+  hcsr_install: "安装 HCSR04 驱动库",
+  hcsr_init: "启动 HCSR04 超声波传感器",
+  hcsr_timeout: "超时时间（微秒）",
+  echo_pin: "回声引脚（Echo）",
+  trigger_pin: "触发引脚（Trigger）",
+  get_distance: "获取距离（超声波传感器）",
+  measure_distance: "通过超声波传感器测量距离",
 
-  // 启动页
-  splash_welcome: "欢迎使用BIPES！",
+  // ========== BMP180 气压传感器 ==========
+  pressure: "气压",
+  temperature: "温度",
+  altitude: "海拔",
+  bmp180_init: "初始化 BMP180 传感器",
+
+  // ========== SHT20 温湿度传感器 ==========
+  init_sht20: "初始化 SHT20 传感器",
+  humidity: "湿度",
+
+  // ========== 网络功能 ==========
+  net_http_get: "HTTP GET 请求",
+  net_http_get_status: "HTTP 状态码",
+  net_http_get_content: "HTTP 响应内容",
+  net_http_server_start: "启动 HTTP 网页服务器",
+  net_http_server_start_port: "端口",
+  net_http_server_wait: "等待 HTTP 客户端连接",
+  net_http_server_requested_page: "请求的网页",
+  net_http_server_send_response: "发送 HTTP 响应",
+  net_http_server_send_html: "HTML 内容",
+
+  // ========== MQTT 高级功能 ==========
+  mqtt_init: "启动 MQTT 客户端",
+  server_address: "服务器地址",
+  server_port: "服务器端口",
+  username: "用户名",
+  password: "密码",
+  mqtt_add_to_buffer: "添加数据到 MQTT 缓冲区",
+  field_name: "字段名",
+  value: "数值",
+  mqtt_publish_buffer: "发布缓冲区数据到 MQTT 主题",
+  mqtt_topic: "主题",
+  qos: "服务质量（QOS）：",
+  mqtt_most_once: "0 - 最多一次（至多送达）",
+  mqtt_least_once: "1 - 至少一次（确保送达）",
+  mqtt_publish_payload: "发布自定义载荷到 MQTT 主题",
+  payload: "载荷（Payload）",
+  mqtt_subscribe: "订阅 MQTT 主题",
+  mqtt_set_callback: "设置 MQTT 消息回调函数",
+  with: "携带",
+  received_from: "从以下主题接收",
+  do: "执行",
+  mqtt_callback_tooltip: "回调函数必须包含 topic（主题）和 msg（消息）参数",
+  mqtt_check_msg: "检查 MQTT 服务器待处理消息",
+  mqtt_check_msg_tooltip: "检查服务器是否有待处理消息（非阻塞方式），订阅消息将传递至回调函数。",
+  mqtt_wait_msg: "等待 MQTT 服务器消息",
+  mqtt_wait_msg_tooltip: "等待服务器发送消息（阻塞方式），订阅消息将传递至回调函数。",
+  mqtt_disconnect: "断开 MQTT 客户端连接",
+  mqtt_disconnect_tooltip: "断开 MQTT 客户端与服务器的连接。",
+
+  // ========== 启动页 ==========
+  splash_welcome: "欢迎使用 BIPES！",
   splash_footer: "不再显示此页面",
   splash_close: "关闭",
-  splash_message: "<p><b>BIPES：嵌入式系统积木块集成开发平台</b> 支持基于积木块和文本的编程方式，适用于多种嵌入式系统和物联网（IoT）模块，兼容MicroPython、CircuitPython、Python或Snek语言。您可通过网络、USB或蓝牙连接、编程、调试和监控各类开发板（兼容列表见<a href=https://bipes.net.br/wp/boards/>https://bipes.net.br/wp/boards/</a>），包括STM32、ESP32、ESP8266、树莓派Pico甚至Arduino。</p><p><b>BIPES</b> 是完全<a href=https://bipes.net.br/wp/development/>开源</a>的HTML/JavaScript项目，无需安装任何软件，支持离线使用！希望BIPES能为您提供帮助，您可通过<a href=https://github.com/BIPES/BIPES/discussions>讨论论坛</a>获取支持、查看<a href=https://github.com/BIPES/BIPES/discussions/categories/announcements>新功能公告</a>，也欢迎提交反馈和建议！</p><p>您可通过以下链接为ESP32/ESP8266刷写MicroPython固件以适配BIPES：<a href=https://bipes.net.br/flash/esp-web-tools/>https://bipes.net.br/flash/esp-web-tools/</a></p><p>感谢使用BIPES！——BIPES开发团队</p>"
+  splash_message: "<p><b>BIPES：嵌入式系统积木块集成开发平台</b> 支持基于积木块和文本的编程方式，适用于多种嵌入式系统和物联网（IoT）模块，兼容 MicroPython、CircuitPython、Python 或 Snek 语言。您可通过网络、USB 或蓝牙连接、编程、调试和监控各类开发板（兼容列表见<a href=https://bipes.net.br/wp/boards/>https://bipes.net.br/wp/boards/</a>），包括 STM32、ESP32、ESP8266、树莓派 Pico 甚至 Arduino。</p><p><b>BIPES</b> 是完全<a href=https://bipes.net.br/wp/development/>开源</a>的 HTML/JavaScript 项目，无需安装任何软件，支持离线使用！希望 BIPES 能为您提供帮助，您可通过<a href=https://github.com/BIPES/BIPES/discussions>讨论论坛</a>获取支持、查看<a href=https://github.com/BIPES/BIPES/discussions/categories/announcements>新功能公告</a>，也欢迎提交反馈和建议！</p><p>您可通过以下链接为 ESP32/ESP8266 刷写 MicroPython 固件以适配 BIPES：<a href=https://bipes.net.br/flash/esp-web-tools/>https://bipes.net.br/flash/esp-web-tools/</a></p><p>查看 BIPES 官方文档：<a href=https://bipes.net.br/wp/book-livro/>https://bipes.net.br/wp/book-livro/</a></p><p>感谢使用 BIPES！——BIPES 开发团队</p>"
 };
 
-// 工具箱分类
+// ========== 工具箱分类 ==========
 Blockly.Msg['CAT_TIMING'] = "定时";
 Blockly.Msg['CAT_MACHINE'] = "硬件控制";
 Blockly.Msg['CAT_DISPLAYS'] = "显示设备";
 Blockly.Msg['CAT_SENSORS'] = "传感器";
 Blockly.Msg['CAT_OUTPUTS'] = "输出/执行器";
 Blockly.Msg['CAT_COMM'] = "通信";
+Blockly.Msg['CAT_TEMP_HUMI'] = "温湿度";
+Blockly.Msg['CAT_PRESS'] = "气压";
 Blockly.Msg['CAT_FILES'] = "文件操作";
 Blockly.Msg['CAT_NET'] = "网络与互联网";
 Blockly.Msg['CAT_CONTROL'] = "控制流程";
+Blockly.Msg['CAT_IMU'] = "惯性测量（IMU）";
+Blockly.Msg['CAT_AIR'] = "空气质量";
+Blockly.Msg['CAT_ULTRASOUND'] = "超声波";
