@@ -14267,7 +14267,7 @@ Blockly.Blocks['ba111tds_init'] = {
         // 【改动1：添加图标】- 需确保ui/media/ba111tds.png文件存在
         .appendField(new Blockly.FieldImage(
           "media/ba111tds.png", // 图标路径（BIPES根目录/ui/media/下）
-          150, 150, // 图标尺寸（官方NeoPixel示例用55x55）
+          250, 250, // 图标尺寸（官方NeoPixel示例用55x55）
           "*" // 图标alt文本
         ));
     
