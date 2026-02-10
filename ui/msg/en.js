@@ -105,6 +105,26 @@ var MSG = {
   dht_humi: "get DHT11/22 humidity",
   type: "type",
 
+  // ========== 新增：BA111TDS传感器英文文本 ==========
+  ba111tdsInitTitle: "Init BA111TDS Sensor",
+  ba111tdsUartPort: "UART Port",
+  ba111tdsTxPin: "TX Pin",
+  ba111tdsRxPin: "RX Pin",
+  ba111tdsBaudrate: "Baudrate",
+  ba111tdsInitTooltip: "Init BA111TDS sensor via UART",
+
+  ba111tdsReadTitle: "Read BA111TDS TDS & Temp",
+  ba111tdsReadTooltip: "Read TDS and Temperature from BA111TDS",
+
+  ba111tdsCalibrateTitle: "Calibrate BA111TDS (pure water)",
+  ba111tdsCalibrateTooltip: "Calibrate BA111TDS sensor",
+
+  ba111tdsSetNtcTitle: "Set BA111TDS NTC",
+  ba111tdsNtcResistance: "Resistance",
+  ba111tdsNtcBValue: "B Value",
+  ba111tdsNtcValue: "Value",
+  ba111tdsSetNtcTooltip: "Set NTC resistance/B value for BA111TDS",
+
 //Ultrasound
   hcsr_install: "Install HCSR04 library",
   hcsr_init: "Start HCSR04 Ultrasound Sensor",
