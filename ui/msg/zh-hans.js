@@ -185,12 +185,6 @@ var MSG = {
   ba111tdsNtcValue: "数值",
   ba111tdsSetNtcTooltip: "设置BA111TDS传感器的NTC电阻/ B值",
 
-  // ========== 工具箱BA111TDS相关翻译 ==========
-  ba111tdsCategoryName: "BA111TDS传感器",
-  ba111tdsLibraryDesc: "库来源：https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython",
-  ba111tdsInstallButton: "安装ba111_tds驱动库",
-  ba111tdsSensorDesc: "BA111TDS TDS与温度传感器",
-
   // ========== 启动页 ==========
   splash_welcome: "欢迎使用 BIPES！",
   splash_footer: "不再显示此页面",
