@@ -1626,6 +1626,29 @@
       </block>
     </category>
 
+    <!-- 完全对齐BA111TDS的XML写法，只改名称和参数 -->
+    <category name="GL5516 Sensor">
+      <!-- 第一步：label标注库来源（和BA111TDS/AHT10一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（文本格式和BA111TDS完全一致） -->
+      <button text="Install gl5516 library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和BA111TDS/AHT10一致） -->
+      <label text="GL5516 Light Dependent Resistor Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐BA111TDS的块结构） -->
+      <block type="gl5516_init">
+        <value name="analog_pin">
+          <shadow type="math_number">
+            <field name="NUM">26</field> <!-- RPi Pico默认模拟引脚26 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="gl5516_read"></block>
+      <block type="gl5516_set_min_light"></block>
+      <block type="gl5516_set_max_light"></block>
+    </category>
+
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

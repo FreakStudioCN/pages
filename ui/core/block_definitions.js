@@ -14349,3 +14349,68 @@ Blockly.Blocks['ba111tds_set_ntc'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// 完全对齐AHT10/BA111TDS的块定义写法，只改GL5516业务逻辑
+Blockly.Blocks['gl5516_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（标题+图标FieldImage，和BA111TDS/AHT10风格完全一致）
+    this.appendDummyInput()
+        .appendField("Init GL5516 Light Sensor") // 对应BA111TDS的MSG['ba111tdsInitTitle']
+        .appendField(new Blockly.FieldImage(
+          "media/gl5516.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（模拟引脚配置，对齐ALIGN_RIGHT，和BA111TDS的UART/TX/RX结构一致）
+    this.appendValueInput("analog_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Analog Pin"); // 对应BA111TDS的"UART Port"/"TX Pin"等
+
+    // 固定配置（和BA111TDS/AHT10完全一致）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init GL5516 light sensor on specified analog pin"); // 对应BA111TDS的MSG['ba111tdsInitTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 可替换为实际文档地址
+  }
+};
+
+// 对齐AHT10的aht_read_temp/BA111TDS的ba111tds_read写法
+Blockly.Blocks['gl5516_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read GL5516 Calibrated Light (%)"); // 对应BA111TDS的MSG['ba111tdsReadTitle']
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read GL5516 calibrated light intensity (0-100%)"); // 对应BA111TDS的MSG['ba111tdsReadTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_calibrate写法
+Blockly.Blocks['gl5516_set_min_light'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set GL5516 Min Light (Calibrate)"); // 校准最小光强
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set minimum light value for GL5516 calibration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_calibrate写法
+Blockly.Blocks['gl5516_set_max_light'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set GL5516 Max Light (Calibrate)"); // 校准最大光强
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set maximum light value for GL5516 calibration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

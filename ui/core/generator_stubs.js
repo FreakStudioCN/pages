@@ -7589,3 +7589,38 @@ Blockly.Python['ba111tds_set_ntc'] = function(block) {
 	}
 	return code;
 };
+
+// 完全对齐AHT10/BA111TDS的aht_init/ba111tds_init写法
+Blockly.Python['gl5516_init'] = function(block) {
+  // 第一步：取值（和BA111TDS的取值逻辑完全一致）
+  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
+
+  // 第二步：导入语句（适配GL5516的依赖，对齐BA111TDS的导入格式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // BA111TDS用Pin/UART，这里改Pin/ADC
+  Blockly.Python.definitions_['import_gl5516'] = 'import gl5516'; // 对应BA111TDS的import ba111_tds
+
+  // 第三步：代码拼接（对齐BA111TDS的实例化逻辑）
+  var code = 'gl5516_sensor=gl5516.GL5516(' + analog_pin + ')\n'; // 对应BA111TDS的ba111tds_sensor实例名风格
+
+  return code;
+};
+
+// 对齐AHT10的aht_read_temp/BA111TDS的ba111tds_read写法
+Blockly.Python['gl5516_read'] = function(block) {
+  var code = 'gl5516_sensor.get_calibrated_light()';
+  return [code, Blockly.Python.ORDER_NONE]; // 严格使用ORDER_NONE（BA111TDS/AHT10的标准写法）
+};
+
+// 对齐BA111TDS的ba111tds_calibrate写法
+Blockly.Python['gl5516_set_min_light'] = function(block) {
+  var code = 'min_result=gl5516_sensor.set_min_light()\n';
+  code += 'print("Set GL5516 Min Light OK, value: " + str(min_result))\n'; // 对齐BA111TDS的打印反馈逻辑
+  return code;
+};
+
+// 对齐BA111TDS的ba111tds_calibrate写法
+Blockly.Python['gl5516_set_max_light'] = function(block) {
+  var code = 'max_result=gl5516_sensor.set_max_light()\n';
+  code += 'print("Set GL5516 Max Light OK, value: " + str(max_result))\n'; // 对齐BA111TDS的打印反馈逻辑
+  return code;
+};
