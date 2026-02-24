@@ -7625,48 +7625,73 @@ Blockly.Python['gl5516_set_max_light'] = function(block) {
   return code;
 };
 
-// 完全对齐BA111TDS的ba111tds_init写法
+/// Air530Z GPS Module - 初始化（对齐AHT10 init逻辑）
 Blockly.Python['air530z_init'] = function(block) {
-	// 第一步：取值（和BA111TDS的取值逻辑完全一致）
-	var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
-	var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
-	var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
-	var baudrate = block.getFieldValue('BAUDRATE');
+    var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+    var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+    var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+    var baudrate = block.getFieldValue('BAUDRATE');
+
+    // 导入必要模块（完全对齐AHT10的导入风格）
+    Blockly.Python.definitions_['import_pin_uart'] = 'from machine import Pin, UART';
+    Blockly.Python.definitions_['import_air530z'] = 'import air530z';
   
-	// 第二步：导入语句（对齐BA111TDS的写法，仅替换驱动名）
-	Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART'; // 和BA111TDS完全一致
-	Blockly.Python.definitions_['import_air530z'] = 'import air530z'; // 替换BA111TDS的import ba111_tds
-  
-	// 第三步：代码拼接（对齐BA111TDS的拼接逻辑，仅替换实例名和参数）
-	var code = 'uart_air530z=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
-	code += 'air530z_sensor=air530z.Air530Z(uart_air530z)\n'; // 替换BA111TDS的ba111tds_sensor实例
-  
-	return code;
+    // 实例化逻辑（最简化，对齐AHT10的拼接风格）
+    var code = 'uart_air530z=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+    code += 'air530z_sensor=air530z.Air530Z(uart_air530z)\n';
+    return code;
 };
-  
-// 对齐BA111TDS的ba111tds_read写法
-Blockly.Python['air530z_read'] = function(block) {
-	var code = 'air530z_sensor.read()';
-	return [code, Blockly.Python.ORDER_NONE]; // 严格保留ORDER_NONE（和BA111TDS/AHT10一致）
+
+/// 方法1：Set Air530Z Baudrate
+Blockly.Python['air530z_set_baudrate'] = function(block) {
+    var baud_type = block.getFieldValue('BAUD_TYPE');
+    // 对齐AHT10的代码风格，添加打印反馈（可选但更友好）
+    var code = 'ok, cmd = air530z_sensor.set_baudrate(' + baud_type + ')\n';
+    code += 'print("Baudrate set OK: " + cmd if ok else "Baudrate set FAIL")\n';
+    return code;
 };
-  
-// 对齐BA111TDS的ba111tds_calibrate写法
+
+/// 方法2：Set Air530Z Update Rate
 Blockly.Python['air530z_set_update_rate'] = function(block) {
-	var code = 'rate_result=air530z_sensor.set_update_rate(1)\n'; // 默认1Hz
-	code += 'if rate_result:\n';
-	code += '\tprint("Update rate set to 1Hz OK")\n';
-	code += 'else:\n';
-	code += '\tprint("Set update rate FAIL")\n';
-	return code;
+    var rate_type = block.getFieldValue('RATE_TYPE');
+    var code = 'ok, cmd = air530z_sensor.set_update_rate(' + rate_type + ')\n';
+    code += 'print("Update rate set OK: " + cmd if ok else "Update rate set FAIL")\n';
+    return code;
 };
-  
-// 对齐BA111TDS的ba111tds_set_ntc写法
+
+/// 方法3：Set Air530Z Protocol Mode
+Blockly.Python['air530z_set_protocol'] = function(block) {
+    var protocol_type = block.getFieldValue('PROTOCOL_TYPE');
+    var code = 'ok, cmd = air530z_sensor.set_protocol(' + protocol_type + ')\n';
+    code += 'print("Protocol set OK: " + cmd if ok else "Protocol set FAIL")\n';
+    return code;
+};
+
+/// 方法4：Set Air530Z System Mode
 Blockly.Python['air530z_set_system_mode'] = function(block) {
-	var sys_mode = block.getFieldValue('SYS_MODE');
-	var code = '';
-  
-	code = 'mode_result=air530z_sensor.set_system_mode(' + sys_mode + ')\n';
-	code += 'print("Set system mode OK" if mode_result else "Set system mode FAIL")\n';
-	
-	return code;
+    var system_type = block.getFieldValue('SYSTEM_TYPE');
+    var code = 'ok, cmd = air530z_sensor.set_system_mode(' + system_type + ')\n';
+    code += 'print("System mode set OK: " + cmd if ok else "System mode set FAIL")\n';
+    return code;
+};
+
+/// 方法5：Set Air530Z Startup Mode
+Blockly.Python['air530z_set_startup_mode'] = function(block) {
+    var startup_type = block.getFieldValue('STARTUP_TYPE');
+    var code = 'ok, cmd = air530z_sensor.set_startup_mode(' + startup_type + ')\n';
+    code += 'print("Startup mode set OK: " + cmd if ok else "Startup mode set FAIL")\n';
+    return code;
+};
+
+/// 方法6：Query Air530Z Product Info
+Blockly.Python['air530z_query_product_info'] = function(block) {
+    var code = 'ok, resp = air530z_sensor.query_product_info()\n';
+    code += 'print("Product info query OK: " + resp if ok else "Product info query FAIL")\n';
+    return code;
+};
+
+/// 方法7：Read Air530Z GPS Data（对齐AHT10 read_temp风格）
+Blockly.Python['air530z_read'] = function(block) {
+    var code = 'air530z_sensor.read()';
+    return [code, Blockly.Python.ORDER_NONE];
 };
