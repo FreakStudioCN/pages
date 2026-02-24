@@ -2274,6 +2274,93 @@ Blockly.Blocks['tm1640_write'] = {
   }
 };
 
+// 完全对齐BA111TDS的ba111tds_init写法，只改Air530Z业务逻辑
+Blockly.Blocks['air530z_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（和BA111TDS风格一致，图标+标题）
+    this.appendDummyInput()
+        .appendField("Init Air530Z GPS Sensor") // 替换BA111TDS的MSG['ba111tdsInitTitle']
+        .appendField(new Blockly.FieldImage(
+          "media/air530z.png", 
+          300, 300, 
+          "*" 
+        ));
+    
+    // 第二步：appendValueInput（和BA111TDS的uart_port/tx/rx结构完全一致）
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port"); // 替换BA111TDS的MSG['ba111tdsUartPort']
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin"); // 替换BA111TDS的MSG['ba111tdsTxPin']
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin"); // 替换BA111TDS的MSG['ba111tdsRxPin']
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate") // 替换BA111TDS的MSG['ba111tdsBaudrate']
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    
+    this.setColour(230);
+    this.setTooltip("Init Air530Z GPS sensor via UART"); // 替换BA111TDS的MSG['ba111tdsInitTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/air530z"); // 适配Air530Z的帮助链接
+  }
+};
+
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Blocks['air530z_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Air530Z GPS Data"); // 替换BA111TDS的MSG['ba111tdsReadTitle']
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read Lat/Lng/Satellites/Altitude from Air530Z"); // 替换BA111TDS的MSG['ba111tdsReadTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/air530z");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_calibrate写法（适配Air530Z的设置更新率）
+Blockly.Blocks['air530z_set_update_rate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Air530Z Update Rate"); // 替换BA111TDS的MSG['ba111tdsCalibrateTitle']
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Air530Z GPS update rate (1/5/10Hz)"); // 替换BA111TDS的MSG['ba111tdsCalibrateTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/air530z");
+  }
+};
+
+// 对齐BA111TDS的ba111tds_set_ntc写法（适配Air530Z的设置系统模式）
+Blockly.Blocks['air530z_set_system_mode'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Air530Z System Mode") // 替换BA111TDS的MSG['ba111tdsSetNtcTitle']
+        // 下拉菜单对齐BA111TDS的写法
+        .appendField(new Blockly.FieldDropdown([
+          ["BDS+GPS", "1"], 
+          ["GPS Only", "2"],
+          ["BDS Only", "3"]
+        ]), "SYS_MODE");
+    
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Air530Z positioning system mode"); // 替换BA111TDS的MSG['ba111tdsSetNtcTooltip']
+    this.setHelpUrl("https://freakstudio.cn/node/air530z");
+  }
+};
 
 Blockly.Blocks['tm1640_num'] = {
   init: function() {

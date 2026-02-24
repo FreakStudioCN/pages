@@ -7624,3 +7624,49 @@ Blockly.Python['gl5516_set_max_light'] = function(block) {
   code += 'print("Set GL5516 Max Light OK, value: " + str(max_result))\n'; // 对齐BA111TDS的打印反馈逻辑
   return code;
 };
+
+// 完全对齐BA111TDS的ba111tds_init写法
+Blockly.Python['air530z_init'] = function(block) {
+	// 第一步：取值（和BA111TDS的取值逻辑完全一致）
+	var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+	var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+	var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+	var baudrate = block.getFieldValue('BAUDRATE');
+  
+	// 第二步：导入语句（对齐BA111TDS的写法，仅替换驱动名）
+	Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART'; // 和BA111TDS完全一致
+	Blockly.Python.definitions_['import_air530z'] = 'import air530z'; // 替换BA111TDS的import ba111_tds
+  
+	// 第三步：代码拼接（对齐BA111TDS的拼接逻辑，仅替换实例名和参数）
+	var code = 'uart_air530z=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+	code += 'air530z_sensor=air530z.Air530Z(uart_air530z)\n'; // 替换BA111TDS的ba111tds_sensor实例
+  
+	return code;
+};
+  
+// 对齐BA111TDS的ba111tds_read写法
+Blockly.Python['air530z_read'] = function(block) {
+	var code = 'air530z_sensor.read()';
+	return [code, Blockly.Python.ORDER_NONE]; // 严格保留ORDER_NONE（和BA111TDS/AHT10一致）
+};
+  
+// 对齐BA111TDS的ba111tds_calibrate写法
+Blockly.Python['air530z_set_update_rate'] = function(block) {
+	var code = 'rate_result=air530z_sensor.set_update_rate(1)\n'; // 默认1Hz
+	code += 'if rate_result:\n';
+	code += '\tprint("Update rate set to 1Hz OK")\n';
+	code += 'else:\n';
+	code += '\tprint("Set update rate FAIL")\n';
+	return code;
+};
+  
+// 对齐BA111TDS的ba111tds_set_ntc写法
+Blockly.Python['air530z_set_system_mode'] = function(block) {
+	var sys_mode = block.getFieldValue('SYS_MODE');
+	var code = '';
+  
+	code = 'mode_result=air530z_sensor.set_system_mode(' + sys_mode + ')\n';
+	code += 'print("Set system mode OK" if mode_result else "Set system mode FAIL")\n';
+	
+	return code;
+};

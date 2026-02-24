@@ -1625,7 +1625,39 @@
         </value>
       </block>
     </category>
-
+    <category name="Air530Z GPS Sensor"> <!-- 可根据你的分类习惯命名，或沿用Air530Z GPS Sensor -->
+      <label text="Air530Z GPS Module"></label>
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython"></label>
+      <!-- 参考MPU6050的双install按钮写法，分别下载两个库文件 -->
+      <button text="Install nemapar library (Air530Z)" callbackKey="installPyLib"></button>
+      <button text="Install air530z library (Air530Z)" callbackKey="installPyLib"></button>
+      <!-- Air530Z初始化及功能积木块（对齐MPU6050的block结构） -->
+      <block type="air530z_init">
+        <value name="uart_port">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="tx_pin">
+          <shadow type="pinout">
+            <field name="PIN">16</field>
+          </shadow>
+        </value>
+        <value name="rx_pin">
+          <shadow type="pinout">
+            <field name="PIN">17</field>
+          </shadow>
+        </value>
+        <value name="baudrate">
+          <shadow type="math_number">
+            <field name="NUM">9600</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="air530z_read"></block>
+      <block type="air530z_set_update_rate"></block>
+      <block type="air530z_set_system_mode"></block>
+    </category>
     <!-- 完全对齐BA111TDS的XML写法，只改名称和参数 -->
     <category name="GL5516 Sensor">
       <!-- 第一步：label标注库来源（和BA111TDS/AHT10一致） -->
