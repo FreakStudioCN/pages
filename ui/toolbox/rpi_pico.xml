@@ -1682,7 +1682,624 @@
       <block type="gl5516_set_min_light"></block>
       <block type="gl5516_set_max_light"></block>
     </category>
+    <!-- 完全对齐BA111TDS的XML写法，只改名称和参数 -->
 
+    <category name="BMP280 Sensor">
+      <!-- 第一步：label标注库来源（和BA111TDS/AHT10一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（文本格式和BA111TDS完全一致） -->
+      <button text="Install bmp280 library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和BA111TDS/AHT10一致） -->
+      <label text="BMP280 Temperature and Pressure Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐BA111TDS的块结构） -->
+      <block type="bmp280_init">
+        <value name="i2c">
+          <shadow type="math_number">
+            <field name="NUM">0</field> <!-- RPi Pico默认I2C0 -->
+          </shadow>
+        </value>
+        <value name="sda">
+          <shadow type="pinout">
+            <field name="PIN">0</field>
+          </shadow>
+        </value>
+        <value name="scl">
+          <shadow type="pinout">
+            <field name="PIN">1</field>
+          </shadow>
+        </value>
+        <value name="sampling_mode">
+          <shadow type="math_number">
+            <field name="NUM">4</field> <!-- 默认8x采样 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="bmp280_read_temp"></block>
+      <block type="bmp280_read_pressure"></block>
+      <block type="bmp280_read_altitude"></block>
+      <block type="bmp280_set_sealevel">
+        <value name="value">
+          <shadow type="math_number">
+            <field name="NUM">101325</field> <!-- 标准海平面气压 -->
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="Flame Sensor">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install flame_sensor library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="Flame Sensor (Analog + Digital)"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="flame_sensor_init">
+        <value name="analog_pin">
+          <shadow type="pinout">
+            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+          </shadow>
+        </value>
+        <value name="digital_pin">
+          <shadow type="pinout">
+            <field name="PIN">27</field> <!-- 适配Pico的数字引脚 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="flame_sensor_is_detected"></block>
+      <block type="flame_sensor_read_analog"></block>
+      <block type="flame_sensor_read_voltage"></block>
+    </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="GUVA_S12SD Sensor">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install guva_s12sd library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="GUVA_S12SD UV Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="guva_s12sd_init">
+        <value name="analog_pin">
+          <shadow type="pinout">
+            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="guva_s12sd_read_voltage"></block>
+      <block type="guva_s12sd_read_uvi"></block>
+    </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="Hall Sensor OH34N">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install hall_sensor_oh34n library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="OH34N Hall Effect Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="hall_sensor_oh34n_init">
+        <value name="pin">
+          <shadow type="pinout">
+            <field name="PIN">18</field> <!-- RPi Pico默认数字引脚 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="hall_sensor_oh34n_read"></block>
+      <block type="hall_sensor_oh34n_enable"></block>
+      <block type="hall_sensor_oh34n_disable"></block>
+    </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MAX9814 Microphone">
+      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+      <button text="Install max9814_mic library" callbackKey="installPyLib"></button>
+
+      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+      <label text="MAX9814 Microphone Sensor"></label>
+
+      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+      <block type="max9814_mic_init">
+        <value name="adc_pin">
+          <shadow type="pinout">
+            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+          </shadow>
+        </value>
+        <value name="gain_pin">
+          <shadow type="pinout">
+            <field name="PIN">18</field> <!-- 可选增益引脚默认值 -->
+          </shadow>
+        </value>
+        <value name="shdn_pin">
+          <shadow type="pinout">
+            <field name="PIN">19</field> <!-- 可选关断引脚默认值 -->
+          </shadow>
+        </value>
+      </block>
+      <block type="max9814_mic_read"></block>
+      <block type="max9814_mic_read_normalized"></block>
+      <block type="max9814_mic_read_voltage"></block>
+      <block type="max9814_mic_enable"></block>
+      <block type="max9814_mic_disable"></block>
+      <block type="max9814_mic_set_gain"></block>
+    </category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MLX90614 IR Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mlx9061x library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MLX90614/MLX90615 Infrared Temperature Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mlx9061x_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C 0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA 0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL 1 -->
+      </shadow>
+    </value>
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">90</field> <!-- 0x5A的十进制值，适配Bipes数字输入 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mlx9061x_read_ambient"></block>
+  <block type="mlx9061x_read_object"></block>
+  <block type="mlx9061x_read_object2"></block>
+</category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MLX90640 IR Camera Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mlx90640 library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MLX90640 Infrared Thermal Camera Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mlx90640_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C 0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA 0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL 1 -->
+      </shadow>
+    </value>
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">51</field> <!-- 0x33的十进制值，适配Bipes数字输入 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mlx90640_set_refresh_rate"></block>
+  <block type="mlx90640_get_frame"></block>
+</category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MGX Gas Sensor (MG811/MG812)">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mgx library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MGX Gas Sensor (MG811/MG812)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mgx_init">
+    <value name="adc_pin">
+      <shadow type="pinout">
+        <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+      </shadow>
+    </value>
+    <value name="comp_pin">
+      <shadow type="pinout">
+        <field name="PIN">18</field> <!-- 可选Comp引脚默认值 -->
+      </shadow>
+    </value>
+    <value name="rl_ohm">
+      <shadow type="math_number">
+        <field name="NUM">10000</field> <!-- RL电阻默认值 -->
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field> <!-- 参考电压默认值 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mgx_select_builtin"></block>
+  <block type="mgx_read_voltage"></block>
+  <block type="mgx_read_ppm">
+    <value name="samples">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 采样数默认值 -->
+      </shadow>
+    </value>
+  </block>
+</category>
+
+    <category name="RCWL9623 Distance Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-rcwl9623 "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install rcwl9623 library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="RCWL9623 Ultrasonic Distance Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="rcwl9623_init">
+    <field name="RCWL_MODE">GPIO</field> <!-- 默认GPIO模式 -->
+    <value name="trig_pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field> <!-- 默认Trig引脚2 -->
+      </shadow>
+    </value>
+    <value name="echo_pin">
+      <shadow type="pinout">
+        <field name="PIN">3</field> <!-- 默认Echo引脚3 -->
+      </shadow>
+    </value>
+    <value name="onewire_pin">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="bus_num">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="i2c_addr">
+      <shadow type="math_number">
+        <field name="NUM">87</field> <!-- 0x57=87 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="rcwl9623_read_distance"></block>
+</category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="MQX (MQ2/MQ4/MQ7) Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install mqx library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="MQ2/MQ4/MQ7 Gas Concentration Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="mqx_init">
+    <value name="adc_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field> <!-- Pico默认ADC0引脚 -->
+      </shadow>
+    </value>
+    <value name="comp_pin">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认禁用COMP引脚 -->
+      </shadow>
+    </value>
+    <value name="rl_ohm">
+      <shadow type="math_number">
+        <field name="NUM">10000</field> <!-- 默认10KΩ RL电阻 -->
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field> <!-- 默认3.3V参考电压 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="mqx_select_sensor"></block>
+  <block type="mqx_read_voltage"></block>
+  <block type="mqx_read_ppm">
+    <value name="SAMPLES">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认1个样本 -->
+      </shadow>
+    </value>
+  </block>
+</category>
+
+    <category name="PIR Motion Sensor">
+  <label text="Library: https://github.com/your-repo/micropython-pir "></label>
+  <button text="Install pir library" callbackKey="installPyLib"></button>
+
+  <label text="PIR Human Infrared Motion Sensor"></label>
+
+  <!-- 初始化块（含回调开关） -->
+  <block type="pir_init">
+    <value name="pir_pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field>
+      </shadow>
+    </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
+  </block>
+
+  <!-- 核心检测块 -->
+  <block type="pir_is_motion_detected"></block>
+  <block type="pir_wait_for_motion">
+    <value name="timeout">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 回调相关块 -->
+  <block type="pir_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印提示 -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">Motion detected!</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="pir_toggle_callback">
+    <field name="TOGGLE_ACTION">ENABLE</field>
+  </block>
+</category>
+
+    <category name="Serial IMU Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-imu "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install imu library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="IMU Acc/Gyro/Angle/Temp Sensor (UART)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="imu_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认UART0 -->
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field> <!-- 默认TX16 -->
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field> <!-- 默认RX17 -->
+      </shadow>
+    </value>
+    <field name="BAUDRATE">115200</field> <!-- 默认波特率115200 -->
+  </block>
+  <block type="imu_read_all"></block>
+  <block type="imu_send_cmd">
+    <field name="CMD_TYPE">ZAXISCLEAR</field> <!-- 默认清零Z轴 -->
+  </block>
+</category>
+
+    <category name="Soil Moisture Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-soil-moisture "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install soil_moisture library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="Soil Moisture Sensor (ADC)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="soil_moisture_init">
+    <value name="adc_pin">
+      <shadow type="pinout">
+        <field name="PIN">26</field> <!-- Pico默认ADC0引脚26 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="soil_moisture_calibrate_dry"></block>
+  <block type="soil_moisture_calibrate_wet"></block>
+  <block type="soil_moisture_read_percent"></block>
+  <block type="soil_moisture_read_level"></block>
+</category>
+
+    <category name="Vibration Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-vibration-sensor "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install vibration_sensor library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="Vibration Sensor (Digital Input)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="vibration_sensor_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">15</field> <!-- Pico默认数字引脚15 -->
+      </shadow>
+    </value>
+    <value name="debounce_ms">
+      <shadow type="math_number">
+        <field name="NUM">50</field> <!-- 默认防抖50ms -->
+      </shadow>
+    </value>
+  </block>
+  <block type="vibration_sensor_read"></block>
+  <block type="vibration_sensor_get_status"></block>
+  <block type="vibration_sensor_deinit"></block>
+</category>
+
+    <category name="TCR5000 Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-tcr5000 "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install tcr5000 library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="TCR5000 Optical Sensor (Digital Input)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="tcr5000_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">18</field> <!-- Pico默认数字引脚18 -->
+      </shadow>
+    </value>
+    <field name="TRIGGER_TYPE">IRQ_FALLING | IRQ_RISING</field> <!-- 默认双边沿触发 -->
+  </block>
+  <block type="tcr5000_read"></block>
+  <block type="tcr5000_deinit"></block>
+</category>
+
+    <category name="TCS34725 Sensor">
+  <!-- 第一步：标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/your-repo/micropython-tcs34725 "></label>
+  <!-- 第二步：安装按钮（和AHT10/BA111TDS按钮格式一致） -->
+  <button text="Install tcs34725 library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：传感器说明（和AHT10一致） -->
+  <label text="TCS34725 Color/CCT/Lux Sensor (I2C)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10结构一致） -->
+  <block type="tcs34725_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <field name="ADDR">0x29</field>
+    <value name="led_pin">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="tcs34725_read_cct_lux"></block>
+  <block type="tcs34725_read_raw"></block>
+</category>
+
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="VL53L0X Distance Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install vl53l0x library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="VL53L0X Laser Distance Sensor (mm)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="vl53l0x_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- Pico默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL1 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="vl53l0x_start"></block>
+  <block type="vl53l0x_read_distance"></block>
+</category>
+    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
+    <category name="JEDMGasMeas Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <button text="Install jedmgasmeas library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
+  <label text="JEDMGasMeas Gas Concentration Sensor"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <block type="jedmgasmeas_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- Pico默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field> <!-- 默认SDA0 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field> <!-- 默认SCL1 -->
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">42</field> <!-- 0x2A的十进制值，新手更易理解 -->
+      </shadow>
+    </value>
+  </block>
+  <block type="jedmgasmeas_read_concentration"></block>
+  <block type="jedmgasmeas_calibrate_zero">
+    <value name="calib_value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认校准值0 -->
+      </shadow>
+    </value>
+  </block>
+</category>
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>
@@ -1736,6 +2353,7 @@
       <block type="bh1750_read">
       </block>
     </category>
+
 
     <category name="DS3231 RTC">
       <label text="DS3231 Real Time Clock"></label>
