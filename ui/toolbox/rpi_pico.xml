@@ -1560,7 +1560,7 @@
   </category>
 
   </category>
-  <category name="INPUT">
+  <category name="Input">
     <category name="EC11 Encoder">
   <label text="Library: https://your-ec11encoder-library-url.com"></label>
   <button text="Install ec11encoder library" callbackKey="installPyLib"></button>
@@ -1645,6 +1645,7 @@
     <category name="PCF8574 Keys">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install pcf8574keys library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
 
   <label text="PCF8574 Based 5-Way Key Module"></label>
   <block type="pcf8574keys_init">
@@ -1677,6 +1678,7 @@
     <category name="PCF8574 IO8 Module">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
   <button text="Install pcf8574io8 library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
 
   <label text="PCF8574 8-Channel IO Expansion Module"></label>
   <block type="pcf8574io8_init">
@@ -1768,7 +1770,7 @@
 </category>
     <category name="Limit Switch">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <button text="Install limitswitch library" callbackKey="installPyLib"></button>
+  <button text="Install limit_switch library" callbackKey="installPyLib"></button>
 
   <label text="Limit Switch with Debounce"></label>
   <block type="limitswitch_init">
@@ -1794,46 +1796,201 @@
   <block type="limitswitch_enable"></block>
   <block type="limitswitch_disable"></block>
 </category>
-    <category name="AD8232 ECG Sensor">
+    <category name="CH9328 Keyboard Module">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <button text="Install ad8232 library" callbackKey="installPyLib"></button>
+  <button text="Install ch9328 library" callbackKey="installPyLib"></button>
 
-  <label text="AD8232 ECG and Heart Rate Sensor"></label>
-  <block type="ad8232_init">
+  <label text="CH9328 USB Keyboard Emulation Module"></label>
+  <block type="ch9328_init">
     <value name="uart_port">
       <shadow type="math_number">
-        <field name="NUM">1</field>
+        <field name="NUM">0</field>
       </shadow>
     </value>
     <value name="tx_pin">
       <shadow type="pinout">
-        <field name="PIN">8</field>
+        <field name="PIN">0</field>
       </shadow>
     </value>
     <value name="rx_pin">
       <shadow type="pinout">
-        <field name="PIN">9</field>
+        <field name="PIN">1</field>
       </shadow>
     </value>
     <value name="baudrate">
       <shadow type="math_number">
-        <field name="NUM">115200</field>
-      </shadow>
-    </value>
-    <value name="parse_interval">
-      <shadow type="math_number">
-        <field name="NUM">5</field>
+        <field name="NUM">9600</field>
       </shadow>
     </value>
   </block>
-  <block type="ad8232_control_start_stop"></block>
-  <block type="ad8232_set_active_output"></block>
-  <block type="ad8232_read_raw_ecg"></block>
-  <block type="ad8232_read_filtered_ecg"></block>
-  <block type="ad8232_read_lead_status"></block>
-  <block type="ad8232_read_heart_rate"></block>
-  <block type="ad8232_read_module_status"></block>
+  <block type="ch9328_send_string">
+    <value name="text">
+      <shadow type="text">
+        <field name="TEXT">Hello World!</field>
+      </shadow>
+    </value>
+    <value name="delay">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ch9328_tap_key"></block>
+  <block type="ch9328_hotkey"></block>
+  <block type="ch9328_send_crlf"></block>
 </category>
+    <category name="TouchKey Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install touchkey library" callbackKey="installPyLib"></button>
+
+  <label text="TouchKey Sensor with Debounce and Callback"></label>
+  <block type="touchkey_init">
+    <value name="pin_num">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="debounce_time">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="touchkey_get_state"></block>
+  <block type="touchkey_set_press_callback">
+    <value name="callback_func">
+      <shadow type="variables_get">
+        <field name="VAR">touchkey_press_callback</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="touchkey_set_release_callback">
+    <value name="callback_func">
+      <shadow type="variables_get">
+        <field name="VAR">touchkey_release_callback</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+  </category>
+  <category name="Lighting">
+    <category name="PowerLED">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install powerled library" callbackKey="installPyLib"></button>
+
+  <label text="PowerLED PWM Dimmable LED Module"></label>
+  <block type="powerled_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="powerled_on"></block>
+  <block type="powerled_off"></block>
+  <block type="powerled_toggle"></block>
+  <block type="powerled_set_brightness">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">512</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="powerled_get_state"></block>
+</category>
+    <category name="LEDBar (PCF8574)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install led_bar library" callbackKey="installPyLib"></button>
+  <button text="Install pcf8574 library" callbackKey="installPyLib"></button>
+
+  <label text="8-bit LEDBar based on PCF8574 I2C IO Expander"></label>
+  <block type="ledbar_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">32</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_set_led">
+    <value name="index">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_set_all">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_display_level">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ledbar_clear"></block>
+</category>
+    <category name="PiranhaLED">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install piranha_led library" callbackKey="installPyLib"></button>
+
+  <label text="PiranhaLED with Configurable Polarity (Cathode/Anode)"></label>
+  <block type="piranhaled_init">
+    <value name="pin_number">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="piranhaled_on"></block>
+  <block type="piranhaled_off"></block>
+  <block type="piranhaled_toggle"></block>
+  <block type="piranhaled_is_on"></block>
+</category>
+    <category name="UVMatrix ">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install uvmatrix library" callbackKey="installPyLib"></button>
+
+  <label text="UVMatrix PWM Dimmable UV Light Module"></label>
+  <block type="uvmatrix_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="uvmatrix_on"></block>
+  <block type="uvmatrix_off"></block>
+  <block type="uvmatrix_toggle"></block>
+  <block type="uvmatrix_set_brightness">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">256</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="uvmatrix_get_state"></block>
+</category>
+
   </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
@@ -1855,8 +2012,6 @@
         <field name="MSG_READ_DHT_HUMI">Read DHT11/22 Humidity</field>
       </block>
     </category>
-
-    <!-- 完全对齐AHT10的XML写法，只改名称和参数 -->
     <category name="BA111TDS Sensor">
       <!-- 第一步：label标注库来源（和AHT10一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -1899,7 +2054,6 @@
         </value>
       </block>
     </category>
-
     <category name="Air530Z GPS Sensor"> <!-- 可根据你的分类习惯命名，或沿用Air530Z GPS Sensor -->
       <label text="Air530Z GPS Module"></label>
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython"></label>
@@ -1934,7 +2088,6 @@
       <block type="air530z_query_product_info"></block>
       <block type="air530z_read"></block>
     </category>
-    <!-- 完全对齐BA111TDS的XML写法，只改名称和参数 -->
     <category name="GL5516 Sensor">
       <!-- 第一步：label标注库来源（和BA111TDS/AHT10一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -1956,8 +2109,6 @@
       <block type="gl5516_set_min_light"></block>
       <block type="gl5516_set_max_light"></block>
     </category>
-    <!-- 完全对齐BA111TDS的XML写法，只改名称和参数 -->
-
     <category name="BMP280 Sensor">
       <!-- 第一步：label标注库来源（和BA111TDS/AHT10一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2001,7 +2152,6 @@
         </value>
       </block>
     </category>
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="Flame Sensor">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2028,8 +2178,6 @@
       <block type="flame_sensor_read_analog"></block>
       <block type="flame_sensor_read_voltage"></block>
     </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="GUVA_S12SD Sensor">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2050,8 +2198,6 @@
       <block type="guva_s12sd_read_voltage"></block>
       <block type="guva_s12sd_read_uvi"></block>
     </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="Hall Sensor OH34N">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2073,8 +2219,6 @@
       <block type="hall_sensor_oh34n_enable"></block>
       <block type="hall_sensor_oh34n_disable"></block>
     </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MAX9814 Microphone">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2109,8 +2253,6 @@
       <block type="max9814_mic_disable"></block>
       <block type="max9814_mic_set_gain"></block>
     </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MLX90614 IR Sensor">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2147,8 +2289,6 @@
   <block type="mlx9061x_read_object"></block>
   <block type="mlx9061x_read_object2"></block>
 </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MLX90640 IR Camera Sensor">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2184,8 +2324,6 @@
   <block type="mlx90640_set_refresh_rate"></block>
   <block type="mlx90640_get_frame"></block>
 </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MGX Gas Sensor (MG811/MG812)">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2228,7 +2366,6 @@
     </value>
   </block>
 </category>
-
     <category name="RCWL9623 Distance Sensor">
   <!-- 第一步：标注库来源（和AHT10一致） -->
   <label text="Library: https://github.com/your-repo/micropython-rcwl9623 "></label>
@@ -2269,8 +2406,6 @@
   </block>
   <block type="rcwl9623_read_distance"></block>
 </category>
-
-    <!-- 完全对齐AHT10/BA111TDS的XML写法，只改名称和参数 -->
     <category name="MQX (MQ2/MQ4/MQ7) Gas Sensor">
   <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2313,7 +2448,47 @@
     </value>
   </block>
 </category>
+    <category name="AD8232 ECG Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ad8232_uart library" callbackKey="installPyLib"></button>
+  <button text="Install ad8232_data_flow_processor library" callbackKey="installPyLib"></button>
 
+  <label text="AD8232 ECG and Heart Rate Sensor"></label>
+  <block type="ad8232_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">8</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">9</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+    <value name="parse_interval">
+      <shadow type="math_number">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ad8232_control_start_stop"></block>
+  <block type="ad8232_set_active_output"></block>
+  <block type="ad8232_read_raw_ecg"></block>
+  <block type="ad8232_read_filtered_ecg"></block>
+  <block type="ad8232_read_lead_status"></block>
+  <block type="ad8232_read_heart_rate"></block>
+  <block type="ad8232_read_module_status"></block>
+</category>
     <category name="PIR Motion Sensor">
   <label text="Library: https://github.com/your-repo/micropython-pir "></label>
   <button text="Install pir library" callbackKey="installPyLib"></button>

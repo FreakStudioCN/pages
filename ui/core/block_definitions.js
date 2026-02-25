@@ -17482,3 +17482,670 @@ Blockly.Blocks['ad8232_read_module_status'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+// CH9328初始化块
+Blockly.Blocks['ch9328_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init CH9328 Keyboard Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/ch9328.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    this.appendDummyInput()
+        .appendField("Keyboard Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Mode 0', '0'],
+                     ['Mode 1', '1'],
+                     ['Mode 2', '2'],
+                     ['Mode 3', '3']
+        ]), 'KEYBOARD_MODE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init CH9328 USB keyboard emulation module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送字符串块
+Blockly.Blocks['ch9328_send_string'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Send String");
+
+    this.appendValueInput("text")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Text");
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(10), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send text string via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 敲击单个按键块
+Blockly.Blocks['ch9328_tap_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Tap Key");
+
+    this.appendDummyInput()
+        .appendField("Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['A', 'KEY_A'], ['B', 'KEY_B'], ['C', 'KEY_C'], ['D', 'KEY_D'], ['E', 'KEY_E'],
+                     ['F', 'KEY_F'], ['G', 'KEY_G'], ['H', 'KEY_H'], ['I', 'KEY_I'], ['J', 'KEY_J'],
+                     ['K', 'KEY_K'], ['L', 'KEY_L'], ['M', 'KEY_M'], ['N', 'KEY_N'], ['O', 'KEY_O'],
+                     ['P', 'KEY_P'], ['Q', 'KEY_Q'], ['R', 'KEY_R'], ['S', 'KEY_S'], ['T', 'KEY_T'],
+                     ['U', 'KEY_U'], ['V', 'KEY_V'], ['W', 'KEY_W'], ['X', 'KEY_X'], ['Y', 'KEY_Y'], ['Z', 'KEY_Z'],
+                     ['1', 'KEY_1'], ['2', 'KEY_2'], ['3', 'KEY_3'], ['4', 'KEY_4'], ['5', 'KEY_5'],
+                     ['6', 'KEY_6'], ['7', 'KEY_7'], ['8', 'KEY_8'], ['9', 'KEY_9'], ['0', 'KEY_0'],
+                     ['Enter', 'KEY_ENTER'], ['Space', 'KEY_SPACE'], ['Backspace', 'KEY_BACKSPACE'],
+                     ['Tab', 'KEY_TAB'], ['ESC', 'KEY_ESCAPE'], ['Left Ctrl', 'KEY_LEFT_CTRL'],
+                     ['Left Shift', 'KEY_LEFT_SHIFT'], ['Left Alt', 'KEY_LEFT_ALT'], ['Left GUI', 'KEY_LEFT_GUI']
+        ]), 'KEY_CODE');
+
+    this.appendDummyInput()
+        .appendField("Modifier")
+        .appendField(new Blockly.FieldDropdown([
+                     ['None', 'MODIFIER_NONE'],
+                     ['Left Ctrl', 'MODIFIER_LEFT_CTRL'],
+                     ['Left Shift', 'MODIFIER_LEFT_SHIFT'],
+                     ['Left Alt', 'MODIFIER_LEFT_ALT'],
+                     ['Left GUI', 'MODIFIER_LEFT_GUI'],
+                     ['Right Ctrl', 'MODIFIER_RIGHT_CTRL'],
+                     ['Right Shift', 'MODIFIER_RIGHT_SHIFT'],
+                     ['Right Alt', 'MODIFIER_RIGHT_ALT'],
+                     ['Right GUI', 'MODIFIER_RIGHT_GUI']
+        ]), 'MODIFIER');
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Tap a single key via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送快捷键块
+Blockly.Blocks['ch9328_hotkey'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Hotkey");
+
+    this.appendDummyInput()
+        .appendField("Modifier")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Left Ctrl', 'MODIFIER_LEFT_CTRL'],
+                     ['Left Shift', 'MODIFIER_LEFT_SHIFT'],
+                     ['Left Alt', 'MODIFIER_LEFT_ALT'],
+                     ['Left GUI', 'MODIFIER_LEFT_GUI'],
+                     ['Right Ctrl', 'MODIFIER_RIGHT_CTRL'],
+                     ['Right Shift', 'MODIFIER_RIGHT_SHIFT'],
+                     ['Right Alt', 'MODIFIER_RIGHT_ALT'],
+                     ['Right GUI', 'MODIFIER_RIGHT_GUI']
+        ]), 'MODIFIER');
+
+    this.appendDummyInput()
+        .appendField("Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['A', 'KEY_A'], ['B', 'KEY_B'], ['C', 'KEY_C'], ['D', 'KEY_D'], ['E', 'KEY_E'],
+                     ['F', 'KEY_F'], ['G', 'KEY_G'], ['H', 'KEY_H'], ['I', 'KEY_I'], ['J', 'KEY_J'],
+                     ['K', 'KEY_K'], ['L', 'KEY_L'], ['M', 'KEY_M'], ['N', 'KEY_N'], ['O', 'KEY_O'],
+                     ['P', 'KEY_P'], ['Q', 'KEY_Q'], ['R', 'KEY_R'], ['S', 'KEY_S'], ['T', 'KEY_T'],
+                     ['U', 'KEY_U'], ['V', 'KEY_V'], ['W', 'KEY_W'], ['X', 'KEY_X'], ['Y', 'KEY_Y'], ['Z', 'KEY_Z'],
+                     ['1', 'KEY_1'], ['2', 'KEY_2'], ['3', 'KEY_3'], ['4', 'KEY_4'], ['5', 'KEY_5'],
+                     ['6', 'KEY_6'], ['7', 'KEY_7'], ['8', 'KEY_8'], ['9', 'KEY_9'], ['0', 'KEY_0'],
+                     ['Enter', 'KEY_ENTER'], ['Space', 'KEY_SPACE'], ['Backspace', 'KEY_BACKSPACE'],
+                     ['Tab', 'KEY_TAB'], ['ESC', 'KEY_ESCAPE'], ['F1', 'KEY_F1'], ['F2', 'KEY_F2'],
+                     ['F3', 'KEY_F3'], ['F4', 'KEY_F4'], ['F5', 'KEY_F5'], ['F6', 'KEY_F6'],
+                     ['F7', 'KEY_F7'], ['F8', 'KEY_F8'], ['F9', 'KEY_F9'], ['F10', 'KEY_F10'],
+                     ['F11', 'KEY_F11'], ['F12', 'KEY_F12']
+        ]), 'KEY_CODE');
+
+    this.appendValueInput("delay")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DELAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send hotkey combination via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 发送换行块
+Blockly.Blocks['ch9328_send_crlf'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("CH9328 Send Enter (CRLF)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Send Enter/CRLF via CH9328 keyboard module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// TouchKey初始化块
+Blockly.Blocks['touchkey_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init TouchKey Sensor")
+        .appendField(new Blockly.FieldImage(
+                     "media/touchkey.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin_num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin Number");
+
+    this.appendDummyInput()
+        .appendField("Idle State")
+        .appendField(new Blockly.FieldDropdown([
+                     ['High (1)', '1'],
+                     ['Low (0)', '0']
+        ]), 'IDLE_STATE');
+
+    this.appendValueInput("debounce_time")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Debounce Time (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_TIME");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init TouchKey sensor with debounce and callback support");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取TouchKey状态块
+Blockly.Blocks['touchkey_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read TouchKey State (Pressed = True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if TouchKey is pressed (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 注册TouchKey按下回调块
+Blockly.Blocks['touchkey_set_press_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set TouchKey Press Callback");
+
+    this.appendValueInput("callback_func")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for TouchKey press event");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 注册TouchKey释放回调块
+Blockly.Blocks['touchkey_set_release_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set TouchKey Release Callback");
+
+    this.appendValueInput("callback_func")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for TouchKey release event");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED初始化块
+Blockly.Blocks['powerled_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PowerLED (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/powerled.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PowerLED with PWM control (1-1000 Hz frequency)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED打开块
+Blockly.Blocks['powerled_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Turn On (Full Brightness)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on PowerLED at maximum brightness");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED关闭块
+Blockly.Blocks['powerled_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off PowerLED");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED切换状态块
+Blockly.Blocks['powerled_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle PowerLED on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED设置亮度块
+Blockly.Blocks['powerled_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Set Brightness");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Brightness (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PowerLED brightness (0=off, 1023=full)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PowerLED读取状态块
+Blockly.Blocks['powerled_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PowerLED Get State (On=True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if PowerLED is on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar初始化块
+Blockly.Blocks['ledbar_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init LEDBar (PCF8574)")
+        .appendField(new Blockly.FieldImage(
+                     "media/ledbar.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PCF8574 Address")
+      .appendField(new Blockly.FieldNumber(0x20), "PCF8574_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init 8-bit LEDBar based on PCF8574 I2C IO expander");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar设置单个LED块
+Blockly.Blocks['ledbar_set_led'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Set Single LED");
+
+    this.appendValueInput("index")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Index (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "LED_INDEX");
+
+    this.appendDummyInput()
+        .appendField("State")
+        .appendField(new Blockly.FieldDropdown([
+                     ['On (1)', '1'],
+                     ['Off (0)', '0']
+        ]), 'LED_STATE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set single LED state (0=off, 1=on) in LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar设置所有LED块
+Blockly.Blocks['ledbar_set_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Set All LEDs");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-255)")
+      .appendField(new Blockly.FieldNumber(0), "LED_VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set all LEDs with 8-bit value (0x00-0xFF)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar显示等级块
+Blockly.Blocks['ledbar_display_level'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Display Level");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-8)")
+      .appendField(new Blockly.FieldNumber(0), "LED_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Display level (0=off, 8=all on) on LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LEDBar清空块
+Blockly.Blocks['ledbar_clear'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LEDBar Clear (All Off)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off all LEDs in LEDBar");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED初始化块
+Blockly.Blocks['piranhaled_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PiranhaLED")
+        .appendField(new Blockly.FieldImage(
+                     "media/piranhaled.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin_number")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("LED Pin Number");
+
+    this.appendDummyInput()
+        .appendField("Polarity")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Cathode (0)', '0'],
+                     ['Anode (1)', '1']
+        ]), 'LED_POLARITY');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PiranhaLED with configurable polarity (Cathode/Anode)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED打开块
+Blockly.Blocks['piranhaled_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Turn On");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on PiranhaLED (respects polarity setting)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED关闭块
+Blockly.Blocks['piranhaled_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off PiranhaLED (respects polarity setting)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED切换状态块
+Blockly.Blocks['piranhaled_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle PiranhaLED on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PiranhaLED读取状态块
+Blockly.Blocks['piranhaled_is_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PiranhaLED Is On? (True/False)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if PiranhaLED is currently on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix初始化块
+Blockly.Blocks['uvmatrix_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init UVMatrix (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/uvmatrix.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UVMatrix Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init UVMatrix with PWM control (1000Hz default frequency)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix打开块
+Blockly.Blocks['uvmatrix_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Turn On (50% Brightness)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on UVMatrix at 50% brightness (32766 duty_u16)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix关闭块
+Blockly.Blocks['uvmatrix_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Turn Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off UVMatrix (0 duty_u16)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix切换状态块
+Blockly.Blocks['uvmatrix_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle UVMatrix on/off state");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix设置亮度块
+Blockly.Blocks['uvmatrix_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Set Brightness");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Brightness (0-512)")
+      .appendField(new Blockly.FieldNumber(256), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set UVMatrix brightness (0=off, 512=max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// UVMatrix读取状态块
+Blockly.Blocks['uvmatrix_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("UVMatrix Get State (On=True)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if UVMatrix is on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
