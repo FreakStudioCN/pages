@@ -8439,3 +8439,327 @@ Blockly.Python['jedmgasmeas_calibrate_zero'] = function(block) {
 
   return code;
 };
+
+/************************* R60ABD1 核心初始化 *************************/
+Blockly.Python['r60abd1_init'] = function(block) {
+  var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+  var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+  var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+  var parse_interval = block.getFieldValue('PARSE_INTERVAL');
+
+  // 导入依赖（覆盖所有需要的模块）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART, Timer';
+  Blockly.Python.definitions_['import_time'] = 'import time, micropython';
+  Blockly.Python.definitions_['import_r60abd1'] = 'import r60abd1';
+
+  // 初始化代码（完整适配原驱动）
+  var code = '# Initialize UART for R60ABD1\n';
+  code += 'uart_r60abd1 = UART(' + uart_port + ', baudrate=115200, tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+  code += '# Initialize data processor\n';
+  code += 'data_processor = r60abd1.R60ABD1DataProcessor(uart_r60abd1)\n';
+  code += '# Initialize R60ABD1 sensor with default parameters\n';
+  code += 'r60abd1_sensor = r60abd1.R60ABD1(data_processor, parse_interval=' + parse_interval + ')\n';
+
+  return code;
+};
+
+/************************* 基础查询/控制 *************************/
+Blockly.Python['r60abd1_query_heartbeat'] = function(block) {
+  var code = 'r60abd1_sensor.query_heartbeat()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_reset_module'] = function(block) {
+  var code = 'r60abd1_sensor.reset_module()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_query_device_info'] = function(block) {
+  var info_type = block.getFieldValue('INFO_TYPE');
+  var code_map = {
+    'MODEL': 'r60abd1_sensor.query_product_model()[1]',
+    'ID': 'r60abd1_sensor.query_product_id()[1]',
+    'HARDWARE': 'r60abd1_sensor.query_hardware_model()[1]',
+    'FIRMWARE': 'r60abd1_sensor.query_firmware_version()[1]'
+  };
+  var code = code_map[info_type];
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_init_complete'] = function(block) {
+  var code = 'r60abd1_sensor.query_init_complete()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_radar_range'] = function(block) {
+  var code = 'r60abd1_sensor.query_radar_range_boundary()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 人体存在检测 *************************/
+Blockly.Python['r60abd1_control_presence'] = function(block) {
+  var state = block.getFieldValue('PRESENCE_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_human_presence()\n' :
+    'r60abd1_sensor.disable_human_presence()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_query_presence_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_human_presence_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_presence_status'] = function(block) {
+  var code = 'r60abd1_sensor.query_presence_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_motion_info'] = function(block) {
+  var code = 'r60abd1_sensor.query_human_motion_info()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_motion_param'] = function(block) {
+  var code = 'r60abd1_sensor.query_human_body_motion_param()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_human_distance'] = function(block) {
+  var code = 'r60abd1_sensor.query_human_distance()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_human_direction'] = function(block) {
+  var code = 'r60abd1_sensor.query_human_direction()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 心率监测 *************************/
+Blockly.Python['r60abd1_control_heart_rate'] = function(block) {
+  var state = block.getFieldValue('HR_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_heart_rate_monitor()\n' :
+    'r60abd1_sensor.disable_heart_rate_monitor()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_control_hr_waveform'] = function(block) {
+  var state = block.getFieldValue('HR_WAVE_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_heart_rate_waveform_report()\n' :
+    'r60abd1_sensor.disable_heart_rate_waveform_report()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_query_hr_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_heart_rate_monitor_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_hr_wave_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_heart_rate_waveform_report_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_heart_rate'] = function(block) {
+  var code = 'r60abd1_sensor.query_heart_rate_value()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_hr_waveform'] = function(block) {
+  var code = 'r60abd1_sensor.query_heart_rate_waveform()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 呼吸监测 *************************/
+Blockly.Python['r60abd1_control_breath'] = function(block) {
+  var state = block.getFieldValue('BREATH_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_breath_monitor()\n' :
+    'r60abd1_sensor.disable_breath_monitor()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_control_breath_waveform'] = function(block) {
+  var state = block.getFieldValue('BREATH_WAVE_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_breath_waveform_report()\n' :
+    'r60abd1_sensor.disable_breath_waveform_report()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_set_low_breath_threshold'] = function(block) {
+  var threshold = Blockly.Python.valueToCode(block, 'threshold', Blockly.Python.ORDER_ATOMIC) || block.getFieldValue('THRESHOLD');
+  var code = 'r60abd1_sensor.set_low_breath_threshold(' + threshold + ')\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_query_breath_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_breath_monitor_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_low_breath_threshold'] = function(block) {
+  var code = 'r60abd1_sensor.query_low_breath_threshold()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_breath_info'] = function(block) {
+  var code = 'r60abd1_sensor.query_breath_info()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_breath_value'] = function(block) {
+  var code = 'r60abd1_sensor.query_breath_value()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_breath_wave_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_breath_waveform_report_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_breath_waveform'] = function(block) {
+  var code = 'r60abd1_sensor.query_breath_waveform()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 睡眠监测 *************************/
+Blockly.Python['r60abd1_control_sleep'] = function(block) {
+  var state = block.getFieldValue('SLEEP_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_sleep_monitor()\n' :
+    'r60abd1_sensor.disable_sleep_monitor()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_control_struggle'] = function(block) {
+  var state = block.getFieldValue('STRUGGLE_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_abnormal_struggle_monitor()\n' :
+    'r60abd1_sensor.disable_abnormal_struggle_monitor()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_set_struggle_sensitivity'] = function(block) {
+  var sensitivity = block.getFieldValue('SENSITIVITY');
+  var code = 'r60abd1_sensor.set_struggle_sensitivity(' + sensitivity + ')\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_control_no_person_timing'] = function(block) {
+  var state = block.getFieldValue('NO_PERSON_STATE');
+  var code = state === 'ON' ?
+    'r60abd1_sensor.enable_no_person_timing()\n' :
+    'r60abd1_sensor.disable_no_person_timing()\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_set_no_person_duration'] = function(block) {
+  var duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC) || block.getFieldValue('DURATION');
+  var code = 'r60abd1_sensor.set_no_person_timing_duration(' + duration + ')\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_set_sleep_end_duration'] = function(block) {
+  var duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC) || block.getFieldValue('DURATION');
+  var code = 'r60abd1_sensor.set_sleep_end_duration(' + duration + ')\n';
+  return code;
+};
+
+Blockly.Python['r60abd1_query_sleep_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_monitor_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_struggle_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_abnormal_struggle_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_struggle_status'] = function(block) {
+  var code = 'r60abd1_sensor.query_abnormal_struggle_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_struggle_sensitivity'] = function(block) {
+  var code = 'r60abd1_sensor.query_struggle_sensitivity()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_no_person_switch'] = function(block) {
+  var code = 'r60abd1_sensor.query_no_person_timing_switch()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_no_person_duration'] = function(block) {
+  var code = 'r60abd1_sensor.query_no_person_timing_duration()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_end_duration'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_end_duration()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_no_person_status'] = function(block) {
+  var code = 'r60abd1_sensor.query_no_person_timing_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_bed_status'] = function(block) {
+  var code = 'r60abd1_sensor.query_bed_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_status'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_awake_duration'] = function(block) {
+  var code = 'r60abd1_sensor.query_awake_duration()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_light_sleep_duration'] = function(block) {
+  var code = 'r60abd1_sensor.query_light_sleep_duration()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_deep_sleep_duration'] = function(block) {
+  var code = 'r60abd1_sensor.query_deep_sleep_duration()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_quality_score'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_quality_score()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_comprehensive'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_comprehensive_status()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_anomaly'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_anomaly()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_statistics'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_statistics()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['r60abd1_query_sleep_quality_level'] = function(block) {
+  var code = 'r60abd1_sensor.query_sleep_quality_level()[1]';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 资源释放 *************************/
+Blockly.Python['r60abd1_close'] = function(block) {
+  var code = 'r60abd1_sensor.close()\n';
+  return code;
+};

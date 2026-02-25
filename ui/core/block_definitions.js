@@ -15993,3 +15993,699 @@ Blockly.Blocks['jedmgasmeas_calibrate_zero'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
+
+/************************* R60ABD1 核心初始化 *************************/
+Blockly.Blocks['r60abd1_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage("media/r60abd1.png", 300, 300, "*"))
+        .appendField("Init R60ABD1 Sensor");
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("parse_interval")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Parse Interval (ms)")
+      .appendField(new Blockly.FieldNumber(200), "PARSE_INTERVAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Initialize R60ABD1 radar sensor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 基础查询/控制 *************************/
+// 心跳查询
+Blockly.Blocks['r60abd1_query_heartbeat'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Heartbeat");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 heartbeat status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 模块重置
+Blockly.Blocks['r60abd1_reset_module'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Reset R60ABD1 Module");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Reset R60ABD1 sensor module");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设备信息查询（下拉选择查询类型）
+Blockly.Blocks['r60abd1_query_device_info'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Query R60ABD1")
+        .appendField(new Blockly.FieldDropdown([
+          ['Product Model', 'MODEL'],
+          ['Product ID', 'ID'],
+          ['Hardware Model', 'HARDWARE'],
+          ['Firmware Version', 'FIRMWARE']
+        ]), 'INFO_TYPE');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 device information");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 初始化完成状态查询
+Blockly.Blocks['r60abd1_query_init_complete'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Init Complete");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if R60ABD1 initialization is complete");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 雷达范围边界查询
+Blockly.Blocks['r60abd1_query_radar_range'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Radar Range");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 radar range boundary");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 人体存在检测 *************************/
+// 人体存在检测开关控制
+Blockly.Blocks['r60abd1_control_presence'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Human Presence")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'PRESENCE_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 human presence detection");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体存在开关状态查询
+Blockly.Blocks['r60abd1_query_presence_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Presence Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human presence switch status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体存在状态查询
+Blockly.Blocks['r60abd1_query_presence_status'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Presence Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human presence status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体运动信息查询
+Blockly.Blocks['r60abd1_query_motion_info'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Motion Info");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human motion information");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体运动参数查询
+Blockly.Blocks['r60abd1_query_motion_param'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Motion Param");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human body motion parameter");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体距离查询
+Blockly.Blocks['r60abd1_query_human_distance'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Human Distance");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human distance");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 人体方向查询
+Blockly.Blocks['r60abd1_query_human_direction'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Human Direction");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 human direction (X/Y/Z)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 心率监测 *************************/
+// 心率监测开关控制
+Blockly.Blocks['r60abd1_control_heart_rate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Heart Rate Monitor")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'HR_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 heart rate monitor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 心率波形上报开关控制
+Blockly.Blocks['r60abd1_control_hr_waveform'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 HR Waveform Report")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'HR_WAVE_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 heart rate waveform report");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 心率监测开关状态查询
+Blockly.Blocks['r60abd1_query_hr_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 HR Monitor Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 heart rate monitor switch status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 心率波形上报开关查询
+Blockly.Blocks['r60abd1_query_hr_wave_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 HR Waveform Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 heart rate waveform report switch");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 心率值查询
+Blockly.Blocks['r60abd1_query_heart_rate'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Heart Rate Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 heart rate value");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 心率波形查询
+Blockly.Blocks['r60abd1_query_hr_waveform'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 HR Waveform");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 heart rate waveform data");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 呼吸监测 *************************/
+// 呼吸监测开关控制
+Blockly.Blocks['r60abd1_control_breath'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Breath Monitor")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'BREATH_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 breath monitor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸波形上报开关控制
+Blockly.Blocks['r60abd1_control_breath_waveform'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Breath Waveform Report")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'BREATH_WAVE_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 breath waveform report");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设置低呼吸阈值
+Blockly.Blocks['r60abd1_set_low_breath_threshold'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Set R60ABD1 Low Breath Threshold");
+    this.appendValueInput("threshold")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (10-20)")
+      .appendField(new Blockly.FieldNumber(10), "THRESHOLD");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set R60ABD1 low breath threshold (10-20)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸监测开关状态查询
+Blockly.Blocks['r60abd1_query_breath_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Breath Monitor Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 breath monitor switch status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 低呼吸阈值查询
+Blockly.Blocks['r60abd1_query_low_breath_threshold'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Low Breath Threshold");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 low breath threshold");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸状态查询
+Blockly.Blocks['r60abd1_query_breath_info'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Breath Info");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 breath status (Normal/High/Low/None)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸值查询
+Blockly.Blocks['r60abd1_query_breath_value'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Breath Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 breath value");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸波形上报开关查询
+Blockly.Blocks['r60abd1_query_breath_wave_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Breath Waveform Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 breath waveform report switch");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 呼吸波形查询
+Blockly.Blocks['r60abd1_query_breath_waveform'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Breath Waveform");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 breath waveform data");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 睡眠监测 *************************/
+// 睡眠监测开关控制
+Blockly.Blocks['r60abd1_control_sleep'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Sleep Monitor")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'SLEEP_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 sleep monitor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 异常挣扎监测开关控制
+Blockly.Blocks['r60abd1_control_struggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 Abnormal Struggle Monitor")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'STRUGGLE_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 abnormal struggle monitor");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设置挣扎灵敏度
+Blockly.Blocks['r60abd1_set_struggle_sensitivity'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Set R60ABD1 Struggle Sensitivity");
+    this.appendDummyInput()
+        .appendField("Level")
+        .appendField(new Blockly.FieldDropdown([
+          ['Low (0)', '0'],
+          ['Medium (1)', '1'],
+          ['High (2)', '2']
+        ]), 'SENSITIVITY');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set R60ABD1 struggle sensitivity (0=Low,1=Medium,2=High)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 无人计时开关控制
+Blockly.Blocks['r60abd1_control_no_person_timing'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set R60ABD1 No Person Timing")
+        .appendField(new Blockly.FieldDropdown([
+          ['ON', 'ON'],
+          ['OFF', 'OFF']
+        ]), 'NO_PERSON_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable R60ABD1 no person timing");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设置无人计时时长
+Blockly.Blocks['r60abd1_set_no_person_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Set R60ABD1 No Person Duration");
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Minutes (30-180, step 10)")
+      .appendField(new Blockly.FieldNumber(30), "DURATION");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set R60ABD1 no person timing duration (30-180min, step 10)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 设置睡眠结束时长
+Blockly.Blocks['r60abd1_set_sleep_end_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Set R60ABD1 Sleep End Duration");
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Minutes (5-120)")
+      .appendField(new Blockly.FieldNumber(120), "DURATION");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set R60ABD1 sleep end duration (5-120min)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠监测开关状态查询
+Blockly.Blocks['r60abd1_query_sleep_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Monitor Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep monitor switch status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 异常挣扎监测开关查询
+Blockly.Blocks['r60abd1_query_struggle_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Struggle Monitor Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 abnormal struggle monitor switch");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 异常挣扎状态查询
+Blockly.Blocks['r60abd1_query_struggle_status'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Struggle Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 abnormal struggle status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 挣扎灵敏度查询
+Blockly.Blocks['r60abd1_query_struggle_sensitivity'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Struggle Sensitivity");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 struggle sensitivity level");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 无人计时开关查询
+Blockly.Blocks['r60abd1_query_no_person_switch'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 No Person Timing Switch");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 no person timing switch status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 无人计时时长查询
+Blockly.Blocks['r60abd1_query_no_person_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 No Person Duration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 no person timing duration");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠结束时长查询
+Blockly.Blocks['r60abd1_query_sleep_end_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep End Duration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep end duration");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 无人计时状态查询
+Blockly.Blocks['r60abd1_query_no_person_status'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 No Person Timing Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 no person timing status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 床位状态查询
+Blockly.Blocks['r60abd1_query_bed_status'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Bed Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 bed status (Leave/Enter/None)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠状态查询
+Blockly.Blocks['r60abd1_query_sleep_status'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep status (Deep/Light/Awake/None)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 清醒时长查询
+Blockly.Blocks['r60abd1_query_awake_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Awake Duration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 awake duration (minutes)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 浅睡时长查询
+Blockly.Blocks['r60abd1_query_light_sleep_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Light Sleep Duration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 light sleep duration (minutes)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 深睡时长查询
+Blockly.Blocks['r60abd1_query_deep_sleep_duration'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Deep Sleep Duration");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 deep sleep duration (minutes)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠质量分数查询
+Blockly.Blocks['r60abd1_query_sleep_quality_score'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Quality Score");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep quality score");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠综合状态查询
+Blockly.Blocks['r60abd1_query_sleep_comprehensive'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Comprehensive Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep comprehensive status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠异常查询
+Blockly.Blocks['r60abd1_query_sleep_anomaly'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Anomaly");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep anomaly status");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠统计查询
+Blockly.Blocks['r60abd1_query_sleep_statistics'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Statistics");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep statistics data");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+// 睡眠质量等级查询
+Blockly.Blocks['r60abd1_query_sleep_quality_level'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Query R60ABD1 Sleep Quality Level");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query R60ABD1 sleep quality level (Good/Normal/Poor)");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
+
+/************************* 资源释放 *************************/
+Blockly.Blocks['r60abd1_close'] = {
+  init: function() {
+    this.appendDummyInput().appendField("Close R60ABD1 Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release R60ABD1 sensor resources");
+    this.setHelpUrl("http://www.bipes.net.br");
+  }
+};
