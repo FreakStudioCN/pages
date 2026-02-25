@@ -8451,14 +8451,16 @@ Blockly.Python['r60abd1_init'] = function(block) {
   Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART, Timer';
   Blockly.Python.definitions_['import_time'] = 'import time, micropython';
   Blockly.Python.definitions_['import_r60abd1'] = 'import r60abd1';
+  Blockly.Python.definitions_['import_data_flow_processor'] = 'from data_flow_processor import DataFlowProcessor';
+
 
   // 初始化代码（完整适配原驱动）
   var code = '# Initialize UART for R60ABD1\n';
   code += 'uart_r60abd1 = UART(' + uart_port + ', baudrate=115200, tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
   code += '# Initialize data processor\n';
-  code += 'data_processor = r60abd1.R60ABD1DataProcessor(uart_r60abd1)\n';
+  code += 'data_processor = DataProcessor(uart_r60abd1)\n';
   code += '# Initialize R60ABD1 sensor with default parameters\n';
-  code += 'r60abd1_sensor = r60abd1.R60ABD1(data_processor, parse_interval=' + parse_interval + ')\n';
+  code += 'r60abd1_sensor = R60ABD1(data_processor, parse_interval=' + parse_interval + ')\n';
 
   return code;
 };
