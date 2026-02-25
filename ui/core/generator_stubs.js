@@ -8765,3 +8765,389 @@ Blockly.Python['r60abd1_close'] = function(block) {
   var code = 'r60abd1_sensor.close()\n';
   return code;
 };
+
+/************************* EC11 编码器核心初始化 *************************/
+Blockly.Python['ec11encoder_init'] = function(block) {
+        var pin_a = Blockly.Python.valueToCode(block, 'pin_a', Blockly.Python.ORDER_ATOMIC);
+        var pin_b = Blockly.Python.valueToCode(block, 'pin_b', Blockly.Python.ORDER_ATOMIC);
+        var pin_btn = block.getFieldValue('PIN_BTN');
+        // 处理可选按钮引脚（如果用户输入了值则使用输入值，否则用默认值）
+        var pin_btn_input = Blockly.Python.valueToCode(block, 'pin_btn', Blockly.Python.ORDER_ATOMIC);
+        pin_btn = pin_btn_input || pin_btn;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_pin_timer'] = 'from machine import Pin, Timer';
+        Blockly.Python.definitions_['import_ec11encoder'] = 'import ec11encoder';
+
+        // 拼接初始化代码（适配EC11驱动的实例化逻辑）
+        var code = '';
+        if (pin_btn == -1 || pin_btn === '') {
+            // 无按钮引脚的初始化
+            code += 'ec11_encoder = ec11encoder.EC11Encoder(pin_a=' + pin_a + ', pin_b=' + pin_b + ')\n';
+        } else {
+            // 带按钮引脚的初始化
+            code += 'ec11_encoder = ec11encoder.EC11Encoder(pin_a=' + pin_a + ', pin_b=' + pin_b + ', pin_btn=' + pin_btn + ')\n';
+        }
+        return code;
+  };
+
+/************************* EC11 编码器状态查询 *************************/
+// 获取旋转计数（对齐AHT10的aht_read_temp写法）
+Blockly.Python['ec11encoder_get_rotation_count'] = function(block) {
+        var code = 'ec11_encoder.get_rotation_count()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 检查按钮是否按下
+Blockly.Python['ec11encoder_is_button_pressed'] = function(block) {
+        var code = 'ec11_encoder.is_button_pressed()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* EC11 编码器控制 *************************/
+// 重置旋转计数
+Blockly.Python['ec11encoder_reset_rotation_count'] = function(block) {
+        var code = 'ec11_encoder.reset_rotation_count()\n';
+        return code;
+};
+
+/************************* Joystick 摇杆核心初始化 *************************/
+Blockly.Python['joystick_init'] = function(block) {
+        // 取值（对齐AHT10的取值逻辑）
+        var vrx_pin = Blockly.Python.valueToCode(block, 'vrx_pin', Blockly.Python.ORDER_ATOMIC);
+        var vry_pin = Blockly.Python.valueToCode(block, 'vry_pin', Blockly.Python.ORDER_ATOMIC);
+        var vsw_pin = block.getFieldValue('VSW_PIN');
+        var freq = block.getFieldValue('FREQ');
+
+        // 处理可选开关引脚
+        var vsw_pin_input = Blockly.Python.valueToCode(block, 'vsw_pin', Blockly.Python.ORDER_ATOMIC);
+        vsw_pin = vsw_pin_input || vsw_pin;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_machine'] = 'from machine import ADC, Timer, Pin';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_joystick'] = 'import joystick';
+
+        // 拼接初始化代码（适配Joystick驱动的实例化逻辑）
+        var code = '';
+        if (vsw_pin == -1 || vsw_pin === '') {
+            // 无开关引脚的初始化
+            code += 'joystick_sensor = joystick.Joystick(vrx_pin=' + vrx_pin + ', vry_pin=' + vry_pin + ', freq=' + freq + ')\n';
+        } else {
+            // 带开关引脚的初始化
+            code += 'joystick_sensor = joystick.Joystick(vrx_pin=' + vrx_pin + ', vry_pin=' + vry_pin + ', vsw_pin=' + vsw_pin + ', freq=' + freq + ')\n';
+        }
+        return code;
+  };
+
+/************************* Joystick 摇杆控制 *************************/
+// 启动摇杆采样（对齐AHT10的语句型积木写法）
+Blockly.Python['joystick_start'] = function(block) {
+        var code = 'joystick_sensor.start()\n';
+        return code;
+};
+
+// 停止摇杆采样
+Blockly.Python['joystick_stop'] = function(block) {
+        var code = 'joystick_sensor.stop()\n';
+        return code;
+};
+
+/************************* Joystick 摇杆状态查询 *************************/
+// 获取摇杆所有值（对齐AHT10的aht_read_temp写法）
+Blockly.Python['joystick_get_values'] = function(block) {
+        var code = 'joystick_sensor.get_values()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+/************************* 电位器核心初始化 *************************/
+Blockly.Python['potentiometer_init'] = function(block) {
+        // 取值（对齐AHT10的取值逻辑）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var vref = block.getFieldValue('VREF');
+        var vref_input = Blockly.Python.valueToCode(block, 'vref', Blockly.Python.ORDER_ATOMIC);
+        vref = vref_input || vref;
+
+        // 导入依赖（对齐AHT10的导入风格）
+        Blockly.Python.definitions_['import_machine'] = 'from machine import ADC';
+        Blockly.Python.definitions_['import_potentiometer'] = 'import potentiometer';
+
+        // 拼接初始化代码（适配Potentiometer驱动的实例化逻辑）
+        var code = 'adc_pot = ADC(' + adc_pin + ')\n';
+        code += 'potentiometer_sensor = potentiometer.Potentiometer(adc=adc_pot, vref=' + vref + ')\n';
+        return code;
+  };
+
+/************************* 电位器状态查询 *************************/
+// 读取原始ADC值（对齐AHT10的aht_read_temp写法）
+Blockly.Python['potentiometer_read_raw'] = function(block) {
+        var code = 'potentiometer_sensor.read_raw()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取电压值
+Blockly.Python['potentiometer_read_voltage'] = function(block) {
+        var code = 'potentiometer_sensor.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取比例值
+Blockly.Python['potentiometer_read_ratio'] = function(block) {
+        var code = 'potentiometer_sensor.read_ratio()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取完整状态
+Blockly.Python['potentiometer_get_state'] = function(block) {
+        var code = 'potentiometer_sensor.get_state()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取ADC对象
+Blockly.Python['potentiometer_get_adc'] = function(block) {
+        var code = 'potentiometer_sensor.adc';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 获取参考电压
+Blockly.Python['potentiometer_get_vref'] = function(block) {
+        var code = 'potentiometer_sensor.vref';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// PCF8574按键初始化代码生成
+Blockly.Python['pcf8574keys_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C, Timer';
+        Blockly.Python.definitions_['import_pcf8574'] = 'import pcf8574';
+        Blockly.Python.definitions_['import_pcf8574keys'] = 'import pcf8574keys';
+
+        // 初始化I2C和PCF8574按键
+        var code = 'i2cPCF8574=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+        code += 'pcf_dev=pcf8574.PCF8574(i2cPCF8574, ' + addr + ')\n';
+        code += 'pcf_keys=pcf8574keys.PCF8574Keys(pcf_dev, pcf8574keys.KEYS_MAP)\n';
+        return code;
+};
+
+// 读取单个按键状态代码生成
+Blockly.Python['pcf8574keys_read_key'] = function(block) {
+        var key_name = block.getFieldValue('KEY_NAME');
+        var code = 'pcf_keys.read_key("' + key_name + '")';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取所有按键状态代码生成
+Blockly.Python['pcf8574keys_read_all'] = function(block) {
+        var code = 'pcf_keys.read_all()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// LED控制代码生成
+Blockly.Python['pcf8574keys_led'] = function(block) {
+        var led_state = block.getFieldValue('LED_STATE');
+        var code = '';
+        if (led_state === 'ON') {
+            code = 'pcf_keys.led_on()\n';
+        } else {
+            code = 'pcf_keys.led_off()\n';
+        }
+        return code;
+};
+
+// 释放资源代码生成
+Blockly.Python['pcf8574keys_deinit'] = function(block) {
+        var code = 'pcf_keys.deinit()\n';
+        code += 'del pcf_keys\n';
+        code += 'del pcf_dev\n';
+        return code;
+};
+
+// PCF8574IO8初始化代码生成
+Blockly.Python['pcf8574io8_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_pcf8574'] = 'import pcf8574';
+        Blockly.Python.definitions_['import_pcf8574io8'] = 'import pcf8574io8';
+
+        // 初始化I2C和PCF8574IO8模块
+        var code = 'i2cPCF8574=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+        code += 'pcf_dev=pcf8574.PCF8574(i2cPCF8574, ' + addr + ')\n';
+        code += 'pcf_io8=pcf8574io8.PCF8574IO8(pcf_dev)\n';
+        return code;
+};
+
+// 配置端口状态代码生成
+Blockly.Python['pcf8574io8_configure_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var bit1 = block.getFieldValue('BIT1_VAL');
+        var bit0 = block.getFieldValue('BIT0_VAL');
+
+        var code = 'pcf_io8.configure_port(' + port + ', (' + bit1 + ', ' + bit0 + '))\n';
+        return code;
+};
+
+// 设置端口值代码生成
+Blockly.Python['pcf8574io8_set_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var value = block.getFieldValue('PORT_VAL');
+
+        var code = 'pcf_io8.set_port(' + port + ', ' + value + ')\n';
+        return code;
+};
+
+// 读取端口值代码生成
+Blockly.Python['pcf8574io8_get_port'] = function(block) {
+        var port = block.getFieldValue('PORT_NUM');
+        var code = 'pcf_io8.get_port(' + port + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置单个引脚代码生成
+Blockly.Python['pcf8574io8_set_pin'] = function(block) {
+        var pin = block.getFieldValue('PIN_NUM');
+        var value = block.getFieldValue('PIN_VAL');
+
+        var code = 'pcf_io8.set_pin(' + pin + ', ' + value + ')\n';
+        return code;
+};
+
+// 读取单个引脚代码生成
+Blockly.Python['pcf8574io8_get_pin'] = function(block) {
+        var pin = block.getFieldValue('PIN_NUM');
+        var code = 'pcf_io8.get_pin(' + pin + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取所有IO值代码生成
+Blockly.Python['pcf8574io8_read_all'] = function(block) {
+        var code = 'pcf_io8.read_all()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 写入所有IO值代码生成
+Blockly.Python['pcf8574io8_write_all'] = function(block) {
+        var byte_val = block.getFieldValue('BYTE_VAL');
+        var code = 'pcf_io8.write_all(' + byte_val + ')\n';
+        return code;
+};
+
+// 释放资源代码生成
+Blockly.Python['pcf8574io8_deinit'] = function(block) {
+        var code = 'pcf_io8.deinit()\n';
+        code += 'del pcf_io8\n';
+        code += 'del pcf_dev\n';
+        return code;
+};
+
+// 限位开关初始化代码生成
+Blockly.Python['limitswitch_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var debounce = block.getFieldValue('DEBOUNCE_MS');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'import micropython\nimport time\nfrom machine import Pin, Timer';
+        Blockly.Python.definitions_['import_limitswitch'] = 'import limitswitch';
+
+        // 初始化限位开关
+        var code = 'limit_switch=limitswitch.LimitSwitch(' + pin + ', debounce_ms=' + debounce + ')\n';
+        return code;
+};
+
+// 读取限位开关状态代码生成
+Blockly.Python['limitswitch_read'] = function(block) {
+        var code = 'limit_switch.read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 启用限位开关回调代码生成
+Blockly.Python['limitswitch_enable'] = function(block) {
+        var code = 'limit_switch.enable()\n';
+        return code;
+};
+
+// 禁用限位开关回调代码生成
+Blockly.Python['limitswitch_disable'] = function(block) {
+        var code = 'limit_switch.disable()\n';
+        return code;
+};
+
+// 设置限位开关回调函数代码生成
+Blockly.Python['limitswitch_set_callback'] = function(block) {
+        var callback = Blockly.Python.valueToCode(block, 'callback', Blockly.Python.ORDER_ATOMIC);
+        var code = 'limit_switch.set_callback(' + callback + ')\n';
+        return code;
+};
+
+// AD8232初始化代码生成
+Blockly.Python['ad8232_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+        var parse_interval = block.getFieldValue('PARSE_INTERVAL');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'import micropython\nimport time\nfrom machine import Pin, UART, Timer';
+        Blockly.Python.definitions_['import_data_flow_processor'] = 'import ad8232_data_flow_processor';
+        Blockly.Python.definitions_['import_ad8232_uart'] = 'import ad8232_uart';
+
+        // 初始化AD8232传感器
+        var code = 'uart_ad8232=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += 'data_flow_processor=ad8232_data_flow_processor.DataFlowProcessor(uart_ad8232)\n';
+        code += 'ad8232_sensor=ad8232_uart.AD8232_DataFlowProcessor(data_flow_processor, parse_interval=' + parse_interval + ')\n';
+        return code;
+};
+
+// 启动/停止AD8232模块代码生成
+Blockly.Python['ad8232_control_start_stop'] = function(block) {
+        var state = block.getFieldValue('STATE');
+        var code = 'ad8232_sensor.control_ad8232_start_stop(' + state + ')\n';
+        return code;
+};
+
+// 设置主动上报模式代码生成
+Blockly.Python['ad8232_set_active_output'] = function(block) {
+        var state = block.getFieldValue('STATE');
+        var code = 'ad8232_sensor.set_active_output(' + state + ')\n';
+        return code;
+};
+
+// 读取原始ECG值代码生成
+Blockly.Python['ad8232_read_raw_ecg'] = function(block) {
+        var code = 'ad8232_sensor.query_raw_ecg_data()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取滤波后ECG值代码生成
+Blockly.Python['ad8232_read_filtered_ecg'] = function(block) {
+        var code = 'ad8232_sensor.query_filtered_ecg_data()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取导联状态代码生成
+Blockly.Python['ad8232_read_lead_status'] = function(block) {
+        var code = 'ad8232_sensor.query_off_detection_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取心率值代码生成
+Blockly.Python['ad8232_read_heart_rate'] = function(block) {
+        var code = 'ad8232_sensor.query_heart_rate()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取模块状态代码生成
+Blockly.Python['ad8232_read_module_status'] = function(block) {
+        var code = 'ad8232_sensor.query_module_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};

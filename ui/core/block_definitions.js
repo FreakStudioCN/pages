@@ -16119,7 +16119,7 @@ Blockly.Blocks['r60abd1_query_presence_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human presence switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16130,7 +16130,7 @@ Blockly.Blocks['r60abd1_query_presence_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human presence status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16141,7 +16141,7 @@ Blockly.Blocks['r60abd1_query_motion_info'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human motion information");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16152,7 +16152,7 @@ Blockly.Blocks['r60abd1_query_motion_param'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human body motion parameter");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16163,7 +16163,7 @@ Blockly.Blocks['r60abd1_query_human_distance'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human distance");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16174,7 +16174,7 @@ Blockly.Blocks['r60abd1_query_human_direction'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 human direction (X/Y/Z)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16192,7 +16192,7 @@ Blockly.Blocks['r60abd1_control_heart_rate'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 heart rate monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16209,7 +16209,7 @@ Blockly.Blocks['r60abd1_control_hr_waveform'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 heart rate waveform report");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16220,7 +16220,7 @@ Blockly.Blocks['r60abd1_query_hr_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16231,7 +16231,7 @@ Blockly.Blocks['r60abd1_query_hr_wave_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate waveform report switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16242,7 +16242,7 @@ Blockly.Blocks['r60abd1_query_heart_rate'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate value");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16253,7 +16253,7 @@ Blockly.Blocks['r60abd1_query_hr_waveform'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 heart rate waveform data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16271,7 +16271,7 @@ Blockly.Blocks['r60abd1_control_breath'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 breath monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16288,7 +16288,7 @@ Blockly.Blocks['r60abd1_control_breath_waveform'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 breath waveform report");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16305,7 +16305,7 @@ Blockly.Blocks['r60abd1_set_low_breath_threshold'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 low breath threshold (10-20)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16316,7 +16316,7 @@ Blockly.Blocks['r60abd1_query_breath_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16327,7 +16327,7 @@ Blockly.Blocks['r60abd1_query_low_breath_threshold'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 low breath threshold");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16338,7 +16338,7 @@ Blockly.Blocks['r60abd1_query_breath_info'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath status (Normal/High/Low/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16349,7 +16349,7 @@ Blockly.Blocks['r60abd1_query_breath_value'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath value");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16360,7 +16360,7 @@ Blockly.Blocks['r60abd1_query_breath_wave_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath waveform report switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16371,7 +16371,7 @@ Blockly.Blocks['r60abd1_query_breath_waveform'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 breath waveform data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16389,7 +16389,7 @@ Blockly.Blocks['r60abd1_control_sleep'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 sleep monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16406,7 +16406,7 @@ Blockly.Blocks['r60abd1_control_struggle'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 abnormal struggle monitor");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16425,7 +16425,7 @@ Blockly.Blocks['r60abd1_set_struggle_sensitivity'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 struggle sensitivity (0=Low,1=Medium,2=High)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16442,7 +16442,7 @@ Blockly.Blocks['r60abd1_control_no_person_timing'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Enable/disable R60ABD1 no person timing");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16459,7 +16459,7 @@ Blockly.Blocks['r60abd1_set_no_person_duration'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 no person timing duration (30-180min, step 10)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16476,7 +16476,7 @@ Blockly.Blocks['r60abd1_set_sleep_end_duration'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Set R60ABD1 sleep end duration (5-120min)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16487,7 +16487,7 @@ Blockly.Blocks['r60abd1_query_sleep_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep monitor switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16498,7 +16498,7 @@ Blockly.Blocks['r60abd1_query_struggle_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 abnormal struggle monitor switch");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16509,7 +16509,7 @@ Blockly.Blocks['r60abd1_query_struggle_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 abnormal struggle status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16520,7 +16520,7 @@ Blockly.Blocks['r60abd1_query_struggle_sensitivity'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 struggle sensitivity level");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16531,7 +16531,7 @@ Blockly.Blocks['r60abd1_query_no_person_switch'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing switch status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16542,7 +16542,7 @@ Blockly.Blocks['r60abd1_query_no_person_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing duration");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16553,7 +16553,7 @@ Blockly.Blocks['r60abd1_query_sleep_end_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep end duration");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16564,7 +16564,7 @@ Blockly.Blocks['r60abd1_query_no_person_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 no person timing status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16575,7 +16575,7 @@ Blockly.Blocks['r60abd1_query_bed_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 bed status (Leave/Enter/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16586,7 +16586,7 @@ Blockly.Blocks['r60abd1_query_sleep_status'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep status (Deep/Light/Awake/None)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16597,7 +16597,7 @@ Blockly.Blocks['r60abd1_query_awake_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 awake duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16608,7 +16608,7 @@ Blockly.Blocks['r60abd1_query_light_sleep_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 light sleep duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16619,7 +16619,7 @@ Blockly.Blocks['r60abd1_query_deep_sleep_duration'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 deep sleep duration (minutes)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16630,7 +16630,7 @@ Blockly.Blocks['r60abd1_query_sleep_quality_score'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep quality score");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16641,7 +16641,7 @@ Blockly.Blocks['r60abd1_query_sleep_comprehensive'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep comprehensive status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16652,7 +16652,7 @@ Blockly.Blocks['r60abd1_query_sleep_anomaly'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep anomaly status");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16663,7 +16663,7 @@ Blockly.Blocks['r60abd1_query_sleep_statistics'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep statistics data");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16674,7 +16674,7 @@ Blockly.Blocks['r60abd1_query_sleep_quality_level'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Query R60ABD1 sleep quality level (Good/Normal/Poor)");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
@@ -16686,6 +16686,799 @@ Blockly.Blocks['r60abd1_close'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("Release R60ABD1 sensor resources");
-    this.setHelpUrl("http://www.bipes.net.br");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器核心初始化 *************************/
+Blockly.Blocks['ec11encoder_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/ec11encoder.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init EC11 Encoder");
+
+    this.appendValueInput("pin_a")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin A");
+
+    this.appendValueInput("pin_b")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin B");
+
+    this.appendValueInput("pin_btn")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Button Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "PIN_BTN");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init EC11 rotary encoder with optional button");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器状态查询 *************************/
+// 获取旋转计数
+Blockly.Blocks['ec11encoder_get_rotation_count'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read EC11 Rotation Count");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get EC11 encoder rotation count (positive=CW, negative=CCW)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 检查按钮是否按下
+Blockly.Blocks['ec11encoder_is_button_pressed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Check EC11 Button Pressed");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if EC11 encoder button is pressed");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* EC11 编码器控制 *************************/
+// 重置旋转计数
+Blockly.Blocks['ec11encoder_reset_rotation_count'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Reset EC11 Rotation Count");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Reset EC11 encoder rotation count to 0");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* Joystick 摇杆核心初始化 *************************/
+Blockly.Blocks['joystick_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Joystick Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/joystick.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("vrx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VRX Pin");
+
+    this.appendValueInput("vry_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VRY Pin");
+
+    this.appendValueInput("vsw_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Switch Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "VSW_PIN");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Sample Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(100), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Joystick sensor with X/Y axis and optional switch");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* Joystick 摇杆控制 *************************/
+// 启动摇杆采样
+Blockly.Blocks['joystick_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Start Joystick Sampling");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start periodic sampling of joystick values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止摇杆采样
+Blockly.Blocks['joystick_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Joystick Sampling");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop periodic sampling of joystick values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* Joystick 摇杆状态查询 *************************/
+// 获取摇杆所有值（X/Y/SW）
+Blockly.Blocks['joystick_get_values'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Joystick Values (X/Y/SW)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current joystick X, Y and switch values");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* 电位器核心初始化 *************************/
+Blockly.Blocks['potentiometer_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Potentiometer Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/potentiometer.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("VREF (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Potentiometer sensor with ADC pin and reference voltage");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+/************************* 电位器状态查询 *************************/
+// 读取原始ADC值
+Blockly.Blocks['potentiometer_read_raw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Raw Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read raw ADC value (0-65535) from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取电压值
+Blockly.Blocks['potentiometer_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read voltage value from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取比例值（0.0-1.0）
+Blockly.Blocks['potentiometer_read_ratio'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Ratio (0.0-1.0)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read normalized ratio (0.0-1.0) from potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取完整状态（raw/voltage/ratio）
+Blockly.Blocks['potentiometer_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Potentiometer Full State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get full state (raw, voltage, ratio) of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取ADC对象
+Blockly.Blocks['potentiometer_get_adc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Potentiometer ADC Object");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get ADC object of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取参考电压
+Blockly.Blocks['potentiometer_get_vref'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Potentiometer VREF (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get reference voltage of potentiometer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCF8574五向按键初始化块
+Blockly.Blocks['pcf8574keys_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCF8574 Keys")
+        .appendField(new Blockly.FieldImage(
+                     "media/pcf8574keys.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x20), "ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCF8574 based 5-way key module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取单个按键状态块
+Blockly.Blocks['pcf8574keys_read_key'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 Key")
+        .appendField(new Blockly.FieldDropdown([
+                     ['UP', 'UP'],
+                     ['DOWN', 'DOWN'],
+                     ['LEFT', 'LEFT'],
+                     ['RIGHT', 'RIGHT'],
+                     ['CENTER', 'CENTER'],
+                     ['SW1', 'SW1'],
+                     ['SW2', 'SW2']
+        ]), 'KEY_NAME');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read single PCF8574 key state (True=Pressed, False=Released)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取所有按键状态块
+Blockly.Blocks['pcf8574keys_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read All PCF8574 Keys");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read all PCF8574 keys state as dictionary");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LED控制块（PCF8574按键模块自带LED）
+Blockly.Blocks['pcf8574keys_led'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCF8574 Keys LED")
+        .appendField(new Blockly.FieldDropdown([
+                     ['ON', 'ON'],
+                     ['OFF', 'OFF']
+        ]), 'LED_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Control PCF8574 keys module LED");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源块
+Blockly.Blocks['pcf8574keys_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit PCF8574 Keys");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PCF8574 keys module resources");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCF8574IO8初始化块
+Blockly.Blocks['pcf8574io8_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCF8574 IO8 Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/pcf8574io8.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x20), "ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCF8574 8-channel IO expansion module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 配置端口状态块
+Blockly.Blocks['pcf8574io8_configure_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Configure PCF8574 IO8 Port");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.appendValueInput("bit1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Bit1 (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "BIT1_VAL");
+
+    this.appendValueInput("bit0")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Bit0 (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "BIT0_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure PCF8574 IO8 port state (two bits per port)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置端口值块
+Blockly.Blocks['pcf8574io8_set_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PCF8574 IO8 Port Value");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PCF8574 IO8 port value (0-3)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取端口值块
+Blockly.Blocks['pcf8574io8_get_port'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 IO8 Port Value");
+
+    this.appendValueInput("port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Port (0-3)")
+      .appendField(new Blockly.FieldNumber(0), "PORT_NUM");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read PCF8574 IO8 port value (0-3)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置单个引脚块
+Blockly.Blocks['pcf8574io8_set_pin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PCF8574 IO8 Pin");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "PIN_NUM");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0/1)")
+      .appendField(new Blockly.FieldNumber(1), "PIN_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set PCF8574 IO8 single pin value (0/1)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取单个引脚块
+Blockly.Blocks['pcf8574io8_get_pin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read PCF8574 IO8 Pin Value");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin (0-7)")
+      .appendField(new Blockly.FieldNumber(0), "PIN_NUM");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read PCF8574 IO8 single pin value (0/1)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取所有IO值块
+Blockly.Blocks['pcf8574io8_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read All PCF8574 IO8 Pins");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read all PCF8574 IO8 pins value as byte (0-255)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 写入所有IO值块
+Blockly.Blocks['pcf8574io8_write_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Write All PCF8574 IO8 Pins");
+
+    this.appendValueInput("byte")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Byte Value (0-255)")
+      .appendField(new Blockly.FieldNumber(0xFF), "BYTE_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write byte value to all PCF8574 IO8 pins (0-255)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源块
+Blockly.Blocks['pcf8574io8_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit PCF8574 IO8 Module");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PCF8574 IO8 module resources");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 限位开关初始化块
+Blockly.Blocks['limitswitch_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Limit Switch")
+        .appendField(new Blockly.FieldImage(
+                     "media/limitswitch.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    this.appendValueInput("debounce")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Debounce (ms)")
+      .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_MS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Limit Switch with debounce");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取限位开关状态块
+Blockly.Blocks['limitswitch_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Limit Switch State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read Limit Switch digital state (True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启用限位开关回调块
+Blockly.Blocks['limitswitch_enable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Enable Limit Switch Callback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable Limit Switch debounce callback monitoring");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 禁用限位开关回调块
+Blockly.Blocks['limitswitch_disable'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Disable Limit Switch Callback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable Limit Switch debounce callback monitoring");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置限位开关回调函数块
+Blockly.Blocks['limitswitch_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Limit Switch Callback");
+    this.appendValueInput("callback")
+      .setCheck("Function")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Callback Function");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for Limit Switch state change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// AD8232初始化块
+Blockly.Blocks['ad8232_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init AD8232 ECG Sensor")
+        .appendField(new Blockly.FieldImage(
+                     "media/ad8232.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.appendValueInput("parse_interval")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Parse Interval (ms)")
+      .appendField(new Blockly.FieldNumber(5), "PARSE_INTERVAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init AD8232 ECG sensor via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启动/停止AD8232模块块
+Blockly.Blocks['ad8232_control_start_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Control AD8232")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Start', '1'],
+                     ['Stop', '0']
+        ]), 'STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start or stop AD8232 sensor operation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置主动上报模式块
+Blockly.Blocks['ad8232_set_active_output'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set AD8232 Active Reporting")
+        .appendField(new Blockly.FieldDropdown([
+                     ['On', '1'],
+                     ['Off', '0']
+        ]), 'STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable AD8232 active data reporting");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取原始ECG值块
+Blockly.Blocks['ad8232_read_raw_ecg'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Raw ECG Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read raw ECG value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取滤波后ECG值块
+Blockly.Blocks['ad8232_read_filtered_ecg'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Filtered ECG Value");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read filtered ECG value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取导联状态块
+Blockly.Blocks['ad8232_read_lead_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Lead Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read lead detection status from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取心率值块
+Blockly.Blocks['ad8232_read_heart_rate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Heart Rate");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read heart rate value from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取模块状态块
+Blockly.Blocks['ad8232_read_module_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read AD8232 Module Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read operating status from AD8232 sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };

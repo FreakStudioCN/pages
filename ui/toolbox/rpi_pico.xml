@@ -1560,7 +1560,281 @@
   </category>
 
   </category>
+  <category name="INPUT">
+    <category name="EC11 Encoder">
+  <label text="Library: https://your-ec11encoder-library-url.com"></label>
+  <button text="Install ec11encoder library" callbackKey="installPyLib"></button>
 
+  <label text="EC11 Rotary Encoder (with optional button)"></label>
+  <block type="ec11encoder_init">
+    <value name="pin_a">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="pin_b">
+      <shadow type="math_number">
+        <field name="NUM">3</field>
+      </shadow>
+    </value>
+    <value name="pin_btn">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ec11encoder_get_rotation_count"></block>
+  <block type="ec11encoder_is_button_pressed"></block>
+  <block type="ec11encoder_reset_rotation_count"></block>
+</category>
+    <category name="Joystick Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install joystick library" callbackKey="installPyLib"></button>
+
+  <label text="Joystick (X/Y Axis with Optional Switch)"></label>
+  <block type="joystick_init">
+    <value name="vrx_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="vry_pin">
+      <shadow type="math_number">
+        <field name="NUM">27</field>
+      </shadow>
+    </value>
+    <value name="vsw_pin">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="joystick_start"></block>
+  <block type="joystick_stop"></block>
+  <block type="joystick_get_values"></block>
+</category>
+    <category name="Potentiometer Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install potentiometer library" callbackKey="installPyLib"></button>
+
+  <label text="Potentiometer (ADC-based Variable Resistor)"></label>
+  <block type="potentiometer_init">
+    <value name="adc_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="vref">
+      <shadow type="math_number">
+        <field name="NUM">3.3</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="potentiometer_read_raw"></block>
+  <block type="potentiometer_read_voltage"></block>
+  <block type="potentiometer_read_ratio"></block>
+  <block type="potentiometer_get_state"></block>
+  <block type="potentiometer_get_adc"></block>
+  <block type="potentiometer_get_vref"></block>
+</category>
+    <category name="PCF8574 Keys">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install pcf8574keys library" callbackKey="installPyLib"></button>
+
+  <label text="PCF8574 Based 5-Way Key Module"></label>
+  <block type="pcf8574keys_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">32</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574keys_read_key"></block>
+  <block type="pcf8574keys_read_all"></block>
+  <block type="pcf8574keys_led"></block>
+  <block type="pcf8574keys_deinit"></block>
+</category>
+    <category name="PCF8574 IO8 Module">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install pcf8574io8 library" callbackKey="installPyLib"></button>
+
+  <label text="PCF8574 8-Channel IO Expansion Module"></label>
+  <block type="pcf8574io8_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">32</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_configure_port">
+    <value name="port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="bit1">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="bit0">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_set_port">
+    <value name="port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_get_port">
+    <value name="port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_set_pin">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_get_pin">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_read_all"></block>
+  <block type="pcf8574io8_write_all">
+    <value name="byte">
+      <shadow type="math_number">
+        <field name="NUM">255</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="pcf8574io8_deinit"></block>
+</category>
+    <category name="Limit Switch">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install limitswitch library" callbackKey="installPyLib"></button>
+
+  <label text="Limit Switch with Debounce"></label>
+  <block type="limitswitch_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field>
+      </shadow>
+    </value>
+    <value name="debounce">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="limitswitch_read"></block>
+  <block type="limitswitch_set_callback">
+    <value name="callback">
+      <shadow type="variables_get">
+        <field name="VAR">callback_func</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="limitswitch_enable"></block>
+  <block type="limitswitch_disable"></block>
+</category>
+    <category name="AD8232 ECG Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ad8232 library" callbackKey="installPyLib"></button>
+
+  <label text="AD8232 ECG and Heart Rate Sensor"></label>
+  <block type="ad8232_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">8</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">9</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+    <value name="parse_interval">
+      <shadow type="math_number">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ad8232_control_start_stop"></block>
+  <block type="ad8232_set_active_output"></block>
+  <block type="ad8232_read_raw_ecg"></block>
+  <block type="ad8232_read_filtered_ecg"></block>
+  <block type="ad8232_read_lead_status"></block>
+  <block type="ad8232_read_heart_rate"></block>
+  <block type="ad8232_read_module_status"></block>
+</category>
+  </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>
