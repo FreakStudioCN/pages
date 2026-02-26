@@ -3023,11 +3023,6 @@
             <field name="PIN">1</field>
           </shadow>
         </value>
-        <value name="sampling_mode">
-          <shadow type="math_number">
-            <field name="NUM">4</field> <!-- 默认8x采样 -->
-          </shadow>
-        </value>
       </block>
       <block type="bmp280_read_temp"></block>
       <block type="bmp280_read_pressure"></block>
