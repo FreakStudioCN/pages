@@ -7711,7 +7711,7 @@ Blockly.Python['bmp280_init'] = function(block) {
 
   // 第三步：代码拼接（对齐BA111TDS的实例化逻辑）
   var code = 'i2c_bmp280=I2C(' + i2c_port + ', scl=Pin(' + scl_pin + '), sda=Pin(' + sda_pin + '), freq=400000)\n';
-  code += 'bmp280_sensor=bmp280.BMP280(mode=' + sampling_mode + ', address=' + i2c_addr + ', i2c=i2c_bmp280)\n'; // 实例名对齐ba111tds_sensor
+  code += 'bmp280_sensor=bmp280.BMP280(address=' + i2c_addr + ', i2c=i2c_bmp280)\n'; // 实例名对齐ba111tds_sensor
 
   return code;
 };

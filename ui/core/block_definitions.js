@@ -14600,11 +14600,6 @@ Blockly.Blocks['bmp280_init'] = {
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("SCL Pin"); // 对应BA111TDS的RX Pin
 
-    this.appendValueInput("sampling_mode")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Sampling Mode") // 对应BA111TDS的Baudrate
-      .appendField(new Blockly.FieldNumber(4), "SAMPLING_MODE"); // 默认8x采样（值为4）
 
     // 固定配置（和BA111TDS/AHT10完全一致）
     this.setPreviousStatement(true, null);
