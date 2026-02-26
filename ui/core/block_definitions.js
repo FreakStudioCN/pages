@@ -14960,17 +14960,6 @@ Blockly.Blocks['mlx9061x_read_object'] = {
   }
 };
 
-// 可选扩展：读取物体2温度（仅MLX90614双区可用，简化处理）
-Blockly.Blocks['mlx9061x_read_object2'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read MLX Object2 Temp (°C)");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read MLX90614 dual-zone object2 temperature (only for MLX90614)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
 
 /// Start MLX90640 IR Camera Sensor（完全对齐AHT10/BA111TDS写法）
 Blockly.Blocks['mlx90640_init'] = {
