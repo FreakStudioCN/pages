@@ -7858,7 +7858,7 @@ Blockly.Python['mlx9061x_init'] = function(block) {
 
   // 第二步：导入语句（适配MLX9061x的依赖，对齐AHT10的导入风格）
   Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C'; // 同AHT10的导入
-  Blockly.Python.definitions_['import_mlx9061x'] = 'import mlx9061x'; // 驱动文件名匹配：mlx9061x.py
+  Blockly.Python.definitions_['import_mlx90614'] = 'import mlx90614'; // 驱动文件名匹配：mlx90614.py
 
   // 第三步：代码拼接（最简化，对齐AHT10/BA111TDS的实例化逻辑）
   var code = 'i2cMLX=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
