@@ -7745,40 +7745,6 @@ Blockly.Python['bmp280_set_sealevel'] = function(block) {
   return code;
 };
 
-/// Flame Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['flame_sensor_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
-  var digital_pin = Blockly.Python.valueToCode(block, 'digital_pin', Blockly.Python.ORDER_ATOMIC);
-
-  // 第二步：导入语句（适配火焰传感器的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // AHT10用Pin/I2C，这里改Pin/ADC
-  Blockly.Python.definitions_['import_flame_sensor'] = 'import flame_sensor'; // 驱动文件名：flame_sensor.py
-  Blockly.Python.definitions_['import_time'] = 'import time'; // 驱动依赖time，提前导入
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
-  var code = 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ')\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（检测火焰，返回ORDER_NONE）
-Blockly.Python['flame_sensor_is_detected'] = function(block) {
-  var code = 'flame_sensor_device.is_flame_detected()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_temp写法（读取模拟值）
-Blockly.Python['flame_sensor_read_analog'] = function(block) {
-  var code = 'flame_sensor_device.get_analog_value()';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取电压）
-Blockly.Python['flame_sensor_read_voltage'] = function(block) {
-  var code = 'flame_sensor_device.get_voltage()';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
 
 /// GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
 Blockly.Python['guva_s12sd_init'] = function(block) {
@@ -7805,41 +7771,6 @@ Blockly.Python['guva_s12sd_read_voltage'] = function(block) {
 Blockly.Python['guva_s12sd_read_uvi'] = function(block) {
   var code = 'guva_s12sd_sensor.uvi';
   return [code, Blockly.Python.ORDER_NONE];
-};
-
-/// HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-
-  // 第二步：导入语句（适配OH34N的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin'; // AHT10用Pin/I2C，这里仅需Pin
-  Blockly.Python.definitions_['import_hall_sensor_oh34n'] = 'import hall_sensor_oh34n'; // 驱动文件名：hall_sensor_oh34n.py
-  Blockly.Python.definitions_['import_micropython'] = 'import micropython'; // 驱动依赖micropython，提前导入
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑）
-  var code = 'hall_sensor_oh34n_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ')\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取状态，返回ORDER_NONE）
-Blockly.Python['hall_sensor_oh34n_read'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.read()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐BA111TDS的calibrate写法（启用中断）
-Blockly.Python['hall_sensor_oh34n_enable'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.enable()\n';
-  code += 'print("Hall sensor interrupt enabled")\n';
-  return code;
-};
-
-// 对齐BA111TDS的calibrate写法（禁用中断）
-Blockly.Python['hall_sensor_oh34n_disable'] = function(block) {
-  var code = 'hall_sensor_oh34n_device.disable()\n';
-  code += 'print("Hall sensor interrupt disabled")\n';
-  return code;
 };
 
 /// MAX9814 Mic Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
@@ -7915,53 +7846,6 @@ Blockly.Python['max9814_mic_set_gain'] = function(block) {
   return code;
 };
 
-/// MGX Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['mgx_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致，处理可选参数）
-  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
-  var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC) || 'None';
-  var rl_ohm = block.getFieldValue('RL_OHM');
-  var vref = block.getFieldValue('VREF');
-
-  // 第二步：导入语句（适配MGX的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 基础硬件导入
-  Blockly.Python.definitions_['import_mgx'] = 'import mgx'; // 驱动文件名匹配：mgx.py
-  Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms'; // MGX依赖的time模块
-
-  // 第三步：代码拼接（最简化，对齐BA111TDS的实例化逻辑，剔除复杂回调）
-  var code = 'mgx_adc=ADC(' + adc_pin + ')\n';
-  code += 'mgx_comp_pin=Pin(' + comp_pin + ', Pin.IN) if ' + comp_pin + ' is not None else None\n';
-  code += 'mgx_sensor=mgx.MGX(adc=mgx_adc, comp_pin=mgx_comp_pin, user_cb=None, rl_ohm=' + rl_ohm + ', vref=' + vref + ')\n';
-
-  return code;
-};
-
-// 对齐BA111TDS的set_ntc写法（选择内置传感器型号，带打印反馈）
-Blockly.Python['mgx_select_builtin'] = function(block) {
-  var sensor_type = block.getFieldValue('SENSOR_TYPE');
-  var code = '';
-
-  code = 'try:\n';
-  code += '\tmgx_sensor.select_builtin("' + sensor_type + '")\n';
-  code += '\tprint("MGX selected ' + sensor_type + ' successfully")\n';
-  code += 'except ValueError:\n';
-  code += '\tprint("MGX ' + sensor_type + ' is not supported")\n';
-
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
-Blockly.Python['mgx_read_voltage'] = function(block) {
-  var code = 'mgx_sensor.read_voltage()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值，处理samples参数）
-Blockly.Python['mgx_read_ppm'] = function(block) {
-  var samples = block.getFieldValue('SAMPLES');
-  var code = 'mgx_sensor.read_ppm(samples=' + samples + ', delay_ms=0)';
-  return [code, Blockly.Python.ORDER_NONE];
-};
 
 /// MLX90614/MLX90615 Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
 Blockly.Python['mlx9061x_init'] = function(block) {
@@ -8001,47 +7885,6 @@ Blockly.Python['mlx9061x_read_object2'] = function(block) {
   code += '\tmlx_sensor.object2\n';
   code += 'except RuntimeError:\n';
   code += '\tNone\n';
-  return [code, Blockly.Python.ORDER_NONE];
-};
-
-/// MQX (MQ2/MQ4/MQ7) Gas Sensor（完全对齐AHT10/BA111TDS的代码生成逻辑）
-Blockly.Python['mqx_init'] = function(block) {
-  // 第一步：取值（和AHT10/BA111TDS的取值逻辑一致）
-  var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
-  var comp_pin = block.getFieldValue('COMP_PIN');
-  var rl_ohm = block.getFieldValue('RL_OHM');
-  var vref = block.getFieldValue('VREF');
-
-  // 第二步：导入语句（适配MQX的依赖，对齐AHT10的导入风格）
-  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, ADC'; // 基础硬件导入
-  Blockly.Python.definitions_['import_mqx'] = 'import mqx'; // 驱动文件名匹配：mqx.py
-  Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms'; // MQX依赖sleep_ms
-
-  // 第三步：代码拼接（最简化，屏蔽复杂的中断回调，COMP_PIN=0时设为None）
-  var code = 'mqx_adc=ADC(Pin(' + adc_pin + '))\n';
-  code += 'mqx_comp_pin=None if ' + comp_pin + ' == 0 else Pin(' + comp_pin + ')\n'; // 禁用COMP引脚简化
-  code += 'mqx_sensor=mqx.MQX(mqx_adc, mqx_comp_pin, user_cb=None, rl_ohm=' + rl_ohm + ', vref=' + vref + ')\n';
-
-  return code;
-};
-
-// 对齐AHT10的AHT_TYPE取值逻辑（选择传感器型号）
-Blockly.Python['mqx_select_sensor'] = function(block) {
-  var sensor_type = block.getFieldValue('SENSOR_TYPE');
-  var code = 'mqx_sensor.select_builtin("' + sensor_type + '")\n';
-  return code;
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压，返回ORDER_NONE）
-Blockly.Python['mqx_read_voltage'] = function(block) {
-  var code = 'mqx_sensor.read_voltage()';
-  return [code, Blockly.Python.ORDER_NONE]; // 严格匹配AHT10的返回格式
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值，带样本数）
-Blockly.Python['mqx_read_ppm'] = function(block) {
-  var samples = block.getFieldValue('SAMPLES');
-  var code = 'mqx_sensor.read_ppm(samples=' + samples + ')';
   return [code, Blockly.Python.ORDER_NONE];
 };
 
@@ -8264,43 +8107,86 @@ Blockly.Python['soil_moisture_read_level'] = function(block) {
   var code = 'soil_moisture_sensor.level';
   return [code, Blockly.Python.ORDER_NONE];
 };
-
-// 初始化振动传感器（对齐aht_init/ba111tds_init写法）
+// 完全对齐AHT10的aht_init写法，适配震动传感器（含完整回调逻辑）
 Blockly.Python['vibration_sensor_init'] = function(block) {
-  // 1. 取值（和AHT10取值逻辑一致）
-  var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
-  var debounce_ms = block.getFieldValue('DEBOUNCE_MS');
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var debounce_ms = block.getFieldValue('DEBOUNCE_MS');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
 
-  // 2. 导入语句（适配振动传感器依赖）
-  Blockly.Python.definitions_['import_machine_vibration'] = 'from machine import Pin';
-  Blockly.Python.definitions_['import_time_vibration'] = 'import time';
-  Blockly.Python.definitions_['import_micropython_vibration'] = 'import micropython';
-  Blockly.Python.definitions_['import_vibration_sensor'] = 'import vibration_sensor'; // 驱动文件名为vibration_sensor.py
+        // 第二步：导入语句（适配震动传感器驱动依赖）
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_vibration_sensor'] = 'import vibration_sensor'; // 对应驱动文件名
 
-  // 3. 代码拼接（实例化传感器，最简化，暂不支持回调）
-  var code = 'vibration_pin=Pin(' + pin + ', Pin.IN)\n';
-  code += 'vibration_sensor=vibration_sensor.VibrationSensor(vibration_pin, debounce_ms=' + debounce_ms + ')\n';
-  code += 'vibration_sensor.init()\n'; // 执行初始化
-  return code;
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配驱动的无参数回调格式：def callback():）
+        code += '# Vibration Sensor Default Callback (no parameters)\n';
+        code += 'def vibration_callback():\n';
+        code += '\tprint("Vibration detected!")\n\n';
+        // 初始化引脚和传感器实例
+        code += '# Initialize Vibration Sensor Pin\n';
+        code += 'vib_pin = Pin(' + pin + ', Pin.IN)\n\n';
+        // 实例化震动传感器（根据回调开关决定是否传入回调）
+        if (enable_callback === 'YES') {
+            code += '# Create Vibration Sensor Instance with Callback\n';
+            code += 'vib_sensor_device = vibration_sensor.VibrationSensor(\n';
+            code += '\tpin=vib_pin,\n';
+            code += '\tcallback=vibration_callback,\n'; // 传入无参数回调（匹配驱动格式）
+            code += '\tdebounce_ms=' + debounce_ms + '\n';
+            code += ')\n';
+        } else {
+            code += '# Create Vibration Sensor Instance without Callback\n';
+            code += 'vib_sensor_device = vibration_sensor.VibrationSensor(\n';
+            code += '\tpin=vib_pin,\n';
+            code += '\tcallback=None,\n'; // 禁用回调
+            code += '\tdebounce_ms=' + debounce_ms + '\n';
+            code += ')\n';
+        }
+        // 执行传感器初始化（调用驱动的init方法）
+        code += 'vib_sensor_device.init()\n';
+
+        return code;
 };
 
-// 读取振动传感器状态（对齐aht_read_temp写法）
+// 对齐AHT10的aht_read_temp写法（读取传感器状态，必须用ORDER_NONE）
 Blockly.Python['vibration_sensor_read'] = function(block) {
-  var code = 'vibration_sensor.read()';
-  return [code, Blockly.Python.ORDER_NONE]; // 必须用ORDER_NONE（AHT10标准）
+        var code = 'vib_sensor_device.read()';
+        return [code, Blockly.Python.ORDER_NONE];
 };
 
-// 获取振动传感器状态信息（对齐aht_read_humidity写法）
+// 核心：设置震动传感器回调函数（匹配驱动的无参数回调格式）
+Blockly.Python['vibration_sensor_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配驱动的无参数回调格式：def callback():）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（严格无参数，匹配驱动的_callback()要求）
+        var code = 'def vibration_callback():\n';
+        // 缩进用户代码（适配Python格式，无参数）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint("Vibration detected!")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的属性设计）
+        code += 'vib_sensor_device._callback = vibration_callback\n';
+        // 重新初始化以应用新回调（确保IRQ生效）
+        code += 'vib_sensor_device.deinit()\n';
+        code += 'vib_sensor_device.init()\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（获取传感器状态）
 Blockly.Python['vibration_sensor_get_status'] = function(block) {
-  var code = 'vibration_sensor.get_status()';
-  return [code, Blockly.Python.ORDER_NONE];
+        var code = 'vib_sensor_device.get_status()';
+        return [code, Blockly.Python.ORDER_NONE];
 };
 
-// 反初始化振动传感器（对齐ba111tds_calibrate写法）
+// 对齐AHT10的代码生成逻辑（释放资源）
 Blockly.Python['vibration_sensor_deinit'] = function(block) {
-  var code = 'vibration_sensor.deinit()\n';
-  code += 'print("Vibration sensor deinitialized")\n';
-  return code;
+        var code = 'vib_sensor_device.deinit()\n';
+        return code;
 };
 
 // 初始化TCR5000传感器（对齐aht_init/ba111tds_init写法）
@@ -9506,4 +9392,1959 @@ Blockly.Python['uvmatrix_set_brightness'] = function(block) {
 Blockly.Python['uvmatrix_get_state'] = function(block) {
         var code = 'uvmatrix_module.get_state() if uvmatrix_module is not None else False';
         return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1232 初始化代码生成（对齐AHT10的aht_init写法）
+Blockly.Python['ds1232_init'] = function(block) {
+    // 取值逻辑和AHT10保持一致
+    var wdi_pin = Blockly.Python.valueToCode(block, 'wdi_pin', Blockly.Python.ORDER_ATOMIC);
+    var feed_interval = block.getFieldValue('FEED_INTERVAL');
+
+    // 导入必要模块（适配DS1232驱动依赖）
+    Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, Timer';
+    Blockly.Python.definitions_['import_ds1232'] = 'import ds1232';
+
+    // 代码拼接（匹配DS1232类的实例化逻辑）
+    var code = 'ds1232_watchdog=ds1232.DS1232(wdi_pin=' + wdi_pin + ', feed_interval=' + feed_interval + ')\n';
+    return code;
+};
+
+// DS1232 手动喂狗代码生成（对齐AHT10的aht_read_temp写法）
+Blockly.Python['ds1232_kick'] = function(block) {
+    var code = 'ds1232_watchdog.kick()\n';
+    return code;
+};
+
+// DS1232 停止喂狗代码生成（对齐AHT10的代码风格）
+Blockly.Python['ds1232_stop'] = function(block) {
+    var code = 'ds1232_watchdog.stop()\n';
+    return code;
+};
+
+// DS1307初始化代码生成
+Blockly.Python['ds1307_init'] = function(block) {
+        var i2c_bus = Blockly.Python.valueToCode(block, 'i2c_bus', Blockly.Python.ORDER_ATOMIC);
+        var i2c_addr = block.getFieldValue('I2C_ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_micropython_const'] = 'from micropython import const';
+        Blockly.Python.definitions_['import_ds1307'] = 'import ds1307';
+
+        // 初始化DS1307（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize I2C bus for DS1307\n';
+        code += '\ti2c_ds1307 = I2C(' + i2c_bus + ', scl=Pin(1), sda=Pin(0), freq=400000)\n';
+        code += '\t# Create DS1307 instance\n';
+        code += '\tds1307_rtc = ds1307.DS1307(i2c_ds1307, addr=' + i2c_addr + ')\n';
+        code += '\t# Enable oscillator by default\n';
+        code += '\tds1307_rtc.disable_oscillator = False\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("DS1307 init error:", e)\n';
+        code += '\tds1307_rtc = None\n';
+        return code;
+};
+
+// DS1307设置完整时间代码生成
+Blockly.Python['ds1307_set_datetime'] = function(block) {
+        var year = block.getFieldValue('YEAR');
+        var month = block.getFieldValue('MONTH');
+        var day = block.getFieldValue('DAY');
+        var hour = block.getFieldValue('HOUR');
+        var minute = block.getFieldValue('MINUTE');
+        var second = block.getFieldValue('SECOND');
+        var weekday = block.getFieldValue('WEEKDAY');
+
+        var code = 'if ds1307_rtc is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Set full date and time tuple\n';
+        code += '\t\tdatetime_tuple = (' + year + ', ' + month + ', ' + day + ', ' + hour + ', ' + minute + ', ' + second + ', ' + weekday + ')\n';
+        code += '\t\tds1307_rtc.datetime = datetime_tuple\n';
+        code += '\t\tprint("DS1307 datetime set to:", datetime_tuple)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DS1307 set datetime error:", e)\n';
+        return code;
+};
+
+// DS1307读取完整时间代码生成
+Blockly.Python['ds1307_get_datetime'] = function(block) {
+        var code = 'ds1307_rtc.datetime if ds1307_rtc is not None else (2000,1,1,0,0,0,0,None)';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307读取RTC格式时间代码生成
+Blockly.Python['ds1307_get_datetime_rtc'] = function(block) {
+        var code = 'ds1307_rtc.datetimeRTC if ds1307_rtc is not None else (2000,1,1,None,0,0,0,None)';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307控制振荡器代码生成
+Blockly.Python['ds1307_set_oscillator'] = function(block) {
+        var osc_state = block.getFieldValue('OSC_STATE');
+
+        var code = 'if ds1307_rtc is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tds1307_rtc.disable_oscillator = ' + osc_state + '\n';
+        code += '\t\tstate_text = "Disabled" if ' + osc_state + ' else "Enabled"\n';
+        code += '\t\tprint("DS1307 oscillator " + state_text)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DS1307 set oscillator error:", e)\n';
+        return code;
+};
+
+// DS1307读取振荡器状态代码生成
+Blockly.Python['ds1307_get_oscillator'] = function(block) {
+        var code = 'ds1307_rtc.disable_oscillator if ds1307_rtc is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DS1307读取单个时间字段代码生成
+Blockly.Python['ds1307_read_field'] = function(block) {
+        var field = block.getFieldValue('TIME_FIELD');
+        var field_index = {
+            'year': 0,
+            'month': 1,
+            'day': 2,
+            'hour': 3,
+            'minute': 4,
+            'second': 5,
+            'weekday': 6
+        }[field];
+
+        var code = 'ds1307_rtc.datetime[' + field_index + '] if ds1307_rtc is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DY-SV19T初始化代码生成
+Blockly.Python['dysv19t_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+        var default_vol = block.getFieldValue('DEFAULT_VOL');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_uart'] = 'from machine import Pin, UART, Timer';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_dysv19t'] = 'import dy_sv19t';
+
+        // 初始化DY-SV19T（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize UART for DY-SV19T\n';
+        code += '\tuart_dysv19t = UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += '\t# Create DY-SV19T instance\n';
+        code += '\tdysv19t_player = dy_sv19t.DYSV19T(\n';
+        code += '\t    uart_dysv19t,\n';
+        code += '\t    default_volume=' + default_vol + ',\n';
+        code += '\t    default_disk=dy_sv19t.DYSV19T.DISK_SD,\n';
+        code += '\t    default_play_mode=dy_sv19t.DYSV19T.MODE_SINGLE_STOP,\n';
+        code += '\t    default_dac_channel=dy_sv19t.DYSV19T.CH_MP3,\n';
+        code += '\t    timeout_ms=600\n';
+        code += '\t)\n';
+        code += '\t# Set initial volume and EQ\n';
+        code += '\tdysv19t_player.set_volume(' + default_vol + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("DY-SV19T init error:", e)\n';
+        code += '\tdysv19t_player = None\n';
+        return code;
+};
+
+// DY-SV19T基础播放控制代码生成
+Blockly.Python['dysv19t_play_control'] = function(block) {
+        var cmd = block.getFieldValue('CONTROL_CMD');
+        var cmd_map = {
+            'play': 'play()',
+            'pause': 'pause()',
+            'stop': 'stop()',
+            'prev': 'prev_track()',
+            'next': 'next_track()'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.' + cmd_map[cmd] + '\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T control error:", e)\n';
+        return code;
+};
+
+// DY-SV19T选择曲目播放代码生成
+Blockly.Python['dysv19t_select_track'] = function(block) {
+        var track_no = block.getFieldValue('TRACK_NO');
+        var play_now = block.getFieldValue('PLAY_NOW') === 'TRUE';
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.select_track(' + track_no + ', play=' + play_now + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T select track error:", e)\n';
+        return code;
+};
+
+// DY-SV19T按路径播放代码生成
+Blockly.Python['dysv19t_play_path'] = function(block) {
+        var disk = block.getFieldValue('DISK');
+        var path = block.getFieldValue('PATH');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdisk_map = {0: dy_sv19t.DYSV19T.DISK_USB, 1: dy_sv19t.DYSV19T.DISK_SD, 2: dy_sv19t.DYSV19T.DISK_FLASH}\n';
+        code += '\t\tdysv19t_player.play_disk_path(disk_map[' + disk + '], "' + path + '")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T play path error:", e)\n';
+        return code;
+};
+
+// DY-SV19T音量控制代码生成
+Blockly.Python['dysv19t_volume'] = function(block) {
+        var vol_cmd = block.getFieldValue('VOL_CMD');
+        var vol_value = block.getFieldValue('VOL_VALUE');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (vol_cmd === 'set') {
+            code += '\t\tdysv19t_player.set_volume(' + vol_value + ')\n';
+        } else if (vol_cmd === 'up') {
+            code += '\t\tdysv19t_player.volume_up()\n';
+        } else {
+            code += '\t\tdysv19t_player.volume_down()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T volume error:", e)\n';
+        return code;
+};
+
+// DY-SV19T设置EQ代码生成
+Blockly.Python['dysv19t_set_eq'] = function(block) {
+        var eq_mode = block.getFieldValue('EQ_MODE');
+        var eq_map = {
+            '0': 'EQ_NORMAL',
+            '1': 'EQ_POP',
+            '2': 'EQ_ROCK',
+            '3': 'EQ_JAZZ',
+            '4': 'EQ_CLASSIC'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.set_eq(dy_sv19t.DYSV19T.' + eq_map[eq_mode] + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T set EQ error:", e)\n';
+        return code;
+};
+
+// DY-SV19T设置播放模式代码生成
+Blockly.Python['dysv19t_set_play_mode'] = function(block) {
+        var play_mode = block.getFieldValue('PLAY_MODE');
+        var mode_map = {
+            '0': 'MODE_FULL_LOOP',
+            '1': 'MODE_SINGLE_LOOP',
+            '2': 'MODE_SINGLE_STOP',
+            '3': 'MODE_FULL_RANDOM',
+            '4': 'MODE_DIR_LOOP',
+            '5': 'MODE_DIR_RANDOM',
+            '6': 'MODE_DIR_SEQUENCE',
+            '7': 'MODE_SEQUENCE'
+        };
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.set_play_mode(dy_sv19t.DYSV19T.' + mode_map[play_mode] + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T set play mode error:", e)\n';
+        return code;
+};
+
+// DY-SV19T插播曲目代码生成
+Blockly.Python['dysv19t_insert_track'] = function(block) {
+        var insert_disk = block.getFieldValue('INSERT_DISK');
+        var insert_track = block.getFieldValue('INSERT_TRACK');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdisk_map = {0: dy_sv19t.DYSV19T.DISK_USB, 1: dy_sv19t.DYSV19T.DISK_SD, 2: dy_sv19t.DYSV19T.DISK_FLASH}\n';
+        code += '\t\tdysv19t_player.insert_track(disk_map[' + insert_disk + '], ' + insert_track + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T insert track error:", e)\n';
+        return code;
+};
+
+// DY-SV19T区间复读代码生成
+Blockly.Python['dysv19t_repeat_area'] = function(block) {
+        var start_min = block.getFieldValue('START_MIN');
+        var start_sec = block.getFieldValue('START_SEC');
+        var end_min = block.getFieldValue('END_MIN');
+        var end_sec = block.getFieldValue('END_SEC');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.repeat_area(' + start_min + ', ' + start_sec + ', ' + end_min + ', ' + end_sec + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T repeat area error:", e)\n';
+        return code;
+};
+
+// DY-SV19T结束复读代码生成
+Blockly.Python['dysv19t_end_repeat'] = function(block) {
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\tdysv19t_player.end_repeat()\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T end repeat error:", e)\n';
+        return code;
+};
+
+// DY-SV19T快进快退代码生成
+Blockly.Python['dysv19t_seek'] = function(block) {
+        var seek_dir = block.getFieldValue('SEEK_DIR');
+        var seconds = block.getFieldValue('SEEK_SECONDS');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (seek_dir === 'forward') {
+            code += '\t\tdysv19t_player.seek_forward(' + seconds + ')\n';
+        } else {
+            code += '\t\tdysv19t_player.seek_back(' + seconds + ')\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T seek error:", e)\n';
+        return code;
+};
+
+// DY-SV19T查询状态代码生成
+Blockly.Python['dysv19t_query'] = function(block) {
+        var query_type = block.getFieldValue('QUERY_TYPE');
+        var query_map = {
+            'status': 'query_status()',
+            'disk': 'query_current_disk()',
+            'track': 'query_current_track()',
+            'total_tracks': 'query_total_tracks()',
+            'time': 'query_current_track_time()',
+            'online_disks': 'query_online_disks()'
+        };
+
+        var code = 'dysv19t_player.' + query_map[query_type] + ' if dysv19t_player is not None else None';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// DY-SV19T组合播放代码生成
+Blockly.Python['dysv19t_combination_playlist'] = function(block) {
+        var short_names = block.getFieldValue('SHORT_NAMES');
+        var playlist_action = block.getFieldValue('PLAYLIST_ACTION');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (playlist_action === 'start') {
+            code += '\t\tdysv19t_player.start_combination_playlist(' + short_names + ')\n';
+        } else {
+            code += '\t\tdysv19t_player.end_combination_playlist()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T playlist error:", e)\n';
+        return code;
+};
+
+// DY-SV19T播放时间上报控制代码生成
+Blockly.Python['dysv19t_time_report'] = function(block) {
+        var report_action = block.getFieldValue('REPORT_ACTION');
+
+        var code = 'if dysv19t_player is not None:\n';
+        code += '\ttry:\n';
+        if (report_action === 'enable') {
+            code += '\t\tdysv19t_player.enable_play_time_send()\n';
+        } else {
+            code += '\t\tdysv19t_player.disable_play_time_send()\n';
+        }
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("DY-SV19T time report error:", e)\n';
+        return code;
+};
+
+// LM386扬声器初始化代码生成
+Blockly.Python['lm386_speaker_init'] = function(block) {
+        var pwm_pin = Blockly.Python.valueToCode(block, 'pwm_pin', Blockly.Python.ORDER_ATOMIC);
+        var default_freq = block.getFieldValue('DEFAULT_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_lm386_speaker'] = 'import lm386_speaker';
+
+        // 初始化LM386扬声器（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize LM386 speaker module\n';
+        code += '\tlm386_speaker = lm386_speaker.LMSpeaker(pin=' + pwm_pin + ', freq=' + default_freq + ')\n';
+        code += '\tprint("LM386 speaker initialized on PWM pin", ' + pwm_pin + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("LM386 speaker init error:", e)\n';
+        code += '\tlm386_speaker = None\n';
+        return code;
+};
+
+// LM386播放单音代码生成
+Blockly.Python['lm386_play_tone'] = function(block) {
+        var frequency = block.getFieldValue('FREQUENCY');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play tone: ' + frequency + 'Hz for ' + duration + ' seconds\n';
+        code += '\t\tlm386_speaker.play_tone(' + frequency + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 play tone error:", e)\n';
+        return code;
+};
+
+// LM386播放音符序列代码生成
+Blockly.Python['lm386_play_sequence'] = function(block) {
+        var notes = block.getFieldValue('NOTES');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play melody sequence\n';
+        code += '\t\tmelody = ' + notes + '\n';
+        code += '\t\tlm386_speaker.play_sequence(melody)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 play sequence error:", e)\n';
+        return code;
+};
+
+// LM386设置音量代码生成
+Blockly.Python['lm386_set_volume'] = function(block) {
+        var volume = block.getFieldValue('VOLUME');
+
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Set volume to ' + volume + '%\n';
+        code += '\t\tlm386_speaker.set_volume(' + volume + ')\n';
+        code += '\t\tprint("LM386 volume set to", ' + volume + '%)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 set volume error:", e)\n';
+        return code;
+};
+
+// LM386停止播放代码生成
+Blockly.Python['lm386_stop'] = function(block) {
+        var code = 'if lm386_speaker is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Stop playback and mute speaker\n';
+        code += '\t\tlm386_speaker.stop()\n';
+        code += '\t\tprint("LM386 speaker muted")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("LM386 stop error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器初始化代码生成
+Blockly.Python['buzzer_init'] = function(block) {
+        var pwm_pin = Blockly.Python.valueToCode(block, 'pwm_pin', Blockly.Python.ORDER_ATOMIC);
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_buzzer'] = 'import buzzer';
+
+        // 初始化蜂鸣器（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize PWM Buzzer module\n';
+        code += '\tbuzzer_device = buzzer.Buzzer(pin=' + pwm_pin + ')\n';
+        code += '\tprint("Buzzer initialized on PWM pin", ' + pwm_pin + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("Buzzer init error:", e)\n';
+        code += '\tbuzzer_device = None\n';
+        return code;
+};
+
+// 蜂鸣器播放单音代码生成
+Blockly.Python['buzzer_play_tone'] = function(block) {
+        var frequency = block.getFieldValue('FREQUENCY');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play tone: ' + frequency + 'Hz for ' + duration + 'ms\n';
+        code += '\t\tbuzzer_device.play_tone(' + frequency + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play tone error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器播放旋律代码生成
+Blockly.Python['buzzer_play_melody'] = function(block) {
+        var melody = block.getFieldValue('MELODY');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play melody sequence\n';
+        code += '\t\tmelody_sequence = ' + melody + '\n';
+        code += '\t\tbuzzer_device.play_melody(melody_sequence)\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play melody error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器停止播放代码生成
+Blockly.Python['buzzer_stop_tone'] = function(block) {
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Stop buzzer playback\n';
+        code += '\t\tbuzzer_device.stop_tone()\n';
+        code += '\t\tprint("Buzzer stopped")\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer stop error:", e)\n';
+        return code;
+};
+
+// 蜂鸣器播放预设音符代码生成
+Blockly.Python['buzzer_play_note'] = function(block) {
+        var note_freq = block.getFieldValue('NOTE');
+        var duration = block.getFieldValue('DURATION');
+
+        var code = 'if buzzer_device is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Play preset note: ' + note_freq + 'Hz for ' + duration + 'ms\n';
+        code += '\t\tbuzzer_device.play_tone(' + note_freq + ', ' + duration + ')\n';
+        code += '\texcept Exception as e:\n';
+        code += '\t\tprint("Buzzer play note error:", e)\n';
+        return code;
+};
+
+// PCA9546ADR初始化代码生成
+Blockly.Python['pca9546adr_init'] = function(block) {
+        var i2c_bus = Blockly.Python.valueToCode(block, 'i2c_bus', Blockly.Python.ORDER_ATOMIC);
+        var sda_pin = Blockly.Python.valueToCode(block, 'sda_pin', Blockly.Python.ORDER_ATOMIC);
+        var scl_pin = Blockly.Python.valueToCode(block, 'scl_pin', Blockly.Python.ORDER_ATOMIC);
+        var i2c_addr = block.getFieldValue('I2C_ADDR');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_pca9546adr'] = 'import pca9546adr';
+
+        // 初始化PCA9546ADR（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize PCA9546ADR I2C multiplexer\n';
+        code += '\ti2c_pca = I2C(' + i2c_bus + ', scl=Pin(' + scl_pin + '), sda=Pin(' + sda_pin + '))\n';
+        code += '\tpca9546adr_mux = pca9546adr.PCA9546ADR(i2c_pca, addr7=' + i2c_addr + ')\n';
+        code += '\tprint("PCA9546ADR initialized on I2C bus", ' + i2c_bus + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("PCA9546ADR init error:", e)\n';
+        code += '\tpca9546adr_mux = None\n';
+        return code;
+};
+
+// PCA9546ADR选择通道代码生成
+Blockly.Python['pca9546adr_select_channel'] = function(block) {
+        var channel = block.getFieldValue('CHANNEL');
+
+        var code = 'if pca9546adr_mux is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Select PCA9546ADR channel ' + channel + '\n';
+        code += '\t\tpca9546adr_mux.select_channel(' + channel + ')\n';
+        code += '\t\tprint("PCA9546ADR channel", ' + channel + ', "selected")\n';
+        code += '\texcept ValueError as e:\n';
+        code += '\t\tprint("PCA9546ADR invalid channel:", e)\n';
+        code += '\texcept OSError as e:\n';
+        code += '\t\tprint("PCA9546ADR select channel error:", e)\n';
+        return code;
+};
+
+// PCA9546ADR关闭所有通道代码生成
+Blockly.Python['pca9546adr_disable_all'] = function(block) {
+        var code = 'if pca9546adr_mux is not None:\n';
+        code += '\ttry:\n';
+        code += '\t\t# Disable all PCA9546ADR channels\n';
+        code += '\t\tpca9546adr_mux.disable_all()\n';
+        code += '\t\tprint("All PCA9546ADR channels disabled")\n';
+        code += '\texcept OSError as e:\n';
+        code += '\t\tprint("PCA9546ADR disable all error:", e)\n';
+        return code;
+};
+
+// PCA9546ADR读取状态代码生成
+Blockly.Python['pca9546adr_read_status'] = function(block) {
+        var code = 'pca9546adr_mux.read_status() if pca9546adr_mux is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// PCA9546ADR扫描I2C地址代码生成
+Blockly.Python['pca9546adr_scan_i2c'] = function(block) {
+        var code = 'i2c_pca.scan() if "i2c_pca" in locals() and i2c_pca is not None else []';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// SNR9816 TTS初始化代码生成
+Blockly.Python['snr9816_tts_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_snr9816_tts'] = 'import snr9816_tts';
+
+        // 初始化TTS模块（包含异常处理）
+        var code = 'try:\n';
+        code += '\t# Initialize SNR9816 TTS module\n';
+        code += '\tuart_tts = UART(' + uart_port + ', baudrate=' + baudrate + ', bits=8, parity=None, stop=1, tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '))\n';
+        code += '\ttts_device = snr9816_tts.SNR9816_TTS(uart_tts)\n';
+        code += '\tprint("SNR9816 TTS initialized on UART" + ' + uart_port + ')\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("SNR9816 TTS init error:", e)\n';
+        code += '\ttts_device = None\n';
+        return code;
+};
+
+// SNR9816 TTS文本合成代码生成
+Blockly.Python['snr9816_tts_synthesize_text'] = function(block) {
+        var text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Synthesize text to speech\n';
+        code += '\twhile not tts_device.synthesize_text(' + text + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Text synthesis started:", ' + text + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置发音人代码生成
+Blockly.Python['snr9816_tts_set_voice'] = function(block) {
+        var voice_type = block.getFieldValue('VOICE_TYPE');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS voice type\n';
+        code += '\twhile not tts_device.set_voice(' + voice_type + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tvoice_name = "female" if ' + voice_type + ' == 0 else "male"\n';
+        code += '\tprint("TTS voice set to:", voice_name)\n';
+        return code;
+};
+
+// SNR9816 TTS设置音量代码生成
+Blockly.Python['snr9816_tts_set_volume'] = function(block) {
+        var level = block.getFieldValue('VOLUME_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS volume level\n';
+        code += '\twhile not tts_device.set_volume(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS volume set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置语速代码生成
+Blockly.Python['snr9816_tts_set_speed'] = function(block) {
+        var level = block.getFieldValue('SPEED_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS speed level\n';
+        code += '\twhile not tts_device.set_speed(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS speed set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS设置语调代码生成
+Blockly.Python['snr9816_tts_set_tone'] = function(block) {
+        var level = block.getFieldValue('TONE_LEVEL');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Set TTS tone level\n';
+        code += '\twhile not tts_device.set_tone(' + level + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("TTS tone set to:", ' + level + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放铃声代码生成
+Blockly.Python['snr9816_tts_play_ringtone'] = function(block) {
+        var num = block.getFieldValue('RINGTONE_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play system ringtone\n';
+        code += '\twhile not tts_device.play_ringtone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing ringtone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放提示音代码生成
+Blockly.Python['snr9816_tts_play_message_tone'] = function(block) {
+        var num = block.getFieldValue('MESSAGE_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play message tone\n';
+        code += '\twhile not tts_device.play_message_tone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing message tone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS播放警示音代码生成
+Blockly.Python['snr9816_tts_play_alert_tone'] = function(block) {
+        var num = block.getFieldValue('ALERT_NUM');
+
+        var code = 'if tts_device is not None:\n';
+        code += '\t# Play alert tone\n';
+        code += '\twhile not tts_device.play_alert_tone(' + num + '):\n';
+        code += '\t\ttime.sleep(1)\n';
+        code += '\tprint("Playing alert tone:", ' + num + ')\n';
+        return code;
+};
+
+// SNR9816 TTS控制（暂停/恢复/停止）代码生成
+Blockly.Python['snr9816_tts_control'] = function(block) {
+        var action = block.getFieldValue('CONTROL_ACTION');
+        var code = 'if tts_device is not None:\n';
+
+        if (action === 'pause') {
+            code += '\t# Pause TTS synthesis\n';
+            code += '\tresult = tts_device.pause_synthesis()\n';
+            code += '\tprint("TTS synthesis paused:", result)\n';
+        } else if (action === 'resume') {
+            code += '\t# Resume TTS synthesis\n';
+            code += '\tresult = tts_device.resume_synthesis()\n';
+            code += '\tprint("TTS synthesis resumed:", result)\n';
+        } else if (action === 'stop') {
+            code += '\t# Stop TTS synthesis\n';
+            code += '\tresult = tts_device.stop_synthesis()\n';
+            code += '\tprint("TTS synthesis stopped:", result)\n';
+        }
+
+        return code;
+};
+
+// SNR9816 TTS查询状态代码生成
+Blockly.Python['snr9816_tts_query_status'] = function(block) {
+        var code = '''
+def get_tts_status_str():
+    if tts_device is None:
+        return "UNINITIALIZED"
+    status_code = tts_device.query_status()
+    status_map = {0: "BUSY", 1: "IDLE", 2: "UNKNOWN"}
+    return status_map.get(status_code, "UNKNOWN")
+get_tts_status_str()''';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 总线直流电机初始化代码生成
+Blockly.Python['bus_dc_motor_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var motor_count = block.getFieldValue('MOTOR_COUNT');
+        var i2c_freq = block.getFieldValue('I2C_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_pca9685'] = 'import pca9685';
+        Blockly.Python.definitions_['import_bus_dc_motor'] = 'from bus_dc_motor import BusDCMotor';
+
+        // 初始化逻辑（包含I2C扫描、PCA9685初始化、电机实例化）
+        var code = '# Initialize I2C for PCA9685\n';
+        code += 'i2c_pca9685 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=' + i2c_freq + ')\n';
+        code += '# Scan I2C devices to find PCA9685\n';
+        code += 'pca9685_addr = 0x40\n';
+        code += 'devices = i2c_pca9685.scan()\n';
+        code += 'for dev in devices:\n';
+        code += '\tif 0x40 <= dev <= 0x4F:\n';
+        code += '\t\tpca9685_addr = dev\n';
+        code += '\t\tbreak\n';
+        code += '# Create PCA9685 and DC motor instances\n';
+        code += 'pca9685 = pca9685.PCA9685(i2c_pca9685, pca9685_addr)\n';
+        code += 'dc_motor = BusDCMotor(pca9685, ' + motor_count + ')\n';
+        code += 'print("Bus DC Motor initialized with PCA9685 at address:", hex(pca9685_addr))\n';
+        return code;
+};
+
+// 设置电机速度和方向代码生成
+Blockly.Python['bus_dc_motor_set_speed'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var speed = block.getFieldValue('SPEED');
+        var direction = block.getFieldValue('DIRECTION');
+
+        var code = '# Set motor ' + motor_id + ' speed and direction\n';
+        code += 'try:\n';
+        code += '\tdc_motor.set_motor_speed(' + motor_id + ', ' + speed + ', ' + direction + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' set to", "forward" if ' + direction + ' == 0 else "backward", "at speed", ' + speed + ')\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor speed error:", e)\n';
+        return code;
+};
+
+// 停止电机代码生成
+Blockly.Python['bus_dc_motor_stop'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tdc_motor.stop_motor(' + motor_id + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' stopped smoothly")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor stop error:", e)\n';
+        return code;
+};
+
+// 刹车电机代码生成
+Blockly.Python['bus_dc_motor_break'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Brake motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tdc_motor.break_motor(' + motor_id + ')\n';
+        code += '\tprint("Motor ' + motor_id + ' braked quickly")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Motor brake error:", e)\n';
+        return code;
+};
+
+// 扫描I2C设备代码生成
+Blockly.Python['bus_dc_motor_scan_i2c'] = function(block) {
+        var code = '''
+def scan_pca9685_address():
+    i2c_scan = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
+    devices = i2c_scan.scan()
+    for dev in devices:
+        if 0x40 <= dev <= 0x4F:
+            return hex(dev)
+    return "No PCA9685 found"
+scan_pca9685_address()''';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 总线步进电机初始化代码生成
+Blockly.Python['bus_step_motor_init'] = function(block) {
+        var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+        var motor_count = block.getFieldValue('MOTOR_COUNT');
+        var i2c_freq = block.getFieldValue('I2C_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C, Timer';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_pca9685'] = 'import pca9685';
+        Blockly.Python.definitions_['import_bus_step_motor'] = 'from bus_step_motor import BusStepMotor';
+
+        // 初始化逻辑（包含I2C扫描、PCA9685初始化、步进电机实例化）
+        var code = '# Initialize I2C for PCA9685\n';
+        code += 'i2c_pca9685 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=' + i2c_freq + ')\n';
+        code += '# Scan I2C devices to find PCA9685\n';
+        code += 'pca9685_addr = 0x40\n';
+        code += 'devices = i2c_pca9685.scan()\n';
+        code += 'for dev in devices:\n';
+        code += '\tif 0x40 <= dev <= 0x4F:\n';
+        code += '\t\tpca9685_addr = dev\n';
+        code += '\t\tbreak\n';
+        code += '# Create PCA9685 and Step Motor instances\n';
+        code += 'pca9685 = pca9685.PCA9685(i2c_pca9685, pca9685_addr)\n';
+        code += 'step_motor = BusStepMotor(pca9685, ' + motor_count + ')\n';
+        code += 'print("Bus Step Motor initialized with PCA9685 at address:", hex(pca9685_addr))\n';
+        return code;
+};
+
+// 步进电机连续运动代码生成
+Blockly.Python['bus_step_motor_continuous'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var direction = block.getFieldValue('DIRECTION');
+        var driver_mode = block.getFieldValue('DRIVER_MODE');
+        var speed = block.getFieldValue('SPEED');
+
+        var code = '# Start continuous motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.start_continuous_motion(' + motor_id + ', ' + direction + ', ' + driver_mode + ', ' + speed + ')\n';
+        code += '\tdir_text = "Forward" if ' + direction + ' == 0 else "Backward"\n';
+        code += '\tmode_text = ["Single Phase", "Double Phase", "Half Step"][' + driver_mode + ']\n';
+        code += '\tprint(f"Motor {motor_id} continuous motion: {dir_text}, {mode_text}, Speed={speed} pulses/s")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Continuous motion error:", e)\n';
+        return code;
+};
+
+// 停止步进电机连续运动代码生成
+Blockly.Python['bus_step_motor_stop_continuous'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop continuous motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.stop_continuous_motion(' + motor_id + ')\n';
+        code += '\tprint(f"Motor {motor_id} continuous motion stopped")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Stop continuous motion error:", e)\n';
+        return code;
+};
+
+// 步进电机定步运动代码生成
+Blockly.Python['bus_step_motor_step_motion'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+        var direction = block.getFieldValue('DIRECTION');
+        var driver_mode = block.getFieldValue('DRIVER_MODE');
+        var speed = block.getFieldValue('SPEED');
+        var steps = block.getFieldValue('STEPS');
+
+        var code = '# Start step motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.start_step_motion(' + motor_id + ', ' + direction + ', ' + driver_mode + ', ' + speed + ', ' + steps + ')\n';
+        code += '\tdir_text = "Forward" if ' + direction + ' == 0 else "Backward"\n';
+        code += '\tmode_text = ["Single Phase", "Double Phase", "Half Step"][' + driver_mode + ']\n';
+        code += '\tprint(f"Motor {motor_id} step motion: {dir_text}, {mode_text}, Speed={speed} pulses/s, Steps={steps}")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Step motion error:", e)\n';
+        return code;
+};
+
+// 停止步进电机定步运动代码生成
+Blockly.Python['bus_step_motor_stop_step'] = function(block) {
+        var motor_id = block.getFieldValue('MOTOR_ID');
+
+        var code = '# Stop step motion for motor ' + motor_id + '\n';
+        code += 'try:\n';
+        code += '\tstep_motor.stop_step_motion(' + motor_id + ')\n';
+        code += '\tprint(f"Motor {motor_id} step motion stopped")\n';
+        code += 'except ValueError as e:\n';
+        code += '\tprint("Stop step motion error:", e)\n';
+        return code;
+};
+
+// PWM散热风扇初始化代码生成
+Blockly.Python['fan_pwm_init'] = function(block) {
+        var pin = block.getFieldValue('PIN');
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_fan_pwm'] = 'from fan_pwm import FanPWM';
+
+        // 初始化逻辑（包含参数校验和实例化）
+        var code = '# Initialize PWM Cooling Fan\n';
+        code += 'try:\n';
+        code += '\t# Create FanPWM instance (pin=' + pin + ', freq=' + pwm_freq + 'Hz)\n';
+        code += '\tfan = FanPWM(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        code += '\tprint(f"PWM Fan initialized on pin {pin}, freq={pwm_freq}Hz")\n';
+        code += 'except (ValueError, RuntimeError) as e:\n';
+        code += '\tprint("Fan initialization error:", e)\n';
+        code += '\tfan = None\n';
+        return code;
+};
+
+// 风扇开启代码生成
+Blockly.Python['fan_pwm_on'] = function(block) {
+        var code = '# Turn fan ON (full speed)\n';
+        code += 'if fan is not None:\n';
+        code += '\tfan.on()\n';
+        code += '\tprint(f"Fan ON - Current duty: {fan.get_speed()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 风扇关闭代码生成
+Blockly.Python['fan_pwm_off'] = function(block) {
+        var code = '# Turn fan OFF\n';
+        code += 'if fan is not None:\n';
+        code += '\tfan.off()\n';
+        code += '\tprint(f"Fan OFF - Current duty: {fan.get_speed()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 设置风扇转速代码生成
+Blockly.Python['fan_pwm_set_speed'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+
+        var code = '# Set fan speed (duty=' + duty + ')\n';
+        code += 'if fan is not None:\n';
+        code += '\t# Clamp duty to 0-1023 range\n';
+        code += '\tduty_val = max(0, min(1023, ' + duty + '))\n';
+        code += '\tfan.set_speed(duty_val)\n';
+        code += '\tprint(f"Fan speed set to {duty_val} (0-1023)")\n';
+        code += 'else:\n';
+        code += '\tprint("Fan not initialized!")\n';
+        return code;
+};
+
+// 获取风扇转速代码生成
+Blockly.Python['fan_pwm_get_speed'] = function(block) {
+        var code = 'fan.get_speed() if fan is not None else 0';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// FM8118雾化器初始化代码生成
+Blockly.Python['fm8118_atomization_init'] = function(block) {
+        var pin = block.getFieldValue('PIN');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_fm8118_atomization'] = 'from fm8118_atomization import FM8118_Atomization';
+
+        // 初始化逻辑（包含参数校验和实例化）
+        var code = '# Initialize FM8118 Ultrasonic Atomizer\n';
+        code += 'try:\n';
+        code += '\t# Create FM8118_Atomization instance (control pin=' + pin + ')\n';
+        code += '\tatomizer = FM8118_Atomization(pin=' + pin + ')\n';
+        code += '\tprint(f"FM8118 Atomizer initialized on pin {pin} (initial state: OFF)")\n';
+        code += 'except Exception as e:\n';
+        code += '\tprint("Atomizer initialization error:", e)\n';
+        code += '\tatomizer = None\n';
+        return code;
+};
+
+// 雾化器开启代码生成
+Blockly.Python['fm8118_atomization_on'] = function(block) {
+        var code = '# Turn FM8118 Atomizer ON\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.on()\n';
+        code += '\tprint(f"Atomizer ON - Current status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 雾化器关闭代码生成
+Blockly.Python['fm8118_atomization_off'] = function(block) {
+        var code = '# Turn FM8118 Atomizer OFF\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.off()\n';
+        code += '\tprint(f"Atomizer OFF - Current status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 雾化器状态切换代码生成
+Blockly.Python['fm8118_atomization_toggle'] = function(block) {
+        var code = '# Toggle FM8118 Atomizer State\n';
+        code += 'if atomizer is not None:\n';
+        code += '\tatomizer.toggle()\n';
+        code += '\tprint(f"Atomizer toggled - New status: {atomizer.is_on()}")\n';
+        code += 'else:\n';
+        code += '\tprint("Atomizer not initialized!")\n';
+        return code;
+};
+
+// 获取雾化器状态代码生成
+Blockly.Python['fm8118_atomization_is_on'] = function(block) {
+        var code = 'atomizer.is_on() if atomizer is not None else False';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 初始化舵机控制器
+Blockly.Python['bus_servo_init'] = function(block) {
+    var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+    var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+    var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+    var freq = block.getFieldValue('FREQ');
+
+    // 导入必要模块
+    Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+    Blockly.Python.definitions_['import_pca9685'] = 'from pca9685 import PCA9685';
+    Blockly.Python.definitions_['import_bus_servo'] = 'import bus_servo';
+
+    // 生成初始化代码
+    var code = 'i2c_servo=I2C(' + i2c + ', scl=Pin(' + scl + '), sda=Pin(' + sda + '))\n';
+    code += 'pca9685=PCA9685(i2c_servo)\n';
+    code += 'servo_controller=bus_servo.BusPWMServoController(pca9685, freq=' + freq + ')\n';
+    return code;
+};
+
+// 挂载舵机
+Blockly.Python['bus_servo_attach'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var servo_type = block.getFieldValue('SERVO_TYPE');
+    var min_us = block.getFieldValue('MIN_US');
+    var max_us = block.getFieldValue('MAX_US');
+    var neutral_us = block.getFieldValue('NEUTRAL_US');
+    var reversed = block.getFieldValue('REVERSED') === 'TRUE' ? 'True' : 'False';
+
+    // 转换舵机类型为常量
+    var type_code = servo_type === '180' ? 'servo_controller.SERVO_180' : 'servo_controller.SERVO_360';
+
+    var code = 'servo_controller.attach_servo(' + channel + ', ' + type_code + ', min_us=' + min_us + ', max_us=' + max_us + ', neutral_us=' + neutral_us + ', reversed=' + reversed + ')\n';
+    return code;
+};
+
+// 设置180°舵机角度
+Blockly.Python['bus_servo_set_angle'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var angle = block.getFieldValue('ANGLE');
+    var speed = block.getFieldValue('SPEED');
+
+    var speed_param = speed === '0' ? '' : ', speed_deg_per_s=' + speed;
+    var code = 'servo_controller.set_angle(' + channel + ', ' + angle + speed_param + ')\n';
+    return code;
+};
+
+// 设置360°舵机速度
+Blockly.Python['bus_servo_set_speed'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var speed = block.getFieldValue('SPEED');
+
+    var code = 'servo_controller.set_speed(' + channel + ', ' + speed + ')\n';
+    return code;
+};
+
+// 直接设置脉宽
+Blockly.Python['bus_servo_set_pulse'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+    var pulse_us = block.getFieldValue('PULSE_US');
+
+    var code = 'servo_controller.set_pulse_us(' + channel + ', ' + pulse_us + ')\n';
+    return code;
+};
+
+// 停止舵机
+Blockly.Python['bus_servo_stop'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'servo_controller.stop(' + channel + ')\n';
+    return code;
+};
+
+// 卸载舵机
+Blockly.Python['bus_servo_detach'] = function(block) {
+    var channel = Blockly.Python.valueToCode(block, 'channel', Blockly.Python.ORDER_ATOMIC);
+
+    var code = 'servo_controller.detach_servo(' + channel + ')\n';
+    return code;
+};
+
+// 初始化光耦MOS驱动
+Blockly.Python['opto_mos_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var freq = block.getFieldValue('FREQ');
+        var pwm_max = block.getFieldValue('PWM_MAX');
+        var inverted = block.getFieldValue('INVERTED');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_opto_mos'] = 'import opto_mos_simple';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+
+        // 生成初始化代码
+        var code = 'pwm_opto_mos=PWM(Pin(' + pin + '))\n';
+        code += 'pwm_opto_mos.freq(' + freq + ')\n';
+        code += 'opto_mos_driver=opto_mos_simple.OptoMosSimple(pwm_opto_mos, pwm_max=' + pwm_max + ', inverted=' + inverted + ')\n';
+        code += 'opto_mos_driver.init()\n';
+        return code;
+};
+
+// 设置占空比（计数值）
+Blockly.Python['opto_mos_set_duty'] = function(block) {
+        var duty = block.getFieldValue('DUTY_VAL');
+
+        var code = 'opto_mos_driver.set_duty(' + duty + ')\n';
+        return code;
+};
+
+// 设置占空比（百分比）
+Blockly.Python['opto_mos_set_percent'] = function(block) {
+        var percent = block.getFieldValue('PERCENT_VAL');
+
+        var code = 'opto_mos_driver.set_percent(' + percent + ')\n';
+        return code;
+};
+
+// 全功率开启
+Blockly.Python['opto_mos_full_on'] = function(block) {
+        var code = 'opto_mos_driver.full_on()\n';
+        return code;
+};
+
+// 关闭输出
+Blockly.Python['opto_mos_off'] = function(block) {
+        var code = 'opto_mos_driver.off()\n';
+        return code;
+};
+
+// 获取状态
+Blockly.Python['opto_mos_get_status'] = function(block) {
+        var code = 'opto_mos_driver.get_status()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 释放资源
+Blockly.Python['opto_mos_deinit'] = function(block) {
+        var code = 'opto_mos_driver.deinit()\n';
+        return code;
+};
+
+// 串口舵机初始化代码生成
+Blockly.Python['serial_servo_init'] = function(block) {
+        var uart_port = Blockly.Python.valueToCode(block, 'uart_port', Blockly.Python.ORDER_ATOMIC);
+        var tx_pin = Blockly.Python.valueToCode(block, 'tx_pin', Blockly.Python.ORDER_ATOMIC);
+        var rx_pin = Blockly.Python.valueToCode(block, 'rx_pin', Blockly.Python.ORDER_ATOMIC);
+        var baudrate = block.getFieldValue('BAUDRATE');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, UART';
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_serial_servo'] = 'import serial_servo';
+
+        // 初始化UART和舵机实例
+        var code = 'uart_servo=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
+        code += 'serial_servo_sensor=serial_servo.SerialServo(uart_servo)\n';
+        return code;
+};
+
+// 立即转动舵机代码生成
+Blockly.Python['serial_servo_move_immediate'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var angle = Blockly.Python.valueToCode(block, 'angle', Blockly.Python.ORDER_ATOMIC);
+        var time_ms = Blockly.Python.valueToCode(block, 'time_ms', Blockly.Python.ORDER_ATOMIC);
+
+        var code = 'serial_servo_sensor.move_servo_immediate(servo_id=' + servo_id + ', angle=' + angle + ', time_ms=' + time_ms + ')\n';
+        return code;
+};
+
+// 读取舵机当前角度代码生成
+Blockly.Python['serial_servo_read_position'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_position(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 停止舵机转动代码生成
+Blockly.Python['serial_servo_stop'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.stop_servo(servo_id=' + servo_id + ')\n';
+        return code;
+};
+
+// 读取舵机温度代码生成
+Blockly.Python['serial_servo_read_temp'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_temp(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 读取舵机电压代码生成
+Blockly.Python['serial_servo_read_voltage'] = function(block) {
+        var servo_id = Blockly.Python.valueToCode(block, 'servo_id', Blockly.Python.ORDER_ATOMIC);
+        var code = 'serial_servo_sensor.read_servo_voltage(servo_id=' + servo_id + ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 初始化震动马达
+Blockly.Python['vibration_motor_init'] = function(block) {
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var pwm_freq = block.getFieldValue('PWM_FREQ');
+
+        // 导入必要模块
+        Blockly.Python.definitions_['import_pin_pwm'] = 'from machine import Pin, PWM';
+        Blockly.Python.definitions_['import_vibration_motor'] = 'import vibration_motor';
+
+        // 生成初始化代码
+        var code = 'vibration_motor_sensor=vibration_motor.VibrationMotor(pin=' + pin + ', pwm_freq=' + pwm_freq + ')\n';
+        return code;
+};
+
+// 启动震动马达
+Blockly.Python['vibration_motor_on'] = function(block) {
+        var code = 'vibration_motor_sensor.on()\n';
+        return code;
+};
+
+// 停止震动马达
+Blockly.Python['vibration_motor_off'] = function(block) {
+        var code = 'vibration_motor_sensor.off()\n';
+        return code;
+};
+
+// 切换震动马达状态
+Blockly.Python['vibration_motor_toggle'] = function(block) {
+        var code = 'vibration_motor_sensor.toggle()\n';
+        return code;
+};
+
+// 设置震动强度
+Blockly.Python['vibration_motor_set_brightness'] = function(block) {
+        var duty = block.getFieldValue('DUTY');
+        var code = 'vibration_motor_sensor.set_brightness(' + duty + ')\n';
+        return code;
+};
+
+// 获取震动马达状态
+Blockly.Python['vibration_motor_get_state'] = function(block) {
+        var code = 'vibration_motor_sensor.get_state()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 初始化火焰传感器（参考PIR/pir_init的回调逻辑）
+Blockly.Python['flame_sensor_init'] = function(block) {
+  // 1. 取值（对齐PIR的取值逻辑）
+  var analog_pin = Blockly.Python.valueToCode(block, 'analog_pin', Blockly.Python.ORDER_ATOMIC);
+  var digital_pin = Blockly.Python.valueToCode(block, 'digital_pin', Blockly.Python.ORDER_ATOMIC);
+  var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+  // 2. 导入语句（补充回调所需依赖）
+  Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+  Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+  Blockly.Python.definitions_['import_flame_sensor'] = 'import flame_sensor';
+
+  // 3. 初始化代码（含回调开关，参考PIR的写法）
+  var code = '';
+  // 定义默认回调函数模板
+  code += 'def flame_detected_callback():\n\tprint("Flame detected!")\n\n';
+  // 根据开关决定是否传入回调
+  if (enable_callback === 'YES') {
+    code += 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ', callback=flame_detected_callback)\n';
+  } else {
+    code += 'flame_sensor_device=flame_sensor.FlameSensor(analog_pin=' + analog_pin + ', digital_pin=' + digital_pin + ')\n';
+  }
+
+  return code;
+};
+
+// 检测火焰（参考PIR/pir_is_motion_detected）
+Blockly.Python['flame_sensor_is_detected'] = function(block) {
+  var code = 'flame_sensor_device.is_flame_detected()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 等待火焰触发（参考PIR/pir_wait_for_motion）
+Blockly.Python['flame_sensor_wait_for_flame'] = function(block) {
+  var timeout = block.getFieldValue('TIMEOUT');
+  var timeout_code = timeout == 0 ? 'None' : timeout;
+  var code = 'flame_sensor_device.wait_for_flame(timeout=' + timeout_code + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置火焰回调函数（核心：参考PIR/pir_set_callback）
+Blockly.Python['flame_sensor_set_callback'] = function(block) {
+  // 获取用户填写的回调代码
+  var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+  // 覆盖默认回调函数
+  var code = 'def flame_detected_callback():\n';
+  // 缩进用户代码（适配Python格式）
+  if (callback_code) {
+    code += callback_code.replace(/^/gm, '\t');
+  } else {
+    code += '\tprint("Flame detected!")\n'; // 兜底逻辑
+  }
+  // 更新传感器的回调函数
+  code += 'flame_sensor_device.set_callback(flame_detected_callback)\n';
+  return code;
+};
+
+// 启用/禁用火焰回调（参考PIR/pir_toggle_callback）
+Blockly.Python['flame_sensor_toggle_callback'] = function(block) {
+  var action = block.getFieldValue('TOGGLE_ACTION');
+  var code = '';
+  if (action === 'ENABLE') {
+    code = 'flame_sensor_device.enable()\n';
+  } else {
+    code = 'flame_sensor_device.disable()\n';
+  }
+  return code;
+};
+
+// 保留原有基础块的生成逻辑
+Blockly.Python['flame_sensor_get_analog'] = function(block) {
+  var code = 'flame_sensor_device.get_analog_value()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['flame_sensor_get_voltage'] = function(block) {
+  var code = 'flame_sensor_device.get_voltage()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 完全对齐AHT10的aht_init写法，适配OH34N霍尔传感器
+Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var pin = Blockly.Python.valueToCode(block, 'pin', Blockly.Python.ORDER_ATOMIC);
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配霍尔传感器驱动依赖）
+        Blockly.Python.definitions_['import_pin'] = 'from machine import Pin'; // AHT10用Pin/I2C，这里仅用Pin
+        Blockly.Python.definitions_['import_time'] = 'import time';
+        Blockly.Python.definitions_['import_micropython'] = 'import micropython';
+        Blockly.Python.definitions_['import_hall_sensor_oh34n'] = 'import hall_sensor_oh34n'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，新增回调开关）
+        var code = '';
+        // 定义消抖相关全局变量（适配测试代码逻辑）
+        code += '# Hall Sensor Debounce Config\n';
+        code += 'hall_flag = False\n';
+        code += 'hall_last_time = 0\n';
+        code += 'HALL_DEBOUNCE_MS = 200\n\n';
+        // 定义默认回调函数模板
+        code += 'def hall_callback():\n';
+        code += '\tglobal hall_flag, hall_last_time\n';
+        code += '\tnow = time.ticks_ms()\n';
+        code += '\tif time.ticks_diff(now, hall_last_time) > HALL_DEBOUNCE_MS:\n';
+        code += '\t\thall_flag = True\n';
+        code += '\t\thall_last_time = now\n\n';
+        // 实例化霍尔传感器（根据开关决定是否传入回调）
+        if (enable_callback === 'YES') {
+            code += 'hall_sensor_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ', callback=hall_callback)\n';
+        } else {
+            code += 'hall_sensor_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['hall_sensor_oh34n_read'] = function(block) {
+        var code = 'hall_sensor_device.read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐PIR的pir_set_callback写法（回调函数设置）
+Blockly.Python['hall_sensor_oh34n_set_callback'] = function(block) {
+        // 获取用户填写的回调代码
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留消抖逻辑）
+        var code = 'def hall_callback():\n';
+        code += '\tglobal hall_flag, hall_last_time\n';
+        code += '\tnow = time.ticks_ms()\n';
+        code += '\tif time.ticks_diff(now, hall_last_time) > HALL_DEBOUNCE_MS:\n';
+        code += '\t\thall_flag = True\n';
+        code += '\t\thall_last_time = now\n';
+        // 缩进用户代码（适配Python格式）
+        if (callback_code) {
+            code += '\t' + callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\t\tprint("Magnetic field detected!")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数
+        code += 'hall_sensor_device.set_callback(hall_callback)\n';
+        return code;
+};
+
+// 对齐PIR的pir_toggle_callback写法（启用/禁用中断）
+Blockly.Python['hall_sensor_oh34n_toggle_interrupt'] = function(block) {
+        var action = block.getFieldValue('TOGGLE_ACTION');
+        var code = '';
+        if (action === 'ENABLE') {
+            code = 'hall_sensor_device.enable()\n';
+            code += 'print("Hall sensor interrupt enabled")\n';
+        } else {
+            code = 'hall_sensor_device.disable()\n';
+            code += 'print("Hall sensor interrupt disabled")\n';
+        }
+        return code;
+};
+
+// 完全对齐AHT10的aht_init写法，适配MQX气体传感器（含完整回调逻辑）
+Blockly.Python['mqx_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC);
+        var rl_ohm = block.getFieldValue('RL_OHM');
+        var vref = block.getFieldValue('VREF');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配MQX驱动依赖）
+        Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+        Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms';
+        Blockly.Python.definitions_['import_micropython'] = 'from micropython import schedule';
+        Blockly.Python.definitions_['import_mqx'] = 'import mqx'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配MQX驱动的user_cb格式：接收voltage参数）
+        code += '# MQ Sensor Default Callback Function (matches user_cb format)\n';
+        code += 'def mqx_callback(voltage):\n';
+        code += '\tprint(f"MQ Sensor Voltage Changed: {voltage:.2f} V")\n\n';
+        // 初始化ADC和比较器引脚
+        code += '# Initialize ADC and Comparator Pins\n';
+        code += 'mq_adc = ADC(' + adc_pin + ')\n';
+        code += 'mq_comp_pin = Pin(' + comp_pin + ', Pin.IN)\n\n';
+        // 实例化MQX传感器（根据回调开关决定是否传入回调，匹配驱动__init__参数）
+        if (enable_callback === 'YES') {
+            code += 'mq_sensor_device = mqx.MQX(\n';
+            code += '\tadc=mq_adc,\n';
+            code += '\tcomp_pin=mq_comp_pin,\n';
+            code += '\tuser_cb=mqx_callback,\n'; // 传入回调函数（匹配驱动参数名）
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        } else {
+            code += 'mq_sensor_device = mqx.MQX(\n';
+            code += '\tadc=mq_adc,\n';
+            code += '\tcomp_pin=mq_comp_pin,\n';
+            code += '\tuser_cb=None,\n'; // 禁用回调
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['mqx_read_voltage'] = function(block) {
+        var code = 'mq_sensor_device.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（PPM读取）
+Blockly.Python['mqx_read_ppm'] = function(block) {
+        var samples = block.getFieldValue('SAMPLES');
+        var delay_ms = block.getFieldValue('DELAY_MS');
+        var sensor_type = block.getFieldValue('SENSOR_TYPE');
+
+        var code = 'mq_sensor_device.read_ppm(\n';
+        code += '\tsamples=' + samples + ',\n';
+        code += '\tdelay_ms=' + delay_ms + ',\n';
+        code += '\tsensor="' + sensor_type + '"\n';
+        code += ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的代码生成逻辑（选择内置模型）
+Blockly.Python['mqx_select_builtin'] = function(block) {
+        var model = block.getFieldValue('MODEL');
+        var code = 'mq_sensor_device.select_builtin("' + model + '")\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（设置自定义多项式）
+Blockly.Python['mqx_set_custom_poly'] = function(block) {
+        var coeffs = block.getFieldValue('COEFFS');
+        var code = 'mq_sensor_device.set_custom_polynomial(' + coeffs + ')\n';
+        return code;
+};
+
+// 核心：设置MQX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动参数）
+Blockly.Python['mqx_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配MQX驱动的user_cb参数：接收voltage）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留驱动要求的voltage参数）
+        var code = 'def mqx_callback(voltage):\n';
+        // 缩进用户代码（适配Python格式，保留voltage参数可用）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint(f"MQ Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的属性设计）
+        code += 'mq_sensor_device.user_cb = mqx_callback\n'; // 直接赋值user_cb，匹配驱动属性
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（释放资源）
+Blockly.Python['mqx_deinit'] = function(block) {
+        var code = 'mq_sensor_device.deinit()\n';
+        return code;
+};
+
+// 完全对齐AHT10的aht_init写法，适配MGX气体传感器（含完整回调逻辑）
+Blockly.Python['mgx_init'] = function(block) {
+        // 第一步：取值（和AHT10的取值逻辑一致）
+        var adc_pin = Blockly.Python.valueToCode(block, 'adc_pin', Blockly.Python.ORDER_ATOMIC);
+        var comp_pin = Blockly.Python.valueToCode(block, 'comp_pin', Blockly.Python.ORDER_ATOMIC);
+        var rl_ohm = block.getFieldValue('RL_OHM');
+        var vref = block.getFieldValue('VREF');
+        var enable_callback = block.getFieldValue('ENABLE_CALLBACK');
+
+        // 第二步：导入语句（适配MGX驱动依赖）
+        Blockly.Python.definitions_['import_pin_adc'] = 'from machine import Pin, ADC';
+        Blockly.Python.definitions_['import_time'] = 'from time import sleep_ms';
+        Blockly.Python.definitions_['import_micropython'] = 'from micropython import schedule';
+        Blockly.Python.definitions_['import_mgx'] = 'import mgx'; // 对应驱动文件名
+
+        // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
+        var code = '';
+        // 定义默认回调函数（匹配MGX驱动的user_cb格式：接收voltage参数）
+        code += '# MG Sensor Default Callback Function (matches user_cb format)\n';
+        code += 'def mgx_callback(voltage):\n';
+        code += '\tprint(f"MG Sensor Voltage Changed: {voltage:.2f} V")\n\n';
+        // 初始化ADC和比较器引脚
+        code += '# Initialize ADC and Comparator Pins\n';
+        code += 'mg_adc = ADC(' + adc_pin + ')\n';
+        code += 'mg_comp_pin = Pin(' + comp_pin + ', Pin.IN)\n\n';
+        // 实例化MGX传感器（根据回调开关决定是否传入回调，匹配驱动__init__参数）
+        if (enable_callback === 'YES') {
+            code += 'mg_sensor_device = mgx.MGX(\n';
+            code += '\tadc=mg_adc,\n';
+            code += '\tcomp_pin=mg_comp_pin,\n';
+            code += '\tuser_cb=mgx_callback,\n'; // 传入回调函数（匹配驱动参数名）
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        } else {
+            code += 'mg_sensor_device = mgx.MGX(\n';
+            code += '\tadc=mg_adc,\n';
+            code += '\tcomp_pin=mg_comp_pin,\n';
+            code += '\tuser_cb=None,\n'; // 禁用回调
+            code += '\trl_ohm=' + rl_ohm + ',\n';
+            code += '\tvref=' + vref + '\n';
+            code += ')\n';
+        }
+
+        return code;
+};
+
+// 对齐AHT10的aht_read_temp写法（必须用ORDER_NONE）
+Blockly.Python['mgx_read_voltage'] = function(block) {
+        var code = 'mg_sensor_device.read_voltage()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的aht_read_humidity写法（PPM读取）
+Blockly.Python['mgx_read_ppm'] = function(block) {
+        var samples = block.getFieldValue('SAMPLES');
+        var delay_ms = block.getFieldValue('DELAY_MS');
+        var sensor_type = block.getFieldValue('SENSOR_TYPE');
+
+        var code = 'mg_sensor_device.read_ppm(\n';
+        code += '\tsamples=' + samples + ',\n';
+        code += '\tdelay_ms=' + delay_ms + ',\n';
+        code += '\tsensor="' + sensor_type + '"\n';
+        code += ')';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10的代码生成逻辑（选择内置模型）
+Blockly.Python['mgx_select_builtin'] = function(block) {
+        var model = block.getFieldValue('MODEL');
+        var code = 'mg_sensor_device.select_builtin("' + model + '")\n';
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（设置自定义多项式）
+Blockly.Python['mgx_set_custom_poly'] = function(block) {
+        var coeffs = block.getFieldValue('COEFFS');
+        var code = 'mg_sensor_device.set_custom_polynomial(' + coeffs + ')\n';
+        return code;
+};
+
+// 核心：设置MGX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动参数）
+Blockly.Python['mgx_set_callback'] = function(block) {
+        // 获取用户填写的回调代码（匹配MGX驱动的user_cb参数：接收voltage）
+        var callback_code = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        // 覆盖默认回调函数（保留驱动要求的voltage参数）
+        var code = 'def mgx_callback(voltage):\n';
+        // 缩进用户代码（适配Python格式，保留voltage参数可用）
+        if (callback_code) {
+            code += callback_code.replace(/^/gm, '\t');
+        } else {
+            code += '\tprint(f"MG Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
+        }
+        // 更新传感器的回调函数（匹配驱动的set_custom_polynomial风格）
+        code += 'mg_sensor_device.user_cb = mgx_callback\n'; // 直接赋值user_cb，匹配驱动属性
+        return code;
+};
+
+// 对齐AHT10的代码生成逻辑（释放资源）
+Blockly.Python['mgx_deinit'] = function(block) {
+        var code = 'mg_sensor_device.deinit()\n';
+        return code;
+};
+
+// 完全对齐AHT10的aht_init写法，适配ADS1115初始化
+Blockly.Python['ads1115_init'] = function(block) {
+        var i2c_id = Blockly.Python.valueToCode(block, 'i2c_id', Blockly.Python.ORDER_ATOMIC);
+        var sda = Blockly.Python.valueToCode(block, 'sda_pin', Blockly.Python.ORDER_ATOMIC);
+        var scl = Blockly.Python.valueToCode(block, 'scl_pin', Blockly.Python.ORDER_ATOMIC);
+        var addr = block.getFieldValue('ADDRESS');
+        var gain = block.getFieldValue('GAIN');
+        var alert_pin = block.getFieldValue('ALERT_PIN');
+
+        Blockly.Python.definitions_['import_pin_i2c'] = 'from machine import Pin, I2C';
+        Blockly.Python.definitions_['import_ads1115'] = 'import ads1115';
+
+        var code = 'i2c_ads1115 = I2C(' + i2c_id + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+
+        if (alert_pin === "-1") {
+            code += 'ads1115 = ads1115.ADS1115(i2c_ads1115, address=' + addr + ', gain=' + gain + ')\n';
+        } else {
+            code += 'ads1115 = ads1115.ADS1115(i2c_ads1115, address=' + addr + ', gain=' + gain + ', alert_pin=' + alert_pin + ')\n';
+        }
+        return code;
+};
+
+// 对齐AHT10 aht_read_temp → 读ADS1115原始值
+Blockly.Python['ads1115_read_raw'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code = 'ads1115.read(rate=' + rate + ', channel1=' + ch1 + ')';
+        } else {
+            code = 'ads1115.read(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + ')';
+        }
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 对齐AHT10 aht_read_humidity → 读ADS1115电压
+Blockly.Python['ads1115_read_voltage'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code = 'ads1115.raw_to_v(ads1115.read(rate=' + rate + ', channel1=' + ch1 + '))';
+        } else {
+            code = 'ads1115.raw_to_v(ads1115.read(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + '))';
+        }
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// ADS1115 启动Alert模式
+Blockly.Python['ads1115_alert_start'] = function(block) {
+        var rate = block.getFieldValue('RATE');
+        var ch1 = block.getFieldValue('CHANNEL1');
+        var ch2 = block.getFieldValue('CHANNEL2');
+        var th = block.getFieldValue('HIGH_THRESH');
+        var tl = block.getFieldValue('LOW_THRESH');
+        var latched = block.getFieldValue('LATCHED');
+
+        var code = '';
+        if (ch2 === "-1") {
+            code += 'ads1115.alert_start(rate=' + rate + ', channel1=' + ch1 + ', ';
+        } else {
+            code += 'ads1115.alert_start(rate=' + rate + ', channel1=' + ch1 + ', channel2=' + ch2 + ', ';
+        }
+        code += 'threshold_high=' + th + ', threshold_low=' + tl + ', latched=' + (latched === "YES") + ')\n';
+        return code;
+};
+
+// 读取Alert数据
+Blockly.Python['ads1115_alert_read'] = function(block) {
+        var code = 'ads1115.alert_read()';
+        return [code, Blockly.Python.ORDER_NONE];
+};
+
+// 设置Alert回调
+Blockly.Python['ads1115_set_alert_callback'] = function(block) {
+        var cb = Blockly.Python.statementToCode(block, 'CALLBACK_CODE');
+        var code = 'def __ads1115_irq_func(pin):\n';
+        code += '    ' + cb.replace(/\n/g, '\n    ') + '\n';
+        code += 'ads1115.callback = __ads1115_irq_func\n';
+        return code;
+};
+
+// ===================== DS3502 Python Code Generator =====================
+Blockly.Python['ds3502_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('ADDR'); // 固定字段值
+  var mode = block.getFieldValue('MODE'); // 下拉选择值
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_ds3502'] = 'import ds3502';
+  Blockly.Python.definitions_['import_time'] = 'import time'; // DS3502依赖time模块
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_ds3502 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+  code += 'ds3502_sensor = ds3502.DS3502(i2c_ds3502, ' + addr + ')\n';
+  code += 'ds3502_sensor.set_mode(' + mode + ')\n'; // 设置工作模式
+  return code;
+};
+
+Blockly.Python['ds3502_write_wiper'] = function(block) {
+  // 写入Wiper值的代码生成
+  var value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
+  var code = 'ds3502_sensor.write_wiper(' + value + ')\n';
+  return code;
+};
+
+Blockly.Python['ds3502_read_wiper'] = function(block) {
+  // 读取Wiper值的代码生成（输出型，对齐AHT10的read_temp）
+  var code = 'ds3502_sensor.read_wiper()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须返回数组+ORDER_NONE
+};
+
+// ===================== MCP4725 Python Code Generator =====================
+Blockly.Python['mcp4725_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var addr = block.getFieldValue('ADDR');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_mcp4725'] = 'import mcp4725';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_mcp4725 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=400000)\n';
+  code += 'mcp4725_dac = mcp4725.MCP4725(i2c_mcp4725, address=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['mcp4725_write'] = function(block) {
+  // 写入DAC值的代码生成
+  var value = block.getFieldValue('VALUE');
+  var code = 'mcp4725_dac.write(' + value + ')\n';
+  return code;
+};
+
+Blockly.Python['mcp4725_read'] = function(block) {
+  // 读取DAC状态的代码生成（输出型，对齐AHT10的read_temp）
+  var code = 'mcp4725_dac.read()';
+  return [code, Blockly.Python.ORDER_NONE]; // 必须返回数组+ORDER_NONE
+};
+
+Blockly.Python['mcp4725_config'] = function(block) {
+  // 配置DAC的代码生成
+  var power_mode = block.getFieldValue('POWER_MODE');
+  var value = block.getFieldValue('CONFIG_VALUE');
+  var eeprom = block.getFieldValue('EEPROM');
+
+  var code = 'mcp4725_dac.config(power_down="' + power_mode + '", value=' + value + ', eeprom=' + eeprom + ')\n';
+  code += 'time.sleep_ms(50)\n'; // 配置后延时确保生效
+  return code;
+};
+
+// ===================== SI5351 Python Code Generator =====================
+Blockly.Python['si5351_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var crystal = block.getFieldValue('CRYSTAL');
+  var addr = block.getFieldValue('ADDR');
+  var load = block.getFieldValue('LOAD');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_si5351'] = 'import silicon5351';
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'i2c_si5351 = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=100000)\n';
+  code += 'time.sleep(3)\n'; // 上电延时
+  code += 'si5351 = silicon5351.SI5351_I2C(i2c_si5351, crystal=' + crystal + ', load=' + load + ', address=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_setup_pll'] = function(block) {
+  // 配置PLL代码生成
+  var pll = block.getFieldValue('PLL');
+  var mul = block.getFieldValue('MUL');
+  var num = block.getFieldValue('NUM');
+  var denom = block.getFieldValue('DENOM');
+
+  var code = 'si5351.setup_pll(pll=' + pll + ', mul=' + mul + ', num=' + num + ', denom=' + denom + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_init_clock'] = function(block) {
+  // 初始化时钟输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+  var pll = block.getFieldValue('PLL');
+  var drive = block.getFieldValue('DRIVE');
+  var quadrature = block.getFieldValue('QUADRATURE');
+  var invert = block.getFieldValue('INVERT');
+
+  var code = 'si5351.init_clock(output=' + output + ', pll=' + pll + ', quadrature=' + quadrature + ', invert=' + invert + ', drive_strength=' + drive + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_set_freq'] = function(block) {
+  // 设置输出频率代码生成
+  var output = block.getFieldValue('OUTPUT');
+  var freq = block.getFieldValue('FREQ');
+
+  var code = 'si5351.set_freq_fixedpll(output=' + output + ', freq=' + freq + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_enable_output'] = function(block) {
+  // 使能输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+
+  var code = 'si5351.enable_output(output=' + output + ')\n';
+  return code;
+};
+
+Blockly.Python['si5351_disable_output'] = function(block) {
+  // 禁用输出代码生成
+  var output = block.getFieldValue('OUTPUT');
+
+  var code = 'si5351.disable_output(output=' + output + ')\n';
+  return code;
+};
+
+// ===================== AT24CXX Python Code Generator =====================
+Blockly.Python['at24cxx_init'] = function(block) {
+  // 1. 获取积木块输入值（对齐AHT10的取值逻辑）
+  var i2c = Blockly.Python.valueToCode(block, 'i2c', Blockly.Python.ORDER_ATOMIC);
+  var sda = Blockly.Python.valueToCode(block, 'sda', Blockly.Python.ORDER_ATOMIC);
+  var scl = Blockly.Python.valueToCode(block, 'scl', Blockly.Python.ORDER_ATOMIC);
+  var chip_size = block.getFieldValue('CHIP_SIZE');
+  var addr = block.getFieldValue('ADDR');
+
+  // 2. 自动导入依赖模块（对齐AHT10的import方式）
+  Blockly.Python.definitions_['import_machine'] = 'from machine import Pin, I2C';
+  Blockly.Python.definitions_['import_at24cxx'] = 'import at24c256'; // 对应驱动文件名at24c256.py
+  Blockly.Python.definitions_['import_time'] = 'import time';
+
+  // 3. 生成初始化代码（拼接逻辑对齐AHT10）
+  var code = 'time.sleep(3)\n'; // 上电延时
+  code += 'i2c_at24cxx = I2C(id=' + i2c + ', sda=Pin(' + sda + '), scl=Pin(' + scl + '), freq=100000)\n';
+  code += 'at24cxx = at24c256.AT24CXX(i2c_at24cxx, chip_size=' + chip_size + ', addr=' + addr + ')\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_write_byte'] = function(block) {
+  // 写入单字节代码生成
+  var address = block.getFieldValue('ADDRESS');
+  var data = block.getFieldValue('DATA');
+
+  var code = 'at24cxx.write_byte(' + address + ', ' + data + ')\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_read_byte'] = function(block) {
+  // 读取单字节代码生成（输出型，对齐AHT10的read_temp）
+  var address = block.getFieldValue('ADDRESS');
+
+  var code = 'at24cxx.read_byte(' + address + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['at24cxx_write_page'] = function(block) {
+  // 写入页数据代码生成（简化版：生成0~length-1的测试数据）
+  var address = block.getFieldValue('ADDRESS');
+  var length = block.getFieldValue('LENGTH');
+
+  var code = 'data_to_write = bytes(range(' + length + '))\n';
+  code += 'at24cxx.write_page(' + address + ', data_to_write)\n';
+  return code;
+};
+
+Blockly.Python['at24cxx_read_sequence'] = function(block) {
+  // 顺序读取数据代码生成（输出型）
+  var start_addr = block.getFieldValue('START_ADDR');
+  var length = block.getFieldValue('LENGTH');
+
+  var code = 'at24cxx.read_sequence(' + start_addr + ', ' + length + ')';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Python['at24cxx_erase_data'] = function(block) {
+  // 擦除数据代码生成（复用驱动中的擦除逻辑）
+  var address = block.getFieldValue('ADDRESS');
+  var length = block.getFieldValue('LENGTH');
+
+  // 定义擦除函数（首次使用时自动添加）
+  Blockly.Python.definitions_['define_erase_data'] = `
+def erase_data(at24cxx, start_address, length):
+    data_to_erase = bytes([0xFF] * length)
+    at24cxx.write_page(start_address, data_to_erase)
+`;
+
+  var code = 'erase_data(at24cxx, ' + address + ', ' + length + ')\n';
+  return code;
 };

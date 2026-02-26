@@ -1992,6 +1992,894 @@
 </category>
 
   </category>
+  <category name="Misc">
+    <category name="DS1232 Watchdog">
+      <!-- 标注库来源，和AHT10格式一致 -->
+      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+      <!-- 安装按钮，格式对齐AHT10 -->
+      <button text="Install ds1232 library" callbackKey="installPyLib"></button>
+
+      <!-- 传感器说明，和AHT10风格一致 -->
+      <label text="DS1232 External Watchdog Module"></label>
+
+      <!-- DS1232初始化块（带默认值，和AHT10的块结构一致） -->
+      <block type="ds1232_init">
+        <value name="wdi_pin">
+          <shadow type="pinout">
+            <field name="PIN">7</field>
+          </shadow>
+        </value>
+        <value name="feed_interval">
+          <shadow type="math_number">
+            <field name="NUM">1000</field>
+          </shadow>
+        </value>
+      </block>
+      <!-- 手动喂狗块 -->
+      <block type="ds1232_kick"></block>
+      <!-- 停止喂狗块 -->
+      <block type="ds1232_stop"></block>
+    </category>
+    <category name="DS1307 RTC (I2C)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ds1307 library" callbackKey="installPyLib"></button>
+
+  <label text="DS1307 Real-Time Clock (RTC) Module (I2C Interface)"></label>
+  <block type="ds1307_init">
+    <value name="i2c_bus">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="i2c_addr">
+      <shadow type="math_number">
+        <field name="NUM">104</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ds1307_set_datetime">
+    <value name="year">
+      <shadow type="math_number">
+        <field name="NUM">2025</field>
+      </shadow>
+    </value>
+    <value name="month">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+    <value name="day">
+      <shadow type="math_number">
+        <field name="NUM">8</field>
+      </shadow>
+    </value>
+    <value name="hour">
+      <shadow type="math_number">
+        <field name="NUM">16</field>
+      </shadow>
+    </value>
+    <value name="minute">
+      <shadow type="math_number">
+        <field name="NUM">51</field>
+      </shadow>
+    </value>
+    <value name="second">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="weekday">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ds1307_get_datetime"></block>
+  <block type="ds1307_get_datetime_rtc"></block>
+  <block type="ds1307_set_oscillator"></block>
+  <block type="ds1307_get_oscillator"></block>
+  <block type="ds1307_read_field"></block>
+</category>
+    <category name="DY-SV19T Audio (UART)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install dy_sv19t library" callbackKey="installPyLib"></button>
+
+  <label text="DY-SV19T Voice Playback Module (UART Interface)"></label>
+  <block type="dysv19t_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">9600</field>
+      </shadow>
+    </value>
+    <value name="default_volume">
+      <shadow type="math_number">
+        <field name="NUM">30</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_play_control"></block>
+
+  <block type="dysv19t_select_track">
+    <value name="track_no">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_play_path">
+    <value name="path">
+      <shadow type="text">
+        <field name="TEXT">/AA./01.MP3</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_volume">
+    <value name="vol_value">
+      <shadow type="math_number">
+        <field name="NUM">20</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_set_eq"></block>
+  <block type="dysv19t_set_play_mode"></block>
+
+  <block type="dysv19t_insert_track">
+    <value name="insert_track">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_repeat_area">
+    <value name="start_min">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="start_sec">
+      <shadow type="math_number">
+        <field name="NUM">20</field>
+      </shadow>
+    </value>
+    <value name="end_min">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="end_sec">
+      <shadow type="math_number">
+        <field name="NUM">25</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_end_repeat"></block>
+
+  <block type="dysv19t_seek">
+    <value name="seconds">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_query"></block>
+
+  <block type="dysv19t_combination_playlist">
+    <value name="short_names">
+      <shadow type="text">
+        <field name="TEXT">['Z1','Z2']</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="dysv19t_time_report"></block>
+</category>
+    <category name="LM386 Speaker (PWM)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install lm386_speaker library" callbackKey="installPyLib"></button>
+
+  <label text="LM386 Power Amplifier Speaker Module (PWM Interface)"></label>
+  <block type="lm386_speaker_init">
+    <value name="pwm_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="default_freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_play_tone">
+    <value name="frequency">
+      <shadow type="math_number">
+        <field name="NUM">440</field>
+      </shadow>
+    </value>
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">1.0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_play_sequence">
+    <value name="notes">
+      <shadow type="text">
+        <field name="TEXT">[(440,0.5),(494,0.5),(523,0.5),(587,0.5),(659,0.5),(698,0.5),(784,1.0)]</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_set_volume">
+    <value name="volume">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="lm386_stop"></block>
+</category>
+    <category name="Buzzer (PWM)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install buzzer library" callbackKey="installPyLib"></button>
+
+  <label text="PWM Buzzer Module (Note/Melody Playback)"></label>
+  <block type="buzzer_init">
+    <value name="pwm_pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_tone">
+    <value name="frequency">
+      <shadow type="math_number">
+        <field name="NUM">440</field>
+      </shadow>
+    </value>
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">400</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_note">
+    <value name="duration">
+      <shadow type="math_number">
+        <field name="NUM">400</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_play_melody">
+    <value name="melody">
+      <shadow type="text">
+        <field name="TEXT">[('C4',400),('C4',400),('G4',400),('G4',400),('A4',400),('A4',400),('G4',800)]</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="buzzer_stop_tone"></block>
+</category>
+    <category name="PCA9546ADR I2C MUX">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install pca9546adr library" callbackKey="installPyLib"></button>
+
+  <label text="PCA9546ADR 4-Channel I2C Multiplexer Module"></label>
+  <block type="pca9546adr_init">
+    <value name="i2c_bus">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="sda_pin">
+      <shadow type="pinout">
+        <field name="PIN">3</field>
+      </shadow>
+    </value>
+    <value name="scl_pin">
+      <shadow type="pinout">
+        <field name="PIN">2</field>
+      </shadow>
+    </value>
+    <value name="i2c_addr">
+      <shadow type="math_number">
+        <field name="NUM">112</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="pca9546adr_select_channel">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="pca9546adr_disable_all"></block>
+  <block type="pca9546adr_read_status"></block>
+  <block type="pca9546adr_scan_i2c"></block>
+</category>
+    <category name="SNR9816 TTS Module">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install snr9816_tts library" callbackKey="installPyLib"></button>
+
+  <label text="SNR9816 TTS Speech Synthesis Module (UART)"></label>
+  <block type="snr9816_tts_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_synthesize_text">
+    <value name="text">
+      <shadow type="text">
+        <field name="TEXT">欢迎使用SNR9816 TTS模块</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_voice"></block>
+  <block type="snr9816_tts_set_volume">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_speed">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_set_tone">
+    <value name="level">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_ringtone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_message_tone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_play_alert_tone">
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="snr9816_tts_control"></block>
+  <block type="snr9816_tts_query_status"></block>
+</category>
+
+  </category>
+  <category name="Motor Drivers">
+    <category name="Bus DC Motor (PCA9685)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+  <button text="Install bus_dc_motor library" callbackKey="installPyLib"></button>
+  <label text="Bus DC Motor Control via PCA9685 (I2C)"></label>
+  <block type="bus_dc_motor_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="motor_count">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="i2c_freq">
+      <shadow type="math_number">
+        <field name="NUM">400000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_set_speed">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">4000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_stop">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_break">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_dc_motor_scan_i2c"></block>
+</category>
+    <category name="Bus Step Motor (PCA9685)">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install bus_step_motor library" callbackKey="installPyLib"></button>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+
+  <label text="Bus Step Motor Control via PCA9685 (I2C)"></label>
+  <block type="bus_step_motor_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="motor_count">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="i2c_freq">
+      <shadow type="math_number">
+        <field name="NUM">400000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_continuous">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_stop_continuous">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_step_motion">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+    <value name="steps">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="bus_step_motor_stop_step">
+    <value name="motor_id">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+    <category name="PWM Fan">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install fan_pwm library" callbackKey="installPyLib"></button>
+
+  <label text="PWM Controlled Cooling Fan (0-1023 Duty Cycle)"></label>
+  <block type="fan_pwm_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+    <value name="pwm_freq">
+      <shadow type="math_number">
+        <field name="NUM">25000</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="fan_pwm_on"></block>
+  <block type="fan_pwm_off"></block>
+
+  <block type="fan_pwm_set_speed">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">512</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="fan_pwm_get_speed"></block>
+</category>
+    <category name="FM8118 Ultrasonic Atomizer">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install fm8118_atomization library" callbackKey="installPyLib"></button>
+
+  <label text="FM8118-based Ultrasonic Atomization Module (GPIO Control)"></label>
+  <block type="fm8118_atomization_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="fm8118_atomization_on"></block>
+  <block type="fm8118_atomization_off"></block>
+  <block type="fm8118_atomization_toggle"></block>
+  <block type="fm8118_atomization_is_on"></block>
+</category>
+    <category name="Bus PWM Servo (PCA9685)">
+
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install bus_servo library" callbackKey="installPyLib"></button>
+  <button text="Install pca9685 library" callbackKey="installPyLib"></button>
+
+  <label text="PCA9685 16-channel PWM Servo Controller"></label>
+  <block type="bus_servo_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">0</field>
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">1</field>
+      </shadow>
+    </value>
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_attach">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="min_us">
+      <shadow type="math_number">
+        <field name="NUM">500</field>
+      </shadow>
+    </value>
+    <value name="max_us">
+      <shadow type="math_number">
+        <field name="NUM">2500</field>
+      </shadow>
+    </value>
+    <value name="neutral_us">
+      <shadow type="math_number">
+        <field name="NUM">1500</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_angle">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="angle">
+      <shadow type="math_number">
+        <field name="NUM">90</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_speed">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="speed">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_set_pulse">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="pulse_us">
+      <shadow type="math_number">
+        <field name="NUM">1500</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_stop">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="bus_servo_detach">
+    <value name="channel">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+    <category name="Opto-MOS PWM Driver">
+
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install opto_mos_simple library" callbackKey="installPyLib"></button>
+
+  <label text="Opto-MOS (Optocoupler + MOS) PWM Driver"></label>
+
+  <block type="opto_mos_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">6</field>
+      </shadow>
+    </value>
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+    <value name="pwm_max">
+      <shadow type="math_number">
+        <field name="NUM">65535</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_set_duty">
+    <value name="duty">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_set_percent">
+    <value name="percent">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="opto_mos_full_on"></block>
+  <block type="opto_mos_off"></block>
+  <block type="opto_mos_get_status"></block>
+  <block type="opto_mos_deinit"></block>
+</category>
+    <category name="Serial Servo Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install serial_servo library" callbackKey="installPyLib"></button>
+
+  <label text="TTL Serial Servo Control"></label>
+  <block type="serial_servo_init">
+    <value name="uart_port">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="tx_pin">
+      <shadow type="pinout">
+        <field name="PIN">16</field>
+      </shadow>
+    </value>
+    <value name="rx_pin">
+      <shadow type="pinout">
+        <field name="PIN">17</field>
+      </shadow>
+    </value>
+    <value name="baudrate">
+      <shadow type="math_number">
+        <field name="NUM">115200</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_move_immediate">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="angle">
+      <shadow type="math_number">
+        <field name="NUM">90</field>
+      </shadow>
+    </value>
+    <value name="time_ms">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_position">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_stop">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_temp">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="serial_servo_read_voltage">
+    <value name="servo_id">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+    <category name="Vibration Sensor">
+  <!-- 第一步：label标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（文本格式和AHT10/BA111TDS一致） -->
+  <button text="Install vibration_sensor library" callbackKey="installPyLib"></button>
+
+  <!-- 第三步：label说明传感器（和AHT10一致） -->
+  <label text="Ball-type Vibration Sensor (IRQ with Debounce Callback)"></label>
+
+  <!-- 第四步：块配置（带shadow默认值，和AHT10的块结构一致） -->
+  <block type="vibration_sensor_init">
+    <value name="pin">
+      <shadow type="math_number">
+        <field name="NUM">18</field> <!-- 默认GPIO18 -->
+      </shadow>
+    </value>
+    <value name="debounce_ms">
+      <shadow type="math_number">
+        <field name="NUM">50</field> <!-- 默认消抖50ms -->
+      </shadow>
+    </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
+  </block>
+  <block type="vibration_sensor_read"></block>
+  <!-- 回调函数块配置（匹配驱动的无参数回调格式） -->
+  <block type="vibration_sensor_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印震动提示（无参数，匹配驱动格式） -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">Vibration detected!</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="vibration_sensor_get_status"></block>
+  <block type="vibration_sensor_deinit"></block>
+</category>
+  </category>
   <category name="Sensors">
     <category name="DHT11/22 Sensor">
       <label text="DHT11/11 Temperature and Humidity Sensor"></label>
@@ -2152,32 +3040,6 @@
         </value>
       </block>
     </category>
-    <category name="Flame Sensor">
-      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
-      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
-      <button text="Install flame_sensor library" callbackKey="installPyLib"></button>
-
-      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
-      <label text="Flame Sensor (Analog + Digital)"></label>
-
-      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
-      <block type="flame_sensor_init">
-        <value name="analog_pin">
-          <shadow type="pinout">
-            <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
-          </shadow>
-        </value>
-        <value name="digital_pin">
-          <shadow type="pinout">
-            <field name="PIN">27</field> <!-- 适配Pico的数字引脚 -->
-          </shadow>
-        </value>
-      </block>
-      <block type="flame_sensor_is_detected"></block>
-      <block type="flame_sensor_read_analog"></block>
-      <block type="flame_sensor_read_voltage"></block>
-    </category>
     <category name="GUVA_S12SD Sensor">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2198,27 +3060,42 @@
       <block type="guva_s12sd_read_voltage"></block>
       <block type="guva_s12sd_read_uvi"></block>
     </category>
+    <!-- 完全对齐AHT10的XML写法，适配OH34N霍尔传感器 -->
     <category name="Hall Sensor OH34N">
-      <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
-      <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-      <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
-      <button text="Install hall_sensor_oh34n library" callbackKey="installPyLib"></button>
+  <!-- 第一步：label标注库来源（和AHT10一致） -->
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <!-- 第二步：安装按钮（文本格式和AHT10/BA111TDS一致） -->
+  <button text="Install hall_sensor_oh34n library" callbackKey="installPyLib"></button>
 
-      <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
-      <label text="OH34N Hall Effect Sensor"></label>
+  <!-- 第三步：label说明传感器（和AHT10一致） -->
+  <label text="OH34N Hall Sensor (Digital with IRQ Callback)"></label>
 
-      <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
-      <block type="hall_sensor_oh34n_init">
-        <value name="pin">
-          <shadow type="pinout">
-            <field name="PIN">18</field> <!-- RPi Pico默认数字引脚 -->
+  <!-- 第四步：块配置（带shadow默认值，和AHT10的块结构一致） -->
+  <block type="hall_sensor_oh34n_init">
+    <value name="pin">
+      <shadow type="pinout">
+        <field name="PIN">6</field> <!-- 测试代码默认引脚6 -->
+      </shadow>
+    </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
+  </block>
+  <block type="hall_sensor_oh34n_read"></block>
+  <block type="hall_sensor_oh34n_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印提示 -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">Magnetic field detected!</field>
           </shadow>
         </value>
       </block>
-      <block type="hall_sensor_oh34n_read"></block>
-      <block type="hall_sensor_oh34n_enable"></block>
-      <block type="hall_sensor_oh34n_disable"></block>
-    </category>
+    </statement>
+  </block>
+  <block type="hall_sensor_oh34n_toggle_interrupt">
+    <field name="TOGGLE_ACTION">ENABLE</field> <!-- 默认启用中断 -->
+  </block>
+</category>
     <category name="MAX9814 Microphone">
       <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2324,47 +3201,74 @@
   <block type="mlx90640_set_refresh_rate"></block>
   <block type="mlx90640_get_frame"></block>
 </category>
-    <category name="MGX Gas Sensor (MG811/MG812)">
-  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+    <!-- 完全对齐AHT10的XML写法，适配MGX气体传感器（含回调块配置） -->
+    <category name="MG Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <!-- 第二步：安装按钮（文本格式和AHT10/BA111TDS一致） -->
   <button text="Install mgx library" callbackKey="installPyLib"></button>
 
-  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
-  <label text="MGX Gas Sensor (MG811/MG812)"></label>
+  <!-- 第三步：label说明传感器（和AHT10一致） -->
+  <label text="MG Series Gas Sensor (AO/DO with IRQ Callback)"></label>
 
-  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <!-- 第四步：块配置（带shadow默认值，和AHT10的块结构一致） -->
   <block type="mgx_init">
     <value name="adc_pin">
-      <shadow type="pinout">
-        <field name="PIN">26</field> <!-- RPi Pico默认ADC0引脚 -->
+      <shadow type="math_number">
+        <field name="NUM">26</field> <!-- 默认ADC引脚26 -->
       </shadow>
     </value>
     <value name="comp_pin">
       <shadow type="pinout">
-        <field name="PIN">18</field> <!-- 可选Comp引脚默认值 -->
+        <field name="PIN">19</field> <!-- 默认比较器引脚19 -->
       </shadow>
     </value>
     <value name="rl_ohm">
       <shadow type="math_number">
-        <field name="NUM">10000</field> <!-- RL电阻默认值 -->
+        <field name="NUM">10000</field>
       </shadow>
     </value>
     <value name="vref">
       <shadow type="math_number">
-        <field name="NUM">3.3</field> <!-- 参考电压默认值 -->
+        <field name="NUM">3.3</field>
       </shadow>
     </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
   </block>
-  <block type="mgx_select_builtin"></block>
+  <block type="mgx_select_builtin">
+    <field name="MODEL">MG811</field> <!-- 默认MG811模型 -->
+  </block>
   <block type="mgx_read_voltage"></block>
   <block type="mgx_read_ppm">
     <value name="samples">
       <shadow type="math_number">
-        <field name="NUM">1</field> <!-- 采样数默认值 -->
+        <field name="NUM">1</field>
       </shadow>
     </value>
+    <value name="delay_ms">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <field name="SENSOR_TYPE">MG811</field>
   </block>
+  <!-- 回调函数块配置（参考PIR的XML格式） -->
+  <block type="mgx_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印电压值（匹配驱动的voltage参数） -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">MG Sensor Voltage: {voltage:.2f} V</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="mgx_set_custom_poly">
+    <field name="COEFFS">[0.0,100.0,-20.0]</field>
+  </block>
+  <block type="mgx_deinit"></block>
 </category>
     <category name="RCWL9623 Distance Sensor">
   <!-- 第一步：标注库来源（和AHT10一致） -->
@@ -2406,47 +3310,75 @@
   </block>
   <block type="rcwl9623_read_distance"></block>
 </category>
-    <category name="MQX (MQ2/MQ4/MQ7) Gas Sensor">
-  <!-- 第一步：label标注库来源（和AHT10/BA111TDS一致） -->
+    <!-- 完全对齐AHT10的XML写法，适配MQX气体传感器 -->
+    <!-- 完全对齐AHT10的XML写法，适配MQX气体传感器（含回调块配置） -->
+    <category name="MQ Gas Sensor">
+  <!-- 第一步：label标注库来源（和AHT10一致） -->
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-  <!-- 第二步：安装按钮（格式和AHT10/BA111TDS完全一致） -->
+  <!-- 第二步：安装按钮（文本格式和AHT10/BA111TDS一致） -->
   <button text="Install mqx library" callbackKey="installPyLib"></button>
 
-  <!-- 第三步：label说明传感器（和AHT10/BA111TDS一致） -->
-  <label text="MQ2/MQ4/MQ7 Gas Concentration Sensor"></label>
+  <!-- 第三步：label说明传感器（和AHT10一致） -->
+  <label text="MQ Series Gas Sensor (AO/DO with IRQ Callback)"></label>
 
-  <!-- 第四步：块配置（带shadow默认值，对齐AHT10的块结构） -->
+  <!-- 第四步：块配置（带shadow默认值，和AHT10的块结构一致） -->
   <block type="mqx_init">
     <value name="adc_pin">
       <shadow type="math_number">
-        <field name="NUM">26</field> <!-- Pico默认ADC0引脚 -->
+        <field name="NUM">26</field> <!-- 默认ADC引脚26 -->
       </shadow>
     </value>
     <value name="comp_pin">
-      <shadow type="math_number">
-        <field name="NUM">0</field> <!-- 默认禁用COMP引脚 -->
+      <shadow type="pinout">
+        <field name="PIN">19</field> <!-- 默认比较器引脚19 -->
       </shadow>
     </value>
     <value name="rl_ohm">
       <shadow type="math_number">
-        <field name="NUM">10000</field> <!-- 默认10KΩ RL电阻 -->
+        <field name="NUM">10000</field>
       </shadow>
     </value>
     <value name="vref">
       <shadow type="math_number">
-        <field name="NUM">3.3</field> <!-- 默认3.3V参考电压 -->
+        <field name="NUM">3.3</field>
       </shadow>
     </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
   </block>
-  <block type="mqx_select_sensor"></block>
+  <block type="mqx_select_builtin">
+    <field name="MODEL">MQ2</field> <!-- 默认MQ2模型 -->
+  </block>
   <block type="mqx_read_voltage"></block>
   <block type="mqx_read_ppm">
-    <value name="SAMPLES">
+    <value name="samples">
       <shadow type="math_number">
-        <field name="NUM">1</field> <!-- 默认1个样本 -->
+        <field name="NUM">1</field>
       </shadow>
     </value>
+    <value name="delay_ms">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <field name="SENSOR_TYPE">MQ2</field>
   </block>
+  <!-- 回调函数块配置（参考PIR的XML格式） -->
+  <block type="mqx_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印电压值（匹配驱动的voltage参数） -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">MQ Sensor Voltage: {voltage:.2f} V</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="mqx_set_custom_poly">
+    <field name="COEFFS">[0.0,100.0,-20.0]</field>
+  </block>
+  <block type="mqx_deinit"></block>
 </category>
     <category name="AD8232 ECG Sensor">
   <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
@@ -2529,6 +3461,57 @@
     </statement>
   </block>
   <block type="pir_toggle_callback">
+    <field name="TOGGLE_ACTION">ENABLE</field>
+  </block>
+</category>
+    <!-- 完全对齐AHT10的XML写法，只改名称和参数 -->
+    <category name="Flame Sensor">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install flame_sensor library" callbackKey="installPyLib"></button>
+
+  <label text="Flame Sensor (AO/DO with IRQ Callback)"></label>
+
+  <!-- 初始化块（含回调开关，参考PIR） -->
+  <block type="flame_sensor_init">
+    <value name="analog_pin">
+      <shadow type="math_number">
+        <field name="NUM">26</field>
+      </shadow>
+    </value>
+    <value name="digital_pin">
+      <shadow type="pinout">
+        <field name="PIN">19</field>
+      </shadow>
+    </value>
+    <field name="ENABLE_CALLBACK">NO</field> <!-- 默认禁用回调 -->
+  </block>
+
+  <!-- 核心检测块 -->
+  <block type="flame_sensor_is_detected"></block>
+  <block type="flame_sensor_get_analog"></block>
+  <block type="flame_sensor_get_voltage"></block>
+  <block type="flame_sensor_wait_for_flame">
+    <value name="timeout">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 回调相关块（参考PIR的配置） -->
+  <block type="flame_sensor_set_callback">
+    <statement name="CALLBACK_CODE">
+      <!-- 默认回调代码：打印提示 -->
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">Flame detected!</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="flame_sensor_toggle_callback">
     <field name="TOGGLE_ACTION">ENABLE</field>
   </block>
 </category>
@@ -3340,8 +4323,370 @@
   </category>
 
   </category>
+  <category name="Signal Acquisition">
+    <category name="ADS1115 ADC">
+  <label text="Library: ads1115.py (MicroPython 16-bit ADC)"></label>
+  <button text="Install ads1115 library" callbackKey="installPyLib"></button>
 
+  <label text="ADS1115 16-bit Analog-to-Digital Converter"></label>
 
+  <block type="ads1115_init">
+    <value name="i2c_id">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="sda_pin">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="scl_pin">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">72</field>
+      </shadow>
+    </value>
+    <value name="gain">
+      <shadow type="math_number">
+        <field name="NUM">2</field>
+      </shadow>
+    </value>
+    <value name="alert_pin">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_read_raw">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_read_voltage">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_alert_start">
+    <value name="rate">
+      <shadow type="math_number">
+        <field name="NUM">4</field>
+      </shadow>
+    </value>
+    <value name="channel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="channel2">
+      <shadow type="math_number">
+        <field name="NUM">-1</field>
+      </shadow>
+    </value>
+    <value name="threshold_high">
+      <shadow type="math_number">
+        <field name="NUM">16384</field>
+      </shadow>
+    </value>
+    <value name="threshold_low">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="ads1115_alert_read"></block>
+
+  <block type="ads1115_set_alert_callback">
+    <statement name="CALLBACK_CODE">
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">ADS1115 Alert Triggered</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
+  </block>
+</category>
+  </category>
+  <category name="Signal Generation">
+    <!-- ===================== DS3502 Digital Potentiometer ===================== -->
+    <category name="DS3502 Digital Potentiometer">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: DS3502 I2C Digital Potentiometer (MicroPython)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install ds3502 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="ds3502_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认I2C1 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">2</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">3</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 4. 写入Wiper值积木块（带默认值） -->
+  <block type="ds3502_write_wiper">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">63</field> <!-- 默认中间值 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 读取Wiper值积木块 -->
+  <block type="ds3502_read_wiper"></block>
+</category>
+    <!-- ===================== MCP4725 12-bit DAC ===================== -->
+    <category name="MCP4725 DAC Sensor">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: MCP4725 12-bit DAC (MicroPython)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install mcp4725 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="MCP4725 12-bit Digital-to-Analog Converter"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="mcp4725_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 写入DAC值积木块（带默认值） -->
+  <block type="mcp4725_write">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认值0 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 读取DAC状态积木块 -->
+  <block type="mcp4725_read"></block>
+
+  <!-- 7. 配置DAC积木块（带默认值） -->
+  <block type="mcp4725_config">
+    <value name="value">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认配置值0 -->
+      </shadow>
+    </value>
+  </block>
+</category>
+    <!-- ===================== SI5351 Clock Generator ===================== -->
+    <category name="SI5351 Clock Generator">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: SI5351 Clock Generator (MicroPython)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install silicon5351 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="SI5351 I2C Clock Generator (25MHz Crystal)"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="si5351_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+    <value name="crystal">
+      <shadow type="math_number">
+        <field name="NUM">25000000</field> <!-- 默认25MHz晶振 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 配置PLL积木块 -->
+  <block type="si5351_setup_pll">
+    <value name="mul">
+      <shadow type="math_number">
+        <field name="NUM">15</field> <!-- 默认倍频15 -->
+      </shadow>
+    </value>
+    <value name="num">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="denom">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 初始化时钟输出积木块 -->
+  <block type="si5351_init_clock"></block>
+
+  <!-- 7. 设置输出频率积木块 -->
+  <block type="si5351_set_freq">
+    <value name="freq">
+      <shadow type="math_number">
+        <field name="NUM">2000000</field> <!-- 默认2MHz -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 8. 使能输出积木块 -->
+  <block type="si5351_enable_output"></block>
+
+  <!-- 9. 禁用输出积木块 -->
+  <block type="si5351_disable_output"></block>
+</category>
+  </category>
+
+  <category name="Storage">
+    <!-- ===================== AT24CXX EEPROM ===================== -->
+    <category name="AT24CXX EEPROM">
+  <!-- 1. 库说明（对齐AHT10的label格式） -->
+  <label text="Library: AT24CXX EEPROM (AT24C32/64/128/256/512)"></label>
+
+  <!-- 2. 库安装按钮（对齐AHT10的button格式） -->
+  <button text="Install at24c256 library" callbackKey="installPyLib"></button>
+
+  <!-- 3. 传感器说明（对齐AHT10的label） -->
+  <label text="AT24CXX I2C EEPROM Memory (AT24C256 default)"></label>
+
+  <!-- 4. 初始化积木块（带默认值，对齐AHT10的shadow结构） -->
+  <block type="at24cxx_init">
+    <value name="i2c">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认I2C0 -->
+      </shadow>
+    </value>
+    <value name="sda">
+      <shadow type="pinout">
+        <field name="PIN">4</field> <!-- 默认SDA引脚 -->
+      </shadow>
+    </value>
+    <value name="scl">
+      <shadow type="pinout">
+        <field name="PIN">5</field> <!-- 默认SCL引脚 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 5. 写入单字节积木块 -->
+  <block type="at24cxx_write_byte">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认地址0 -->
+      </shadow>
+    </value>
+    <value name="data">
+      <shadow type="math_number">
+        <field name="NUM">0xAB</field> <!-- 默认数据0xAB -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 6. 读取单字节积木块 -->
+  <block type="at24cxx_read_byte"></block>
+
+  <!-- 7. 写入页数据积木块 -->
+  <block type="at24cxx_write_page">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">1</field> <!-- 默认起始地址1 -->
+      </shadow>
+    </value>
+    <value name="length">
+      <shadow type="math_number">
+        <field name="NUM">64</field> <!-- 默认64字节 -->
+      </shadow>
+    </value>
+  </block>
+
+  <!-- 8. 顺序读取数据积木块 -->
+  <block type="at24cxx_read_sequence"></block>
+
+  <!-- 9. 擦除数据积木块 -->
+  <block type="at24cxx_erase_data">
+    <value name="address">
+      <shadow type="math_number">
+        <field name="NUM">0</field> <!-- 默认起始地址0 -->
+      </shadow>
+    </value>
+    <value name="length">
+      <shadow type="math_number">
+        <field name="NUM">64</field> <!-- 默认擦除64字节 -->
+      </shadow>
+    </value>
+  </block>
+</category>
+  </category>
 <category name="Actuators">
 
 

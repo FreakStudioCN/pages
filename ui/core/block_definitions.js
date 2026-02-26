@@ -14670,74 +14670,6 @@ Blockly.Blocks['bmp280_set_sealevel'] = {
   }
 };
 
-/// Start Flame Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['flame_sensor_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/flame_sensor.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init Flame Sensor");
-
-    // 第二步：右对齐参数框（仅保留核心的模拟/数字引脚，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("analog_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Analog Pin");
-
-    this.appendValueInput("digital_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Digital Pin");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init Flame Sensor (analog + digital pin)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（检测火焰是否存在）
-Blockly.Blocks['flame_sensor_is_detected'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Flame Detected?");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Check if flame is detected (True/False)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取模拟值）
-Blockly.Blocks['flame_sensor_read_analog'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Flame Sensor Analog Value");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read flame sensor analog value (0-65535)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取电压）
-Blockly.Blocks['flame_sensor_read_voltage'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Flame Sensor Voltage (V)");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read flame sensor voltage (0-3.3V)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
 /// Start GUVA_S12SD Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
 Blockly.Blocks['guva_s12sd_init'] = {
   init: function() {
@@ -14785,71 +14717,6 @@ Blockly.Blocks['guva_s12sd_read_uvi'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read GUVA_S12SD UV Index (0-11)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-/// Start HallSensorOH34N Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['hall_sensor_oh34n_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/hall_sensor_oh34n.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init Hall Sensor OH34N");
-
-    // 第二步：右对齐参数框（仅保留核心的数字引脚，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Digital Pin");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init OH34N Hall Sensor (digital pin)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取霍尔传感器状态）
-Blockly.Blocks['hall_sensor_oh34n_read'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read Hall Sensor OH34N State");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read OH34N hall sensor state (True=magnet detected, False=none)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10/BA111TDS的calibrate写法（启用中断）
-Blockly.Blocks['hall_sensor_oh34n_enable'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Enable Hall Sensor OH34N Interrupt");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Enable OH34N hall sensor interrupt (rising/falling edge)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10/BA111TDS的calibrate写法（禁用中断）
-Blockly.Blocks['hall_sensor_oh34n_disable'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Disable Hall Sensor OH34N Interrupt");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Disable OH34N hall sensor interrupt");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -14971,49 +14838,6 @@ Blockly.Blocks['max9814_mic_set_gain'] = {
   }
 };
 
-/// Start MGX Gas Sensor（完全对齐AHT10/BA111TDS写法，仅保留核心逻辑）
-Blockly.Blocks['mgx_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸，BA111TDS的结构）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/mgx_gas.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init MGX Gas Sensor (MG811/MG812)");
-
-    // 第二步：右对齐参数框（核心必选+可选参数，对齐BA111TDS的setAlign逻辑）
-    this.appendValueInput("adc_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("ADC Pin");
-
-    this.appendValueInput("comp_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Comp Pin (Optional)");
-
-    this.appendValueInput("rl_ohm")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("RL Resistance (Ω)")
-      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
-
-    this.appendValueInput("vref")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Vref (V)")
-      .appendField(new Blockly.FieldNumber(3.3), "VREF");
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init MGX gas sensor (MG811/MG812) with ADC/comp pin");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
 
 // 对齐BA111TDS的set_ntc写法（选择内置传感器型号）
 Blockly.Blocks['mgx_select_builtin'] = {
@@ -15226,97 +15050,6 @@ Blockly.Blocks['mlx90640_get_frame'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Read MLX90640 thermal frame data (768 temperature values)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-/// Start MQX (MQ2/MQ4/MQ7) Gas Sensor（完全对齐AHT10/BA111TDS写法）
-Blockly.Blocks['mqx_init'] = {
-  init: function() {
-    // 第一步：图片+标题（对齐AHT10的FieldImage尺寸）
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldImage(
-                     "media/mqx.png",
-                     300,
-                     300,
-                     "*"))
-        .appendField("Init MQX (MQ2/MQ4/MQ7) Gas Sensor");
-
-    // 第二步：核心参数（右对齐，对齐AHT10的I2C/SDA/SCL结构）
-    this.appendValueInput("adc_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("ADC Pin");
-
-    this.appendValueInput("comp_pin")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("COMP Pin (0=Disable)")
-      .appendField(new Blockly.FieldNumber(0), "COMP_PIN"); // 默认禁用COMP引脚
-
-    this.appendValueInput("rl_ohm")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("RL Resistance (Ω)")
-      .appendField(new Blockly.FieldNumber(10000), "RL_OHM"); // 默认10KΩ
-
-    this.appendValueInput("vref")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("VREF (V)")
-      .appendField(new Blockly.FieldNumber(3.3), "VREF"); // 默认3.3V
-
-    // 固定属性（和AHT10/BA111TDS完全一致）
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init MQX (MQ2/MQ4/MQ7) gas sensor via ADC");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的AHT_TYPE下拉写法（选择传感器型号）
-Blockly.Blocks['mqx_select_sensor'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Select MQX Sensor Type")
-        .appendField(new Blockly.FieldDropdown([
-          ['MQ2 (Smoke/CO)', "MQ2"],
-          ['MQ4 (Methane)', "MQ4"],
-          ['MQ7 (CO)', "MQ7"]
-        ]), "SENSOR_TYPE");
-
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Select built-in MQX sensor type (MQ2/MQ4/MQ7)");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_temp写法（读取电压）
-Blockly.Blocks['mqx_read_voltage'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read MQX Voltage (V)");
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read MQX gas sensor voltage output");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-// 对齐AHT10的aht_read_humidity写法（读取PPM值）
-Blockly.Blocks['mqx_read_ppm'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("Read MQX PPM Value")
-        .appendField("Samples")
-        .appendField(new Blockly.FieldNumber(1), "SAMPLES"); // 默认1个样本
-
-    this.setOutput(true, null);
-    this.setColour(230);
-    this.setTooltip("Read MQX gas concentration (PPM)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
@@ -15650,10 +15383,10 @@ Blockly.Blocks['soil_moisture_read_level'] = {
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
-// 初始化振动传感器（对齐aht_init/ba111tds_init风格）
+// 完全对齐AHT10的块定义写法，适配滚珠震动传感器（含完整回调配置）
 Blockly.Blocks['vibration_sensor_init'] = {
   init: function() {
-    // 基础信息+图标（占位路径）
+    // 第一步：appendDummyInput（图标尺寸300x300，对齐MQ/MGX风格）
     this.appendDummyInput()
         .appendField("Init Vibration Sensor")
         .appendField(new Blockly.FieldImage(
@@ -15662,64 +15395,90 @@ Blockly.Blocks['vibration_sensor_init'] = {
           "*"
         ));
 
-    // 引脚配置（对齐AHT10的I2C/SDA/SCL参数）
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
     this.appendValueInput("pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Pin");
+      .appendField("GPIO Pin");
 
-    // 防抖时间（默认50ms，对齐BA111TDS的波特率默认值）
+    // 消抖参数（对齐BA111TDS的可选参数风格）
     this.appendValueInput("debounce_ms")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Debounce (ms)")
+      .appendField("Debounce Time (ms)")
       .appendField(new Blockly.FieldNumber(50), "DEBOUNCE_MS");
 
+    // 回调开关（参考PIR传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Init Vibration Sensor with pin and debounce time");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+    this.setColour(230); // 与AHT10/MQ/MGX一致的颜色值
+    this.setTooltip("Init ball-type vibration sensor with debounce and callback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
   }
 };
 
-// 读取振动传感器状态（对齐aht_read_temp风格）
+// 对齐AHT10的aht_read_temp写法（读取传感器状态）
 Blockly.Blocks['vibration_sensor_read'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Read Vibration Sensor State");
-    this.setOutput(true, null);
+    this.setOutput(true, "Boolean");
     this.setColour(230);
-    this.setTooltip("Read current state of vibration sensor (True/False)");
+    this.setTooltip("Read current vibration sensor state (True=vibration detected)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 获取振动传感器状态信息（对齐aht_read_humidity风格）
+// 核心：设置震动传感器回调函数（匹配驱动的无参数回调格式）
+Blockly.Blocks['vibration_sensor_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Vibration Sensor Callback");
+    // 回调函数内容（无参数，严格匹配驱动的_callback()格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when vibration detected (no params)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on vibration detection (no parameters)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（获取传感器状态）
 Blockly.Blocks['vibration_sensor_get_status'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Get Vibration Sensor Status");
-    this.setOutput(true, null);
+    this.setOutput(true, "Dictionary");
     this.setColour(230);
-    this.setTooltip("Get status info (last state, debounce, callback)");
+    this.setTooltip("Get sensor status (last_state, debounce_ms, callback_set)");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 反初始化振动传感器（对齐ba111tds_calibrate风格）
+// 对齐AHT10的块定义写法（释放资源）
 Blockly.Blocks['vibration_sensor_deinit'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Deinit Vibration Sensor");
+        .appendField("Deinitialize Vibration Sensor");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip("Disable vibration sensor interrupt");
+    this.setTooltip("Release vibration sensor resources and disable IRQ");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
-
 // 初始化TCR5000传感器（对齐aht_init/ba111tds_init风格）
 Blockly.Blocks['tcr5000_init'] = {
   init: function() {
@@ -18146,6 +17905,3554 @@ Blockly.Blocks['uvmatrix_get_state'] = {
     this.setOutput(true, null);
     this.setColour(230);
     this.setTooltip("Check if UVMatrix is on (returns True/False)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+
+// DS1232 初始化积木块（对齐AHT10的aht_init写法）
+Blockly.Blocks['ds1232_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DS1232 Watchdog")
+        .appendField(new Blockly.FieldImage(
+          "media/ds1232.png",
+          300, 300,
+          "*"
+        ));
+
+    this.appendValueInput("wdi_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("WDI Pin");
+
+    this.appendValueInput("feed_interval")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Feed Interval (ms)")
+      .appendField(new Blockly.FieldNumber(1000), "FEED_INTERVAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+
+    this.setColour(230);
+    this.setTooltip("Init DS1232 watchdog module and start auto feeding");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1232 手动喂狗积木块（对齐AHT10的aht_read_temp写法）
+Blockly.Blocks['ds1232_kick'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Manual Feed DS1232 Watchdog");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Manually feed DS1232 watchdog by toggling WDI pin once");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1232 停止喂狗积木块（对齐AHT10的代码风格）
+Blockly.Blocks['ds1232_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop DS1232 Auto Feeding");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop auto feeding DS1232 watchdog, WDI pin set to low");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307初始化块
+Blockly.Blocks['ds1307_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DS1307 RTC (I2C)")
+        .appendField(new Blockly.FieldImage(
+                     "media/ds1307.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c_bus")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("i2c_addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (Hex)")
+      .appendField(new Blockly.FieldNumber(0x68), "I2C_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DS1307 Real-Time Clock via I2C bus");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307设置完整时间块
+Blockly.Blocks['ds1307_set_datetime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Set Date & Time");
+
+    this.appendValueInput("year")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Year (e.g. 2024)")
+      .appendField(new Blockly.FieldNumber(2024), "YEAR");
+
+    this.appendValueInput("month")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Month (1-12)")
+      .appendField(new Blockly.FieldNumber(9), "MONTH");
+
+    this.appendValueInput("day")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Day (1-31)")
+      .appendField(new Blockly.FieldNumber(8), "DAY");
+
+    this.appendValueInput("hour")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Hour (0-23)")
+      .appendField(new Blockly.FieldNumber(16), "HOUR");
+
+    this.appendValueInput("minute")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Minute (0-59)")
+      .appendField(new Blockly.FieldNumber(51), "MINUTE");
+
+    this.appendValueInput("second")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Second (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "SECOND");
+
+    this.appendValueInput("weekday")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Weekday (0-6)")
+      .appendField(new Blockly.FieldNumber(1), "WEEKDAY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set DS1307 full date & time [year,month,day,hour,minute,second,weekday]");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取完整时间块
+Blockly.Blocks['ds1307_get_datetime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read Date & Time");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read DS1307 full date & time (year,month,day,hour,minute,second,weekday,None)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取RTC格式时间块
+Blockly.Blocks['ds1307_get_datetime_rtc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read RTC Format Time");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read DS1307 time in machine.RTC compatible format");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307控制振荡器块
+Blockly.Blocks['ds1307_set_oscillator'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Oscillator")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Enable', 'False'],
+                     ['Disable', 'True']
+        ]), 'OSC_STATE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/Disable DS1307 oscillator (clock)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取振荡器状态块
+Blockly.Blocks['ds1307_get_oscillator'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read Oscillator State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if DS1307 oscillator is disabled (True=Disabled)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DS1307读取单个时间字段块
+Blockly.Blocks['ds1307_read_field'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DS1307 Read")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Year', 'year'],
+                     ['Month', 'month'],
+                     ['Day', 'day'],
+                     ['Hour', 'hour'],
+                     ['Minute', 'minute'],
+                     ['Second', 'second'],
+                     ['Weekday', 'weekday']
+        ]), 'TIME_FIELD');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read single time field from DS1307");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T初始化块
+Blockly.Blocks['dysv19t_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init DY-SV19T (UART)")
+        .appendField(new Blockly.FieldImage(
+                     "media/dy_sv19t.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(9600), "BAUDRATE");
+
+    this.appendValueInput("default_volume")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Default Volume (0-30)")
+      .appendField(new Blockly.FieldNumber(30), "DEFAULT_VOL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DY-SV19T audio module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T基础播放控制块
+Blockly.Blocks['dysv19t_play_control'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Play', 'play'],
+                     ['Pause', 'pause'],
+                     ['Stop', 'stop'],
+                     ['Previous Track', 'prev'],
+                     ['Next Track', 'next']
+        ]), 'CONTROL_CMD');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T basic playback control");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T选择曲目播放块
+Blockly.Blocks['dysv19t_select_track'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Select Track");
+
+    this.appendValueInput("track_no")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Track Number (1-65535)")
+      .appendField(new Blockly.FieldNumber(1), "TRACK_NO");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Play Immediately")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "PLAY_NOW");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T select track number to play");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T按路径播放块
+Blockly.Blocks['dysv19t_play_path'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Play Path");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Disk")
+        .appendField(new Blockly.FieldDropdown([
+                     ['USB', '0'],
+                     ['SD Card', '1'],
+                     ['Flash', '2']
+        ]), 'DISK');
+
+    this.appendValueInput("path")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Path (e.g. /MUSIC/01.MP3)")
+      .appendField(new Blockly.FieldTextInput("/AA./01.MP3"), "PATH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T play audio by disk + path");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T音量控制块
+Blockly.Blocks['dysv19t_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Volume");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Control")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Set', 'set'],
+                     ['Up', 'up'],
+                     ['Down', 'down']
+        ]), 'VOL_CMD');
+
+    this.appendValueInput("vol_value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-30)")
+      .appendField(new Blockly.FieldNumber(20), "VOL_VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T volume control (0-30)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T设置EQ块
+Blockly.Blocks['dysv19t_set_eq'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Set EQ")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Normal', '0'],
+                     ['Pop', '1'],
+                     ['Rock', '2'],
+                     ['Jazz', '3'],
+                     ['Classic', '4']
+        ]), 'EQ_MODE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set EQ mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T设置播放模式块
+Blockly.Blocks['dysv19t_set_play_mode'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Set Play Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Full Loop', '0'],
+                     ['Single Loop', '1'],
+                     ['Single Stop', '2'],
+                     ['Full Random', '3'],
+                     ['Dir Loop', '4'],
+                     ['Dir Random', '5'],
+                     ['Dir Sequence', '6'],
+                     ['Sequence', '7']
+        ]), 'PLAY_MODE');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set playback loop mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T插播曲目块
+Blockly.Blocks['dysv19t_insert_track'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Insert Track");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Disk")
+        .appendField(new Blockly.FieldDropdown([
+                     ['USB', '0'],
+                     ['SD Card', '1'],
+                     ['Flash', '2']
+        ]), 'INSERT_DISK');
+
+    this.appendValueInput("insert_track")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Track Number")
+      .appendField(new Blockly.FieldNumber(1), "INSERT_TRACK");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T insert track during playback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T区间复读块
+Blockly.Blocks['dysv19t_repeat_area'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T A-B Repeat");
+
+    this.appendValueInput("start_min")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Min (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "START_MIN");
+
+    this.appendValueInput("start_sec")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Sec (0-59)")
+      .appendField(new Blockly.FieldNumber(20), "START_SEC");
+
+    this.appendValueInput("end_min")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("End Min (0-59)")
+      .appendField(new Blockly.FieldNumber(0), "END_MIN");
+
+    this.appendValueInput("end_sec")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("End Sec (0-59)")
+      .appendField(new Blockly.FieldNumber(25), "END_SEC");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T set A-B repeat area (min/sec 0-59)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T结束复读块
+Blockly.Blocks['dysv19t_end_repeat'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T End A-B Repeat");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T stop A-B repeat");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T快进快退块
+Blockly.Blocks['dysv19t_seek'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Seek");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', 'forward'],
+                     ['Backward', 'back']
+        ]), 'SEEK_DIR');
+
+    this.appendValueInput("seconds")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Seconds (0-65535)")
+      .appendField(new Blockly.FieldNumber(10), "SEEK_SECONDS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T seek forward/backward by seconds");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T查询状态块
+Blockly.Blocks['dysv19t_query'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Query")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Play State', 'status'],
+                     ['Current Disk', 'disk'],
+                     ['Current Track', 'track'],
+                     ['Total Tracks', 'total_tracks'],
+                     ['Current Time', 'time'],
+                     ['Online Disks', 'online_disks']
+        ]), 'QUERY_TYPE');
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T query status/info");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T组合播放块
+Blockly.Blocks['dysv19t_combination_playlist'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Combination Playlist");
+
+    this.appendValueInput("short_names")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Short Names (e.g. ['Z1','Z2'])")
+      .appendField(new Blockly.FieldTextInput("['Z1','Z2']"), "SHORT_NAMES");
+
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Action")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Start', 'start'],
+                     ['End', 'end']
+        ]), 'PLAYLIST_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T start/end combination playlist (ZH folder)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// DY-SV19T播放时间上报控制块
+Blockly.Blocks['dysv19t_time_report'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DY-SV19T Play Time Report")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Enable', 'enable'],
+                     ['Disable', 'disable']
+        ]), 'REPORT_ACTION');
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("DY-SV19T enable/disable auto play time report");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386扬声器初始化块
+Blockly.Blocks['lm386_speaker_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init LM386 Speaker (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/lm386_speaker.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pwm_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin");
+
+    this.appendValueInput("default_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Default Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "DEFAULT_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init LM386 amplifier speaker module via PWM");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386播放单音块
+Blockly.Blocks['lm386_play_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Play Tone");
+
+    this.appendValueInput("frequency")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(440), "FREQUENCY");
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (sec)")
+      .appendField(new Blockly.FieldNumber(1.0), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play single tone with specified frequency and duration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386播放音符序列块
+Blockly.Blocks['lm386_play_sequence'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Play Melody");
+
+    this.appendValueInput("notes")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Notes [(freq, dur), ...]")
+      .appendField(new Blockly.FieldTextInput("[(440,0.5),(494,0.5),(523,0.5),(587,0.5),(659,0.5),(698,0.5),(784,1.0)]"), "NOTES");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play sequence of notes (melody)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386设置音量块
+Blockly.Blocks['lm386_set_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Set Volume");
+
+    this.appendValueInput("volume")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Volume (1-100%)")
+      .appendField(new Blockly.FieldNumber(50), "VOLUME");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speaker volume (1-100%)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// LM386停止播放块
+Blockly.Blocks['lm386_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LM386 Stop Playback (Mute)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop playback and mute speaker");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器初始化块
+Blockly.Blocks['buzzer_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Buzzer (PWM)")
+        .appendField(new Blockly.FieldImage(
+                     "media/buzzer.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pwm_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PWM Buzzer module");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放单音块
+Blockly.Blocks['buzzer_play_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Tone");
+
+    this.appendValueInput("frequency")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(440), "FREQUENCY");
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (ms)")
+      .appendField(new Blockly.FieldNumber(400), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play single tone with specified frequency and duration");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放旋律块
+Blockly.Blocks['buzzer_play_melody'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Melody");
+
+    this.appendValueInput("melody")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Melody [(note, dur), ...]")
+      .appendField(new Blockly.FieldTextInput("[('C4',400),('C4',400),('G4',400),('G4',400),('A4',400),('A4',400),('G4',800)]"), "MELODY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play melody sequence (note + duration)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器停止播放块
+Blockly.Blocks['buzzer_stop_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Stop Playback");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop buzzer playback and mute");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 蜂鸣器播放预设音符块（快捷选择常用音符）
+Blockly.Blocks['buzzer_play_note'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Buzzer Play Note")
+        .appendField(new Blockly.FieldDropdown([
+                     ['C4', '261'],
+                     ['D4', '293'],
+                     ['E4', '329'],
+                     ['F4', '349'],
+                     ['G4', '392'],
+                     ['A4', '440'],
+                     ['B4', '493'],
+                     ['C5', '523']
+        ]), 'NOTE');
+
+    this.appendValueInput("duration")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duration (ms)")
+      .appendField(new Blockly.FieldNumber(400), "DURATION");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play preset musical note (C4-B4/C5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR初始化块
+Blockly.Blocks['pca9546adr_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PCA9546ADR I2C MUX")
+        .appendField(new Blockly.FieldImage(
+                     "media/pca9546adr.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c_bus")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Bus");
+
+    this.appendValueInput("sda_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA Pin");
+
+    this.appendValueInput("scl_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL Pin");
+
+    this.appendValueInput("i2c_addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address (Hex)")
+      .appendField(new Blockly.FieldNumber(0x70), "I2C_ADDR");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCA9546ADR 4-channel I2C multiplexer");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR选择通道块
+Blockly.Blocks['pca9546adr_select_channel'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Select Channel");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel (0-3)")
+      .appendField(new Blockly.FieldDropdown([
+                   ['Channel 0', '0'],
+                   ['Channel 1', '1'],
+                   ['Channel 2', '2'],
+                   ['Channel 3', '3']
+        ]), 'CHANNEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select single channel (0-3) on PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR关闭所有通道块
+Blockly.Blocks['pca9546adr_disable_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Disable All Channels");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable all channels on PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR读取状态块
+Blockly.Blocks['pca9546adr_read_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Read Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current channel status/mask from PCA9546ADR");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9546ADR扫描I2C地址块
+Blockly.Blocks['pca9546adr_scan_i2c'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("PCA9546ADR Scan I2C Addresses");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Scan I2C bus for devices on selected PCA9546ADR channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS初始化块
+Blockly.Blocks['snr9816_tts_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init SNR9816 TTS Module")
+        .appendField(new Blockly.FieldImage(
+                     "media/snr9816_tts.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init SNR9816 TTS speech synthesis module via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS文本合成块
+Blockly.Blocks['snr9816_tts_synthesize_text'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Synthesize Text");
+
+    this.appendValueInput("text")
+      .setCheck("String")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Text");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Synthesize text to speech (UTF-8 encoding)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置发音人块
+Blockly.Blocks['snr9816_tts_set_voice'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Voice")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Female Voice', '0'],
+                     ['Male Voice', '1']
+        ]), 'VOICE_TYPE');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS voice type (0=female, 1=male)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置音量块
+Blockly.Blocks['snr9816_tts_set_volume'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Volume");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "VOLUME_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS volume level (0=min, 9=max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置语速块
+Blockly.Blocks['snr9816_tts_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Speed");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "SPEED_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS speech speed (0=fastest, 9=slowest)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS设置语调块
+Blockly.Blocks['snr9816_tts_set_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Set Tone");
+
+    this.appendValueInput("level")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Level (0-9)")
+      .appendField(new Blockly.FieldNumber(5), "TONE_LEVEL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set TTS tone level (0=lowest, 9=highest)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放铃声块
+Blockly.Blocks['snr9816_tts_play_ringtone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Ringtone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "RINGTONE_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play system ringtone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放提示音块
+Blockly.Blocks['snr9816_tts_play_message_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Message Tone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "MESSAGE_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play message notification tone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS播放警示音块
+Blockly.Blocks['snr9816_tts_play_alert_tone'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Play Alert Tone");
+
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Number (1-5)")
+      .appendField(new Blockly.FieldNumber(1), "ALERT_NUM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Play alert tone (1-5)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS控制块（暂停/恢复/停止）
+Blockly.Blocks['snr9816_tts_control'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Control")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Pause Synthesis', 'pause'],
+                     ['Resume Synthesis', 'resume'],
+                     ['Stop Synthesis', 'stop']
+        ]), 'CONTROL_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Control TTS synthesis (pause/resume/stop)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// SNR9816 TTS查询状态块
+Blockly.Blocks['snr9816_tts_query_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("SNR9816 TTS Query Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Query TTS chip status (IDLE/BUSY/UNKNOWN)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PCA9685+总线直流电机初始化块
+Blockly.Blocks['bus_dc_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Bus DC Motor (PCA9685)")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_dc_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("motor_count")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor Count")
+      .appendField(new Blockly.FieldNumber(4), "MOTOR_COUNT");
+
+    this.appendValueInput("i2c_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(400000), "I2C_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Bus DC Motor with PCA9685 via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置电机速度和方向块
+Blockly.Blocks['bus_dc_motor_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Set Speed & Direction");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (1900-4095)")
+      .appendField(new Blockly.FieldNumber(4000), "SPEED");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speed (1900-4095) and direction (0=forward,1=backward) for specified motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止电机块
+Blockly.Blocks['bus_dc_motor_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Stop");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop specified motor smoothly (set PWM to 0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 刹车电机块
+Blockly.Blocks['bus_dc_motor_break'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus DC Motor Brake");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Brake specified motor quickly (set PWM to max)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 扫描I2C设备块
+Blockly.Blocks['bus_dc_motor_scan_i2c'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Scan I2C Devices (PCA9685)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Scan I2C bus and return PCA9685 address (0x40-0x4F)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 总线步进电机初始化块
+Blockly.Blocks['bus_step_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Bus Step Motor (PCA9685)")
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_step_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("motor_count")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor Count (1-4)")
+      .appendField(new Blockly.FieldNumber(2), "MOTOR_COUNT");
+
+    this.appendValueInput("i2c_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(400000), "I2C_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Bus Step Motor with PCA9685 via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 步进电机连续运动控制块
+Blockly.Blocks['bus_step_motor_continuous'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Continuous Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.appendDummyInput()
+        .appendField("Driver Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Single Phase', '0'],
+                     ['Double Phase', '1'],
+                     ['Half Step', '2']
+        ]), 'DRIVER_MODE');
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (0-1000)")
+      .appendField(new Blockly.FieldNumber(100), "SPEED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start continuous motion for step motor (speed=pulses per second)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止步进电机连续运动块
+Blockly.Blocks['bus_step_motor_stop_continuous'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Stop Continuous Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop continuous motion of specified step motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 步进电机定步运动控制块
+Blockly.Blocks['bus_step_motor_step_motion'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Step Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.appendDummyInput()
+        .appendField("Direction")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Forward', '0'],
+                     ['Backward', '1']
+        ]), 'DIRECTION');
+
+    this.appendDummyInput()
+        .appendField("Driver Mode")
+        .appendField(new Blockly.FieldDropdown([
+                     ['Single Phase', '0'],
+                     ['Double Phase', '1'],
+                     ['Half Step', '2']
+        ]), 'DRIVER_MODE');
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (0-1000)")
+      .appendField(new Blockly.FieldNumber(100), "SPEED");
+
+    this.appendValueInput("steps")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Steps (positive int)")
+      .appendField(new Blockly.FieldNumber(100), "STEPS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start step motion for step motor (specified steps)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止步进电机定步运动块
+Blockly.Blocks['bus_step_motor_stop_step'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Bus Step Motor Stop Step Motion");
+
+    this.appendValueInput("motor_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Motor ID (1-4)")
+      .appendField(new Blockly.FieldNumber(1), "MOTOR_ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop step motion of specified step motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// PWM散热风扇初始化块
+Blockly.Blocks['fan_pwm_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init PWM Cooling Fan")
+        .appendField(new Blockly.FieldImage(
+                     "media/fan_pwm.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Pin")
+      .appendField(new Blockly.FieldNumber(6), "PIN");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(25000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PWM controlled cooling fan (default 25kHz)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 风扇开启块（全速）
+Blockly.Blocks['fan_pwm_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn PWM Fan ON (Full Speed)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn cooling fan on at full speed (duty=1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 风扇关闭块
+Blockly.Blocks['fan_pwm_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn PWM Fan OFF");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn cooling fan off (duty=0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置风扇转速块
+Blockly.Blocks['fan_pwm_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set PWM Fan Speed");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set fan speed with duty cycle (0=OFF, 1023=FULL)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取风扇转速块
+Blockly.Blocks['fan_pwm_get_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get PWM Fan Current Speed");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current fan duty cycle (0-1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// FM8118雾化器初始化块
+Blockly.Blocks['fm8118_atomization_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init FM8118 Ultrasonic Atomizer")
+        .appendField(new Blockly.FieldImage(
+                     "media/fm8118_atomization.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Control Pin")
+      .appendField(new Blockly.FieldNumber(6), "PIN");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init FM8118-based ultrasonic atomization module via GPIO");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器开启块
+Blockly.Blocks['fm8118_atomization_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn FM8118 Atomizer ON");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on ultrasonic atomizer (set pin LOW)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器关闭块
+Blockly.Blocks['fm8118_atomization_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn FM8118 Atomizer OFF");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off ultrasonic atomizer (high→low→high sequence)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 雾化器状态切换块
+Blockly.Blocks['fm8118_atomization_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Toggle FM8118 Atomizer State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle atomizer state (ON↔OFF)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取雾化器状态块
+Blockly.Blocks['fm8118_atomization_is_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Check FM8118 Atomizer Status");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Return True if atomizer is ON, False if OFF");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+// 初始化PCA9685舵机控制器
+Blockly.Blocks['bus_servo_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/bus_servo.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init PCA9685 Servo Controller");
+
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(50), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init PCA9685 16-channel PWM servo controller");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 注册舵机通道
+Blockly.Blocks['bus_servo_attach'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Attach Servo to Channel");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendDummyInput()
+        .appendField("Servo Type")
+        .appendField(new Blockly.FieldDropdown([
+                     ['180° Servo', '0'],
+                     ['360° Servo', '1']
+        ]), 'SERVO_TYPE');
+
+    this.appendValueInput("min_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Min Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(500), "MIN_US");
+
+    this.appendValueInput("max_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Max Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(2500), "MAX_US");
+
+    this.appendValueInput("neutral_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Neutral Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(1500), "NEUTRAL_US");
+
+    this.appendDummyInput()
+        .appendField("Reversed")
+        .appendField(new Blockly.FieldDropdown([
+                     ['No', 'False'],
+                     ['Yes', 'True']
+        ]), 'REVERSED');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Attach servo to PCA9685 channel with calibration parameters");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置180°舵机角度
+Blockly.Blocks['bus_servo_set_angle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set 180° Servo Angle");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("angle")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Angle (0-180)")
+      .appendField(new Blockly.FieldNumber(90), "ANGLE");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (deg/s)")
+      .appendField(new Blockly.FieldNumber(0), "SPEED");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set angle for 180° servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置360°舵机速度
+Blockly.Blocks['bus_servo_set_speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set 360° Servo Speed");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("speed")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Speed (-1.0~1.0)")
+      .appendField(new Blockly.FieldNumber(0), "SPEED_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set speed for 360° servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 直接设置脉宽
+Blockly.Blocks['bus_servo_set_pulse'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Servo Pulse Width");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.appendValueInput("pulse_us")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pulse (µs)")
+      .appendField(new Blockly.FieldNumber(1500), "PULSE_US");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set direct pulse width for servo on specified channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止舵机
+Blockly.Blocks['bus_servo_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Servo");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop servo output or set to neutral position");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 解绑舵机通道
+Blockly.Blocks['bus_servo_detach'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Detach Servo");
+
+    this.appendValueInput("channel")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Detach servo from channel and stop output");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化光耦MOS驱动
+Blockly.Blocks['opto_mos_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldImage(
+                     "media/opto_mos.png",
+                     300,
+                     300,
+                     "*"))
+        .appendField("Init Opto-MOS Driver");
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("GPIO Pin");
+
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(1000), "FREQ");
+
+    this.appendValueInput("pwm_max")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Max Value")
+      .appendField(new Blockly.FieldNumber(65535), "PWM_MAX");
+
+    this.appendDummyInput()
+        .appendField("Inverted Output")
+        .appendField(new Blockly.FieldDropdown([
+                     ['No', 'False'],
+                     ['Yes', 'True']
+        ]), 'INVERTED');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Opto-MOS driver with PWM on specified GPIO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置占空比（计数值）
+Blockly.Blocks['opto_mos_set_duty'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Opto-MOS Duty Value");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty Value (0-PWM_MAX)")
+      .appendField(new Blockly.FieldNumber(0), "DUTY_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS duty cycle by raw value (0 to PWM_MAX)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置占空比（百分比）
+Blockly.Blocks['opto_mos_set_percent'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Opto-MOS Duty Percent");
+
+    this.appendValueInput("percent")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty Percent (0-100)")
+      .appendField(new Blockly.FieldNumber(0), "PERCENT_VAL");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS duty cycle by percentage (0.0-100.0)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 全功率开启
+Blockly.Blocks['opto_mos_full_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Opto-MOS Full On (100%)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set Opto-MOS to full power (100% duty cycle)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 关闭输出
+Blockly.Blocks['opto_mos_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Opto-MOS Off (0%)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off Opto-MOS output (0% duty cycle)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取状态
+Blockly.Blocks['opto_mos_get_status'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Opto-MOS Status");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current status of Opto-MOS driver (duty, percent, etc.)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 释放资源
+Blockly.Blocks['opto_mos_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinit Opto-MOS Driver");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release PWM resources for Opto-MOS driver");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 串口舵机初始化积木
+Blockly.Blocks['serial_servo_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Serial Servo")
+        .appendField(new Blockly.FieldImage(
+                     "media/serial_servo.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("uart_port")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("UART Port");
+
+    this.appendValueInput("tx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("TX Pin");
+
+    this.appendValueInput("rx_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("RX Pin");
+
+    this.appendValueInput("baudrate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Baudrate")
+      .appendField(new Blockly.FieldNumber(115200), "BAUDRATE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Serial Servo via UART");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 立即转动舵机积木
+Blockly.Blocks['serial_servo_move_immediate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move Serial Servo Immediately");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.appendValueInput("angle")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Angle (0-240°)");
+
+    this.appendValueInput("time_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Time (ms)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Move serial servo to target angle immediately");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机当前角度积木
+Blockly.Blocks['serial_servo_read_position'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Position");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current angle of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止舵机转动积木
+Blockly.Blocks['serial_servo_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Stop Serial Servo");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Stop serial servo movement immediately");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机温度积木
+Blockly.Blocks['serial_servo_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Temperature");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read real-time temperature of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 读取舵机电压积木
+Blockly.Blocks['serial_servo_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Serial Servo Voltage");
+
+    this.appendValueInput("servo_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Servo ID");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read real-time voltage of serial servo");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化震动马达
+Blockly.Blocks['vibration_motor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Vibration Motor")
+        .appendField(new Blockly.FieldImage(
+                     "media/vibration_motor.png",
+                     300,
+                     300,
+                     "*"));
+
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Pin");
+
+    this.appendValueInput("pwm_freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("PWM Frequency")
+      .appendField(new Blockly.FieldNumber(1000), "PWM_FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Vibration Motor with specified pin and PWM frequency");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启动震动马达（全速）
+Blockly.Blocks['vibration_motor_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor On (Full Speed)");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn on vibration motor at full speed");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 停止震动马达
+Blockly.Blocks['vibration_motor_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor Off");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Turn off vibration motor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 切换震动马达状态
+Blockly.Blocks['vibration_motor_toggle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Vibration Motor Toggle State");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Toggle vibration motor state (on/off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置震动强度
+Blockly.Blocks['vibration_motor_set_brightness'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Vibration Motor Intensity");
+
+    this.appendValueInput("duty")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Duty (0-1023)")
+      .appendField(new Blockly.FieldNumber(512), "DUTY");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set vibration motor intensity (0-1023)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 获取震动马达状态
+Blockly.Blocks['vibration_motor_get_state'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Vibration Motor State");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get current vibration motor state (True=On, False=Off)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 初始化火焰传感器（新增回调开关，对齐PIR/pir_init风格）
+Blockly.Blocks['flame_sensor_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Init Flame Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/flame_sensor.png",
+          300, 300,
+          "*"
+        ));
+
+    // 火焰传感器AO/DO引脚（保留原有）
+    this.appendValueInput("analog_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Analog Pin (AO)");
+
+    this.appendValueInput("digital_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin (DO)");
+
+    // 回调开关（参考PIR的ENABLE_CALLBACK下拉框）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init Flame Sensor (with/without callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 检测火焰（保留原有，对齐PIR/pir_is_motion_detected）
+Blockly.Blocks['flame_sensor_is_detected'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Is Flame Detected?");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if flame is detected (digital DO pin)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 等待火焰触发（保留原有，对齐PIR/pir_wait_for_motion）
+Blockly.Blocks['flame_sensor_wait_for_flame'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Wait for Flame Detection");
+    this.appendValueInput("timeout")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Timeout (seconds)")
+      .appendField(new Blockly.FieldNumber(0), "TIMEOUT");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Wait until flame is detected (or timeout)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 设置火焰回调函数（参考PIR/pir_set_callback写法）
+Blockly.Blocks['flame_sensor_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Flame Detection Callback");
+    // 回调函数内容（使用StatementInput接收用户代码）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when flame detected");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run when flame is detected");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 启用/禁用火焰回调（参考PIR/pir_toggle_callback写法）
+Blockly.Blocks['flame_sensor_toggle_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Flame Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Enable', 'ENABLE'],
+          ['Disable', 'DISABLE']
+        ]), 'TOGGLE_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable flame detection callback");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 保留原有基础块
+Blockly.Blocks['flame_sensor_get_analog'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Flame Sensor Analog Value (AO)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Get raw ADC value from AO pin (0-65535)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['flame_sensor_get_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get Flame Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Convert AO value to voltage (0-3.3V)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配OH34N霍尔传感器
+Blockly.Blocks['hall_sensor_oh34n_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300，对齐BA111TDS风格）
+    this.appendDummyInput()
+        .appendField("Init Hall Sensor OH34N") // 对应AHT10的"Init AHTx0 Sensor"
+        .appendField(new Blockly.FieldImage(
+          "media/hall_sensor_oh34n.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Digital Pin (DO)"); // 替换AHT10的"I2C"
+
+    // 回调开关（参考PIR传感器写法，对齐业务逻辑）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS/PIR一致的颜色值
+    this.setTooltip("Init OH34N Hall Sensor with digital pin (with/without callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['hall_sensor_oh34n_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read Hall Sensor State"); // 对应AHT10的"Read Temperature (Degrees C)"
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Check if magnetic field is detected (digital DO pin)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（回调函数设置，参考PIR）
+Blockly.Blocks['hall_sensor_oh34n_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set Hall Sensor Callback");
+    // 回调函数内容（使用StatementInput接收用户代码）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when magnetic field detected");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on magnetic field detection");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（启用/禁用中断，参考PIR）
+Blockly.Blocks['hall_sensor_oh34n_toggle_interrupt'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Hall Sensor Interrupt")
+        .appendField(new Blockly.FieldDropdown([
+          ['Enable', 'ENABLE'],
+          ['Disable', 'DISABLE']
+        ]), 'TOGGLE_ACTION');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable/disable Hall sensor interrupt detection");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配MQX气体传感器（含完整回调函数配置）
+Blockly.Blocks['mqx_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300）
+    this.appendDummyInput()
+        .appendField("Init MQ Gas Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/mqx.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin (AO)");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Comparator Pin (DO)");
+
+    // 可选参数（对齐BA111TDS的BAUDRATE写法）
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Load Resistor (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Reference Voltage (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    // 回调开关（参考PIR/霍尔传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS一致的颜色值
+    this.setTooltip("Init MQ series gas sensor (AO/DO with IRQ & Callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['mqx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQ Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read analog voltage from MQ sensor AO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法
+Blockly.Blocks['mqx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MQ Sensor PPM");
+    // 采样参数（对齐BA111TDS的参数风格）
+    this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Samples")
+      .appendField(new Blockly.FieldNumber(1), "SAMPLES");
+
+    this.appendValueInput("delay_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(0), "DELAY_MS");
+
+    // 传感器类型选择（对齐AHT10的AHT_TYPE下拉框）
+    this.appendDummyInput()
+        .appendField("Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MQ2', 'MQ2'],
+          ['MQ4', 'MQ4'],
+          ['MQ7', 'MQ7']
+        ]), 'SENSOR_TYPE');
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Calculate gas concentration in PPM using built-in polynomial");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（选择内置传感器模型）
+Blockly.Blocks['mqx_select_builtin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MQ Sensor Model")
+        .appendField(new Blockly.FieldDropdown([
+          ['MQ2', 'MQ2'],
+          ['MQ4', 'MQ4'],
+          ['MQ7', 'MQ7']
+        ]), 'MODEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in polynomial model for MQ sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（设置自定义多项式）
+Blockly.Blocks['mqx_set_custom_poly'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MQ Custom Polynomial");
+    this.appendValueInput("coeffs")
+      .setCheck("Array")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Coefficients [a0,a1,a2...]")
+      .appendField(new Blockly.FieldTextInput("[0.0,100.0,-20.0]"), "COEFFS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set custom polynomial coefficients for PPM calculation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 新增：设置MQX回调函数（完全对齐PIR/pir_set_callback格式，匹配驱动回调参数）
+Blockly.Blocks['mqx_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MQ Sensor Callback");
+    // 回调函数内容（接收电压参数，匹配MQX驱动的user_cb格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when voltage changes (param: voltage)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on MQ sensor voltage change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（释放资源）
+Blockly.Blocks['mqx_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinitialize MQ Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release MQ sensor resources and disable IRQ");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的块定义写法，适配MGX气体传感器（含完整回调函数配置）
+Blockly.Blocks['mgx_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（新增图标FieldImage，尺寸300x300）
+    this.appendDummyInput()
+        .appendField("Init MG Gas Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/mgx_gas.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("adc_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("ADC Pin (AO)");
+
+    this.appendValueInput("comp_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Comparator Pin (DO)");
+
+    // 可选参数（对齐BA111TDS的BAUDRATE写法）
+    this.appendValueInput("rl_ohm")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Load Resistor (Ω)")
+      .appendField(new Blockly.FieldNumber(10000), "RL_OHM");
+
+    this.appendValueInput("vref")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Reference Voltage (V)")
+      .appendField(new Blockly.FieldNumber(3.3), "VREF");
+
+    // 回调开关（参考PIR/霍尔传感器写法，核心回调配置）
+    this.appendDummyInput()
+        .appendField("Enable Callback")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'ENABLE_CALLBACK');
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10/BA111TDS一致的颜色值
+    this.setTooltip("Init MG series gas sensor (AO/DO with IRQ & Callback)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定帮助链接
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法
+Blockly.Blocks['mgx_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MG Sensor Voltage (V)");
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read analog voltage from MG sensor AO pin");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法
+Blockly.Blocks['mgx_read_ppm'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read MG Sensor PPM");
+    // 采样参数（对齐BA111TDS的参数风格）
+    this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Samples")
+      .appendField(new Blockly.FieldNumber(1), "SAMPLES");
+
+    this.appendValueInput("delay_ms")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Delay (ms)")
+      .appendField(new Blockly.FieldNumber(0), "DELAY_MS");
+
+    // 传感器类型选择（对齐AHT10的AHT_TYPE下拉框）
+    this.appendDummyInput()
+        .appendField("Sensor Type")
+        .appendField(new Blockly.FieldDropdown([
+          ['MG811', 'MG811'],
+          ['MG812', 'MG812']
+        ]), 'SENSOR_TYPE');
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Calculate gas concentration in PPM using built-in polynomial");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（选择内置传感器模型）
+Blockly.Blocks['mgx_select_builtin'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Select MG Sensor Model")
+        .appendField(new Blockly.FieldDropdown([
+          ['MG811', 'MG811'],
+          ['MG812', 'MG812']
+        ]), 'MODEL');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Select built-in polynomial model for MG sensor");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（设置自定义多项式）
+Blockly.Blocks['mgx_set_custom_poly'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MG Custom Polynomial");
+    this.appendValueInput("coeffs")
+      .setCheck("Array")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Coefficients [a0,a1,a2...]")
+      .appendField(new Blockly.FieldTextInput("[0.0,100.0,-20.0]"), "COEFFS");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set custom polynomial coefficients for PPM calculation");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 新增：设置MGX回调函数（完全对齐PIR/pir_set_callback格式）
+Blockly.Blocks['mgx_set_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set MG Sensor Callback");
+    // 回调函数内容（接收电压参数，匹配MGX驱动的user_cb格式）
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Run when voltage changes (param: voltage)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback code to run on MG sensor voltage change");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的块定义写法（释放资源）
+Blockly.Blocks['mgx_deinit'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Deinitialize MG Sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Release MG sensor resources and disable IRQ");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 完全对齐AHT10的aht_init写法，适配ADS1115初始化
+Blockly.Blocks['ads1115_init'] = {
+  init: function() {
+    // 第一步：appendDummyInput（图标尺寸300x300，对齐AHT10风格）
+    this.appendDummyInput()
+        .appendField("Init ADS1115 Sensor")
+        .appendField(new Blockly.FieldImage(
+          "media/ads1115.png",
+          300, 300,
+          "*"
+        ));
+
+    // 第二步：appendValueInput（对齐AHT10的参数结构）
+    this.appendValueInput("i2c_id")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C ID");
+
+    this.appendValueInput("sda_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA Pin");
+
+    this.appendValueInput("scl_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL Pin");
+
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Address")
+      .appendField(new Blockly.FieldNumber(0x48), "ADDRESS");
+
+    this.appendValueInput("gain")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Gain")
+      .appendField(new Blockly.FieldNumber(2), "GAIN");
+
+    this.appendValueInput("alert_pin")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Alert Pin (Optional)")
+      .appendField(new Blockly.FieldNumber(-1), "ALERT_PIN");
+
+    // 基础配置（完全对齐AHT10）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230); // 与AHT10一致的颜色值
+    this.setTooltip("Init ADS1115 16-bit ADC sensor (I2C)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_temp写法（读取ADC原始值）
+Blockly.Blocks['ads1115_read_raw'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Raw Value");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read raw ADC value from ADS1115");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10的aht_read_humidity写法（读取电压值）
+Blockly.Blocks['ads1115_read_voltage'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Voltage (V)");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read voltage value from ADS1115");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（启动Alert模式）
+Blockly.Blocks['ads1115_alert_start'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("ADS1115 Start Alert Mode");
+
+    this.appendValueInput("rate")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Rate (0-7)")
+      .appendField(new Blockly.FieldNumber(4), "RATE");
+
+    this.appendValueInput("channel1")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 1")
+      .appendField(new Blockly.FieldNumber(0), "CHANNEL1");
+
+    this.appendValueInput("channel2")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Channel 2 (Diff)")
+      .appendField(new Blockly.FieldNumber(-1), "CHANNEL2");
+
+    this.appendValueInput("threshold_high")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("High Threshold")
+      .appendField(new Blockly.FieldNumber(0x4000), "HIGH_THRESH");
+
+    this.appendValueInput("threshold_low")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Low Threshold")
+      .appendField(new Blockly.FieldNumber(0), "LOW_THRESH");
+
+    this.appendDummyInput()
+        .appendField("Latched")
+        .appendField(new Blockly.FieldDropdown([
+          ['Yes', 'YES'],
+          ['No', 'NO']
+        ]), 'LATCHED');
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Start ADS1115 alert mode with thresholds");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（读取Alert数据）
+Blockly.Blocks['ads1115_alert_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Read ADS1115 Alert Data");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("Read data from ADS1115 alert mode");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// 对齐AHT10风格（设置Alert回调）
+Blockly.Blocks['ads1115_set_alert_callback'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set ADS1115 Alert Callback");
+
+    this.appendStatementInput("CALLBACK_CODE")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Callback Code");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set callback function for ADS1115 alert pin interrupt");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// ===================== DS3502 Digital Potentiometer =====================
+Blockly.Blocks['ds3502_init'] = {
+  init: function() {
+    // 初始化DS3502积木块（对齐AHT10的结构+300x300图片）
+    this.appendDummyInput()
+        .appendField("Init DS3502")
+        .appendField(new Blockly.FieldImage(
+          "media/ds3502.png",  // 需确保该图片文件存在于BIPES的media目录
+          300, 300,            // 按要求设置图片尺寸
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // I2C地址配置（默认0x28）
+    this.appendValueInput("addr")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C Addr")
+      .appendField(new Blockly.FieldNumber(0x28), "ADDR");
+
+    // 工作模式下拉选择（Mode0/Mode1）
+    this.appendDummyInput()
+        .appendField("Mode")
+        .appendField(new Blockly.FieldDropdown([
+          ["Mode 0 (Slow)", "0"],
+          ["Mode 1 (Fast)", "1"]
+        ]), "MODE");
+
+    // 语句块属性（对齐AHT10的样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init DS3502 digital potentiometer via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"); // 指定链接
+  }
+};
+
+Blockly.Blocks['ds3502_write_wiper'] = {
+  init: function() {
+    // 写入Wiper值积木块
+    this.appendDummyInput()
+        .appendField("DS3502 Write Wiper");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-127)");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set DS3502 wiper value (0-127)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['ds3502_read_wiper'] = {
+  init: function() {
+    // 读取Wiper值积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("DS3502 Read Wiper");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read current wiper value from DS3502");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// ===================== MCP4725 12-bit DAC =====================
+Blockly.Blocks['mcp4725_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init MCP4725 DAC")
+        .appendField(new Blockly.FieldImage(
+          "media/mcp4725.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // I2C地址配置（默认0x60，下拉选择常用地址）
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldDropdown([
+          ["0x60", "0x60"],
+          ["0x61", "0x61"],
+          ["0x62", "0x62"],
+          ["0x63", "0x63"]
+        ]), "ADDR");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init MCP4725 12-bit DAC via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_write'] = {
+  init: function() {
+    // 写入DAC值积木块
+    this.appendDummyInput()
+        .appendField("MCP4725 Write Value");
+
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-4095)")
+      .appendField(new Blockly.FieldNumber(0), "VALUE");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write 12-bit value to MCP4725 (0-4095)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_read'] = {
+  init: function() {
+    // 读取DAC状态积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("MCP4725 Read Status");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read power down mode and DAC value from MCP4725");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['mcp4725_config'] = {
+  init: function() {
+    // 配置DAC积木块
+    this.appendDummyInput()
+        .appendField("MCP4725 Config");
+
+    // 电源关断模式下拉选择
+    this.appendDummyInput()
+        .appendField("Power Down Mode")
+        .appendField(new Blockly.FieldDropdown([
+          ["Off", "Off"],
+          ["1k", "1k"],
+          ["100k", "100k"],
+          ["500k", "500k"]
+        ]), "POWER_MODE");
+
+    // 配置值输入
+    this.appendValueInput("value")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Value (0-4095)")
+      .appendField(new Blockly.FieldNumber(0), "CONFIG_VALUE");
+
+    // 是否写入EEPROM
+    this.appendDummyInput()
+        .appendField("Write to EEPROM")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "EEPROM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure MCP4725 power down mode and save to EEPROM");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// ===================== SI5351 Clock Generator =====================
+Blockly.Blocks['si5351_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init SI5351 Clock Generator")
+        .appendField(new Blockly.FieldImage(
+          "media/si5351.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // 晶振频率配置
+    this.appendValueInput("crystal")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Crystal Freq (Hz)")
+      .appendField(new Blockly.FieldNumber(25000000), "CRYSTAL");
+
+    // I2C地址配置
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldDropdown([
+          ["0x60", "0x60"],
+          ["0x61", "0x61"]
+        ]), "ADDR");
+
+    // 晶振负载电容配置
+    this.appendDummyInput()
+        .appendField("Crystal Load")
+        .appendField(new Blockly.FieldDropdown([
+          ["6PF", "1"],
+          ["8PF", "2"],
+          ["10PF", "3"]
+        ]), "LOAD");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init SI5351 clock generator via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_setup_pll'] = {
+  init: function() {
+    // 配置PLL积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Setup PLL");
+
+    // PLL选择
+    this.appendDummyInput()
+        .appendField("PLL")
+        .appendField(new Blockly.FieldDropdown([
+          ["PLLA (0)", "0"],
+          ["PLLB (1)", "1"]
+        ]), "PLL");
+
+    // 倍频系数
+    this.appendValueInput("mul")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Multiplier (15-90)")
+      .appendField(new Blockly.FieldNumber(15), "MUL");
+
+    // 分数分子/分母（可选）
+    this.appendValueInput("num")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Fraction Num")
+      .appendField(new Blockly.FieldNumber(0), "NUM");
+
+    this.appendValueInput("denom")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Fraction Denom")
+      .appendField(new Blockly.FieldNumber(1), "DENOM");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Configure SI5351 PLL multiplier (25MHz * mul = VCO freq)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_init_clock'] = {
+  init: function() {
+    // 初始化时钟输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Init Clock Output");
+
+    // 输出通道选择
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    // PLL选择
+    this.appendDummyInput()
+        .appendField("Use PLL")
+        .appendField(new Blockly.FieldDropdown([
+          ["PLLA (0)", "0"],
+          ["PLLB (1)", "1"]
+        ]), "PLL");
+
+    // 驱动强度
+    this.appendDummyInput()
+        .appendField("Drive Strength")
+        .appendField(new Blockly.FieldDropdown([
+          ["2mA", "0"],
+          ["4mA", "1"],
+          ["6mA", "2"],
+          ["8mA", "3"]
+        ]), "DRIVE");
+
+    // 正交/反相配置
+    this.appendDummyInput()
+        .appendField("Quadrature Output")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "QUADRATURE");
+
+    this.appendDummyInput()
+        .appendField("Invert Output")
+        .appendField(new Blockly.FieldDropdown([
+          ["No", "False"],
+          ["Yes", "True"]
+        ]), "INVERT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Initialize SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_set_freq'] = {
+  init: function() {
+    // 设置输出频率积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Set Output Frequency");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    // 目标频率
+    this.appendValueInput("freq")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Frequency (Hz)")
+      .appendField(new Blockly.FieldNumber(2000000), "FREQ");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Set SI5351 clock output frequency (fixed PLL mode)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_enable_output'] = {
+  init: function() {
+    // 使能输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Enable Output");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Enable SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['si5351_disable_output'] = {
+  init: function() {
+    // 禁用输出积木块
+    this.appendDummyInput()
+        .appendField("SI5351 Disable Output");
+
+    // 输出通道
+    this.appendDummyInput()
+        .appendField("Output Channel")
+        .appendField(new Blockly.FieldDropdown([
+          ["CLK0", "0"],
+          ["CLK1", "1"],
+          ["CLK2", "2"]
+        ]), "OUTPUT");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Disable SI5351 clock output channel");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+// ===================== AT24CXX EEPROM =====================
+Blockly.Blocks['at24cxx_init'] = {
+  init: function() {
+    // 初始化积木块（对齐AHT10结构 + 300x300图片）
+    this.appendDummyInput()
+        .appendField("Init AT24CXX EEPROM")
+        .appendField(new Blockly.FieldImage(
+          "media/at24c256.png",
+          300, 300,
+          "*"
+        ));
+
+    // I2C总线配置（对齐AHT10的输入项格式）
+    this.appendValueInput("i2c")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("I2C");
+
+    this.appendValueInput("sda")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SDA");
+
+    this.appendValueInput("scl")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL");
+
+    // EEPROM型号选择
+    this.appendDummyInput()
+        .appendField("EEPROM Type")
+        .appendField(new Blockly.FieldDropdown([
+          ["AT24C32 (4KB)", "4096"],
+          ["AT24C64 (8KB)", "8192"],
+          ["AT24C128 (16KB)", "16384"],
+          ["AT24C256 (32KB)", "32768"],
+          ["AT24C512 (64KB)", "65536"]
+        ]), "CHIP_SIZE");
+
+    // I2C地址配置
+    this.appendDummyInput()
+        .appendField("I2C Address")
+        .appendField(new Blockly.FieldNumber(0x50, 0x50, 0x57), "ADDR");
+
+    // 语句块属性（对齐AHT10样式）
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Init AT24CXX EEPROM via I2C");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_write_byte'] = {
+  init: function() {
+    // 写入单字节积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Write Byte");
+
+    // 地址配置
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 数据配置
+    this.appendValueInput("data")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Data (0-255)")
+      .appendField(new Blockly.FieldNumber(0, 0, 255), "DATA");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write one byte to AT24CXX at specified address");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_read_byte'] = {
+  init: function() {
+    // 读取单字节积木块（输出型，对齐AHT10的read_temp）
+    this.appendDummyInput()
+        .appendField("AT24CXX Read Byte from Address")
+        .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read one byte from AT24CXX at specified address");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_write_page'] = {
+  init: function() {
+    // 写入页数据积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Write Page");
+
+    // 起始地址
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 数据长度（简化版：固定长度/输入长度，这里选输入长度）
+    this.appendValueInput("length")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Data Length")
+      .appendField(new Blockly.FieldNumber(64, 1, 64), "LENGTH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Write page data to AT24CXX (max 64 bytes)");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_read_sequence'] = {
+  init: function() {
+    // 顺序读取数据积木块（输出型）
+    this.appendDummyInput()
+        .appendField("AT24CXX Read Sequence");
+
+    // 起始地址
+    this.appendDummyInput()
+        .appendField("Start Address")
+        .appendField(new Blockly.FieldNumber(0), "START_ADDR");
+
+    // 读取长度
+    this.appendDummyInput()
+        .appendField("Length")
+        .appendField(new Blockly.FieldNumber(64, 1, 1024), "LENGTH");
+
+    this.setOutput(true, null);
+    this.setColour(230);
+    this.setTooltip("Read sequential bytes from AT24CXX");
+    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['at24cxx_erase_data'] = {
+  init: function() {
+    // 擦除数据积木块
+    this.appendDummyInput()
+        .appendField("AT24CXX Erase Data (0xFF)");
+
+    // 起始地址
+    this.appendValueInput("address")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Start Address")
+      .appendField(new Blockly.FieldNumber(0), "ADDRESS");
+
+    // 擦除长度
+    this.appendValueInput("length")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("Length")
+      .appendField(new Blockly.FieldNumber(64, 1, 1024), "LENGTH");
+
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("Erase AT24CXX data to 0xFF at specified address range");
     this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
