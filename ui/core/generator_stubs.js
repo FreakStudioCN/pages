@@ -10751,13 +10751,6 @@ Blockly.Python['hall_sensor_oh34n_init'] = function(block) {
         code += 'hall_flag = False\n';
         code += 'hall_last_time = 0\n';
         code += 'HALL_DEBOUNCE_MS = 200\n\n';
-        // 定义默认回调函数模板
-        code += 'def hall_callback():\n';
-        code += '\tglobal hall_flag, hall_last_time\n';
-        code += '\tnow = time.ticks_ms()\n';
-        code += '\tif time.ticks_diff(now, hall_last_time) > HALL_DEBOUNCE_MS:\n';
-        code += '\t\thall_flag = True\n';
-        code += '\t\thall_last_time = now\n\n';
         // 实例化霍尔传感器（根据开关决定是否传入回调）
         if (enable_callback === 'YES') {
             code += 'hall_sensor_device=hall_sensor_oh34n.HallSensorOH34N(pin=' + pin + ', callback=hall_callback)\n';
