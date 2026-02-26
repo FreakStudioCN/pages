@@ -14922,7 +14922,10 @@ Blockly.Blocks['mlx9061x_init'] = {
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField("I2C Address (0x5A-0x5D)")
-      .appendField(new Blockly.FieldNumber(0x5A), "ADDRESS");
+      .appendField(new Blockly.FieldDropdown([
+          ['0x5A', '0x5b'],
+          ['0x5C', '0x5D']
+        ]), "ADDRESS");
 
     // 固定属性（和AHT10/BA111TDS完全一致）
     this.setPreviousStatement(true, null);
