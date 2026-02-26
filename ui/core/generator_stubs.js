@@ -10116,18 +10116,6 @@ Blockly.Python['snr9816_tts_control'] = function(block) {
         return code;
 };
 
-// SNR9816 TTS查询状态代码生成
-Blockly.Python['snr9816_tts_query_status'] = function(block) {
-        var code = '''
-def get_tts_status_str():
-    if tts_device is None:
-        return "UNINITIALIZED"
-    status_code = tts_device.query_status()
-    status_map = {0: "BUSY", 1: "IDLE", 2: "UNKNOWN"}
-    return status_map.get(status_code, "UNKNOWN")
-get_tts_status_str()''';
-        return [code, Blockly.Python.ORDER_NONE];
-};
 
 // 总线直流电机初始化代码生成
 Blockly.Python['bus_dc_motor_init'] = function(block) {
@@ -10201,19 +10189,6 @@ Blockly.Python['bus_dc_motor_break'] = function(block) {
         return code;
 };
 
-// 扫描I2C设备代码生成
-Blockly.Python['bus_dc_motor_scan_i2c'] = function(block) {
-        var code = '''
-def scan_pca9685_address():
-    i2c_scan = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
-    devices = i2c_scan.scan()
-    for dev in devices:
-        if 0x40 <= dev <= 0x4F:
-            return hex(dev)
-    return "No PCA9685 found"
-scan_pca9685_address()''';
-        return [code, Blockly.Python.ORDER_NONE];
-};
 
 // 总线步进电机初始化代码生成
 Blockly.Python['bus_step_motor_init'] = function(block) {
