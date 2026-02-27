@@ -7862,7 +7862,7 @@ Blockly.Python['mlx9061x_init'] = function(block) {
 
   // 第三步：代码拼接（最简化，对齐AHT10/BA111TDS的实例化逻辑）
   var code = 'i2cMLX=I2C(' + i2c + ', scl=' + scl + ', sda=' + sda + ', freq=100000)\n';
-  code += 'mlx_sensor=mlx9061x.' + sensor_type + '(i2c=i2cMLX, address=' + address + ')\n';
+  code += 'mlx_sensor=mlx90614.' + sensor_type + '(i2c=i2cMLX, address=' + address + ')\n';
 
   return code;
 };
