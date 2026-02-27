@@ -7908,8 +7908,6 @@ Blockly.Python['pir_init'] = function(block) {
 
   // 3. 初始化代码（含回调开关）
   var code = '';
-  // 定义全局回调函数模板（简化，用户可通过pir_set_callback覆盖）
-  code += 'def pir_motion_callback():\n\tprint("Motion detected!")\n\n';
   // 实例化PIR（根据开关决定是否传入回调）
   if (enable_callback === 'YES') {
     code += 'pir_sensor=pir.PIRSensor(' + pir_pin + ', callback=pir_motion_callback)\n';
@@ -7942,7 +7940,7 @@ Blockly.Python['pir_set_callback'] = function(block) {
   var code = 'def pir_motion_callback():\n';
   // 缩进用户代码（适配Python格式）
   if (callback_code) {
-    code += callback_code.replace(/^/gm, '\t');
+    code += callback_code.replace(/^/gm, '\n');
   } else {
     code += '\tprint("Motion detected!")\n'; // 兜底
   }
