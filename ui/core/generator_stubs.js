@@ -7969,7 +7969,6 @@ Blockly.Python['rcwl9623_init'] = function(block) {
   var rcwl_mode = block.getFieldValue('RCWL_MODE');
   var trig_pin = block.getFieldValue('TRIG_PIN');
   var echo_pin = block.getFieldValue('ECHO_PIN');
-  var onewire_pin = block.getFieldValue('ONEWIRE_PIN');
   var bus_num = block.getFieldValue('BUS_NUM');
   var i2c_addr = block.getFieldValue('I2C_ADDR');
 
@@ -7987,14 +7986,14 @@ Blockly.Python['rcwl9623_init'] = function(block) {
     code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.GPIO_MODE, gpio_pins=gpio_pins)\n';
   } else if (rcwl_mode === 'ONEWIRE') {
     // OneWire模式
-    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.ONEWIRE_MODE, onewire_pin=' + onewire_pin + ')\n';
+    code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.ONEWIRE_MODE, onewire_pin=' + trig_pin + ')\n';
   } else if (rcwl_mode === 'UART') {
     // UART模式（简化初始化UART）
-    code += 'uart_rcwl=UART(' + bus_num + ', baudrate=9600, tx=Pin(16), rx=Pin(17))\n';
+    code += 'uart_rcwl=UART(' + bus_num + ', baudrate=9600, tx=Pin'+ echo_pin +', rx=Pin'+ trig_pin +')\n';
     code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.UART_MODE, uart=uart_rcwl)\n';
   } else if (rcwl_mode === 'I2C') {
     // I2C模式（简化初始化I2C）
-    code += 'i2c_rcwl=I2C(' + bus_num + ', scl=Pin(1), sda=Pin(0))\n';
+    code += 'i2c_rcwl=I2C(' + bus_num + ', scl=Pin'+ trig_pin +', sda=Pin'+ echo_pin +', freq=100_000)\n';
     code += 'rcwl9623_sensor=rcwl9623.RCWL9623(rcwl9623.RCWL9623.I2C_MODE, i2c=i2c_rcwl, addr=' + i2c_addr + ')\n';
   }
 

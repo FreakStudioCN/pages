@@ -15168,29 +15168,18 @@ Blockly.Blocks['rcwl9623_init'] = {
     this.appendValueInput("trig_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Trig Pin")
-      .appendField(new Blockly.FieldNumber(2), "TRIG_PIN");
-
+      .appendField("Trig Pin/SCL/RX/ONEWIRE");
     // GPIO模式：Echo引脚
     this.appendValueInput("echo_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Echo Pin")
-      .appendField(new Blockly.FieldNumber(3), "ECHO_PIN");
+      .appendField("Echo Pin/SDA/TX");
 
-    // OneWire模式：单引脚（复用Trig Pin输入框，简化）
-    this.appendValueInput("onewire_pin")
+        this.appendValueInput("bus_num")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("OneWire Pin")
-      .appendField(new Blockly.FieldNumber(2), "ONEWIRE_PIN");
-
-    // UART/I2C模式：总线编号（简化）
-    this.appendValueInput("bus_num")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Bus Num (UART/I2C)")
-      .appendField(new Blockly.FieldNumber(0), "BUS_NUM");
+      .appendField("I2C/UART BUS")
+      .appendField(new Blockly.FieldNumber(0),"I2C/UART");
 
     // I2C地址（默认0x57）
     this.appendValueInput("i2c_addr")
