@@ -7861,7 +7861,7 @@ Blockly.Python['mlx9061x_init'] = function(block) {
   Blockly.Python.definitions_['import_mlx90614'] = 'import mlx90614'; // 驱动文件名匹配：mlx90614.py
 
   // 第三步：代码拼接（最简化，对齐AHT10/BA111TDS的实例化逻辑）
-  var code = 'i2cMLX=I2C((' + i2c + ', scl=' + scl + ', sda=' + sda + '), freq=100000)\n';
+  var code = 'i2cMLX=I2C(' + i2c + ', scl=' + scl + ', sda=' + sda + ', freq=100000)\n';
   code += 'mlx_sensor=mlx9061x.' + sensor_type + '(i2c=i2cMLX, address=' + address + ')\n';
 
   return code;
