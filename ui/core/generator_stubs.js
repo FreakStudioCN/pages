@@ -8016,11 +8016,11 @@ Blockly.Python['imu_init'] = function(block) {
   Blockly.Python.definitions_['import_machine_imu'] = 'from machine import Pin, UART';
   Blockly.Python.definitions_['import_time_imu'] = 'import time';
   Blockly.Python.definitions_['import_binascii_imu'] = 'import binascii';
-  Blockly.Python.definitions_['import_imu'] = 'import serial_imu'; // 假设驱动文件名为imu.py
+  Blockly.Python.definitions_['import_serial_imu'] = 'import serial_imu'; // 假设驱动文件名为imu.py
 
   // 3. 代码拼接（实例化UART+IMU，最简化）
   var code = 'uart_imu=UART(' + uart_port + ', baudrate=' + baudrate + ', tx=Pin(' + tx_pin + '), rx=Pin(' + rx_pin + '), timeout=2000)\n';
-  code += 'imu_sensor=imu.IMU(uart_imu)\n'; // 实例化IMU，自动执行清零Z轴+校准加速度
+  code += 'imu_sensor=serial_imu.IMU(uart_imu)\n'; // 实例化IMU，自动执行清零Z轴+校准加速度
 
   return code;
 };
@@ -8038,11 +8038,11 @@ Blockly.Python['imu_send_cmd'] = function(block) {
 
   // 指令映射（简化，直接调用驱动内置常量）
   var cmd_map = {
-    'ZAXISCLEAR': 'imu.IMU.ZAXISCLEARCMD',
-    'ACCCALB': 'imu.IMU.ACCCALBCMD',
-    'CONVSLEEP': 'imu.IMU.CONVSLEEPCMD',
-    'BAUD115200': 'imu.IMU.BAUD115200CMD',
-    'BAUD9600': 'imu.IMU.BAUD9600CMD'
+    'ZAXISCLEAR': 'serial_imu.IMU.ZAXISCLEARCMD',
+    'ACCCALB': 'serial_imu.IMU.ACCCALBCMD',
+    'CONVSLEEP': 'serial_imu.IMU.CONVSLEEPCMD',
+    'BAUD115200': 'serial_imu.IMU.BAUD115200CMD',
+    'BAUD9600': 'serial_imu.IMU.BAUD9600CMD'
   };
 
   // 生成发送指令代码
@@ -10688,7 +10688,7 @@ Blockly.Python['flame_sensor_set_callback'] = function(block) {
   var code = 'def flame_detected_callback():\n';
   // 缩进用户代码（适配Python格式）
   if (callback_code) {
-    code += callback_code.replace(/^/gm, '\t');
+    code += callback_code.replace(/^/gm, '\n');
   } else {
     code += '\tprint("Flame detected!")\n'; // 兜底逻辑
   }
