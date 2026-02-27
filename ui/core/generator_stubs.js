@@ -10979,7 +10979,7 @@ Blockly.Python['mgx_set_callback'] = function(block) {
         var code = 'def mgx_callback(voltage):\n';
         // 缩进用户代码（适配Python格式，保留voltage参数可用）
         if (callback_code) {
-            code += callback_code.replace(/^/gm, '\t');
+            code += callback_code.replace(/^/gm, '\n');
         } else {
             code += '\tprint(f"MG Sensor Voltage: {voltage:.2f} V")\n'; // 兜底逻辑
         }
