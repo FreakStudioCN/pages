@@ -7967,9 +7967,9 @@ Blockly.Python['pir_toggle_callback'] = function(block) {
 Blockly.Python['rcwl9623_init'] = function(block) {
   // 1. 取值（和AHT10取值逻辑一致）
   var rcwl_mode = block.getFieldValue('RCWL_MODE');
-  var trig_pin = block.getFieldValue('TRIG_PIN');
-  var echo_pin = block.getFieldValue('ECHO_PIN');
-  var bus_num = block.getFieldValue('BUS_NUM');
+  var trig_pin = block.getFieldValue('Trig Pin/SCL/RX/ONEWIRE');
+  var echo_pin = block.getFieldValue('Echo Pin/SDA/TX');
+  var bus_num = block.getFieldValue('I2C/UART');
   var i2c_addr = block.getFieldValue('I2C_ADDR');
 
   // 2. 导入语句（适配RCWL9623驱动依赖）
