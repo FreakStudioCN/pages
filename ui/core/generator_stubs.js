@@ -10911,10 +10911,6 @@ Blockly.Python['mgx_init'] = function(block) {
 
         // 第三步：代码拼接（对齐AHT10的实例化逻辑，核心回调实现）
         var code = '';
-        // 定义默认回调函数（匹配MGX驱动的user_cb格式：接收voltage参数）
-        code += '# MG Sensor Default Callback Function (matches user_cb format)\n';
-        code += 'def mgx_callback(voltage):\n';
-        code += '\tprint(f"MG Sensor Voltage Changed: {voltage:.2f} V")\n\n';
         // 初始化ADC和比较器引脚
         code += '# Initialize ADC and Comparator Pins\n';
         code += 'mg_adc = ADC(' + adc_pin + ')\n';
