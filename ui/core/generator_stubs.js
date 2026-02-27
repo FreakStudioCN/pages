@@ -7887,7 +7887,7 @@ Blockly.Python['pir_init'] = function(block) {
   // 2. 导入语句（适配PIR驱动依赖）
   Blockly.Python.definitions_['import_machine_pir'] = 'from machine import Pin';
   Blockly.Python.definitions_['import_time_pir'] = 'import time';
-  Blockly.Python.definitions_['import_pir'] = 'import pir_sensor'; // 假设驱动文件名为pir.py
+  Blockly.Python.definitions_['import_pir'] = 'import pir'; // 假设驱动文件名为pir.py
 
   // 3. 代码拼接（实例化PIR，忽略回调/中断，最简化）
   var code = 'pir_sensor=pir.PIRSensor(' + pir_pin + ')\n'; // 不传入回调，简化逻辑
@@ -7904,7 +7904,7 @@ Blockly.Python['pir_init'] = function(block) {
   Blockly.Python.definitions_['import_machine_pir'] = 'from machine import Pin';
   Blockly.Python.definitions_['import_time_pir'] = 'import time';
   Blockly.Python.definitions_['import_micropython_pir'] = 'import micropython';
-  Blockly.Python.definitions_['import_pir'] = 'import pir_sensor';
+  Blockly.Python.definitions_['import_pir'] = 'import pir';
 
   // 3. 初始化代码（含回调开关）
   var code = '';
