@@ -14968,8 +14968,8 @@ Blockly.Blocks['mlx90640_init'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldImage(
                      "media/mlx90640.png",
-                     55,
-                     55,
+                     300,
+                     300,
                      "*"))
         .appendField("Init MLX90640 IR Camera");
 
@@ -14990,12 +14990,15 @@ Blockly.Blocks['mlx90640_init'] = {
       .appendField("SCL");
 
     // 第三步：I2C地址（默认0x33，对齐BA111TDS的数值字段风格）
-    this.appendValueInput("address")
-      .setCheck("Number")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("I2C Address (0x31-0x35)")
-      .appendField(new Blockly.FieldNumber(51), "ADDRESS"); // 0x33的十进制值
-
+    this.appendDummyInput()
+        .appendField("I2C Address (0x31-0x35)")
+        .appendField(new Blockly.FieldDropdown([
+          ['0x31', '0x31'],
+          ['0x32', '0x32'],
+          ['0x33', '0x33'],
+          ['0x34', '0x34'],
+          ['0x35', '0x35']
+        ]), "I2C_ADDR");
     // 固定属性（和AHT10/BA111TDS完全一致）
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
