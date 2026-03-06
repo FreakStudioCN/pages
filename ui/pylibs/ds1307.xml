@@ -1,0 +1,45 @@
+<category name="DS1307">
+  <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
+  <button text="Install ds1307 library" callbackKey="installPyLib"></button>
+  
+  <label text="DS1307 Module"></label>
+  <block type="ds1307_init">
+    <value name="i2c_id">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="scl_pin">
+      <shadow type="pinout">
+        <field name="PIN">5</field>
+      </shadow>
+    </value>
+    <value name="sda_pin">
+      <shadow type="pinout">
+        <field name="PIN">4</field>
+      </shadow>
+    </value>
+    <value name="addr">
+      <shadow type="math_number">
+        <field name="NUM">104</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ds1307_datetime"></block>
+  <block type="ds1307_set_datetime">
+    <value name="datetime">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="ds1307_datetimeRTC"></block>
+  <block type="ds1307_disable_oscillator"></block>
+  <block type="ds1307_set_disable_oscillator">
+    <value name="value">
+      <shadow type="logic_boolean">
+        <field name="BOOL">FALSE</field>
+      </shadow>
+    </value>
+  </block>
+</category>
