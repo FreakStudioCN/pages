@@ -1,0 +1,292 @@
+{
+  "meta": {
+    "module_name": "max9814_mic",
+    "class_name": "MAX9814Mic",
+    "version": "1.0.0"
+  },
+  "dependencies": [
+    "machine.ADC",
+    "machine.Pin"
+  ],
+  "blocks": [
+    {
+      "type": "max9814mic_init",
+      "message": "MAX9814Mic __init__ adc_pin (ADC input pin)%1 gain_pin (gain control pin, optional)%2 shdn_pin (shutdown pin, optional)%3",
+      "colour": 135,
+      "output_type": "MAX9814Mic",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "ADC_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "adc_pin (ADC input pin)"
+          }
+        },
+        {
+          "name": "GAIN_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "gain_pin (gain control pin, optional)",
+            "optional": true
+          }
+        },
+        {
+          "name": "SHDN_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "shdn_pin (shutdown pin, optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "adc_inst = ADC(Pin({ADC_PIN}))\ngain_pin_inst = Pin({GAIN_PIN}, Pin.OUT) if {GAIN_PIN} is not None else None\nshdn_pin_inst = Pin({SHDN_PIN}, Pin.OUT) if {SHDN_PIN} is not None else None\nmax9814mic = MAX9814Mic(adc_inst, gain_pin_inst, shdn_pin_inst)",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_read",
+      "message": "MAX9814Mic read",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "max9814mic.read()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_read_normalized",
+      "message": "MAX9814Mic read_normalized",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "max9814mic.read_normalized()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_read_voltage",
+      "message": "MAX9814Mic read_voltage vref (optional)%1",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "VREF",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 3.3,
+            "min": null,
+            "max": null,
+            "label": "vref (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "max9814mic.read_voltage({VREF})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_enable",
+      "message": "MAX9814Mic enable",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "max9814mic.enable()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_disable",
+      "message": "MAX9814Mic disable",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "max9814mic.disable()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_set_gain",
+      "message": "MAX9814Mic set_gain high%1",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "HIGH",
+          "input_type": "value",
+          "check_type": "Boolean",
+          "field": {
+            "field_type": "checkbox",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "high"
+          }
+        }
+      ],
+      "generator_template": "max9814mic.set_gain({HIGH})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_get_state",
+      "message": "MAX9814Mic get_state",
+      "colour": 230,
+      "output_type": "Array",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "max9814mic.get_state()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_get_average_reading",
+      "message": "MAX9814Mic get_average_reading samples (optional)%1",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "SAMPLES",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 10,
+            "min": 1,
+            "max": null,
+            "label": "samples (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "max9814mic.get_average_reading({SAMPLES})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_get_peak_reading",
+      "message": "MAX9814Mic get_peak_reading samples (optional)%1",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "SAMPLES",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 100,
+            "min": 1,
+            "max": null,
+            "label": "samples (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "max9814mic.get_peak_reading({SAMPLES})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_detect_sound_level",
+      "message": "MAX9814Mic detect_sound_level threshold (optional)%1 samples (optional)%2",
+      "colour": 230,
+      "output_type": "Boolean",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "THRESHOLD",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 35000,
+            "min": null,
+            "max": null,
+            "label": "threshold (optional)",
+            "optional": true
+          }
+        },
+        {
+          "name": "SAMPLES",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 50,
+            "min": 1,
+            "max": null,
+            "label": "samples (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "max9814mic.detect_sound_level({THRESHOLD}, {SAMPLES})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "max9814mic_method_calibrate_baseline",
+      "message": "MAX9814Mic calibrate_baseline samples (optional)%1",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "SAMPLES",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 100,
+            "min": 1,
+            "max": null,
+            "label": "samples (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "max9814mic.calibrate_baseline({SAMPLES})",
+      "is_property": false,
+      "is_setter": false
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "module_name": "jedm_gas_meas",
+    "class_name": "JEDMGasMeas",
+    "version": "1.0.0"
+  },
+  "dependencies": [
+    "time",
+    "machine.SoftI2C",
+    "machine.Pin"
+  ],
+  "blocks": [
+    {
+      "type": "jedmgasmeas_init",
+      "message": "JEDMGasMeas__init__ sda_pin%1 scl_pin%2 baudrate%3 addr%4",
+      "colour": 135,
+      "output_type": "JEDMGasMeas",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "SDA_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "sda_pin"
+          }
+        },
+        {
+          "name": "SCL_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "scl_pin"
+          }
+        },
+        {
+          "name": "BAUDRATE",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "baudrate"
+          }
+        },
+        {
+          "name": "ADDR",
+          "input_type": "value",
+          "check_type": "Any",
+          "field": {
+            "field_type": "dummy",
+            "default": 42,
+            "min": null,
+            "max": null,
+            "label": "addr"
+          }
+        }
+      ],
+      "generator_template": "softi2c1 = SoftI2C(scl=Pin({SCL_PIN}), sda=Pin({SDA_PIN}), freq={BAUDRATE})\njedmgasmeas = JEDMGasMeas(softi2c1, addr={ADDR})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "jedmgasmeas_method_read_concentration",
+      "message": "JEDMGasMeasread_concentration",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "jedmgasmeas.read_concentration()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "jedmgasmeas_method_calibrate_zero",
+      "message": "JEDMGasMeascalibrate_zero calib_value%1",
+      "colour": 230,
+      "output_type": "Boolean",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "CALIB_VALUE",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "calib_value"
+          }
+        }
+      ],
+      "generator_template": "jedmgasmeas.calibrate_zero({CALIB_VALUE})",
+      "is_property": false,
+      "is_setter": false
+    }
+  ]
+}

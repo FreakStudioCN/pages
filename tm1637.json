@@ -1,0 +1,399 @@
+{
+  "meta": {
+    "module_name": "tm1637",
+    "class_name": "TM1637",
+    "version": "1.0.0"
+  },
+  "dependencies": [
+    "time.sleep_us",
+    "machine.Pin",
+    "time.sleep_ms",
+    "micropython.const"
+  ],
+  "blocks": [
+    {
+      "type": "tm1637_init",
+      "message": "TM1637__init__ pin1%1 pin2%2 brightness%3",
+      "colour": 135,
+      "output_type": "TM1637",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "PIN1",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "pin1"
+          }
+        },
+        {
+          "name": "PIN2",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "pin2"
+          }
+        },
+        {
+          "name": "BRIGHTNESS",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 7,
+            "min": null,
+            "max": null,
+            "label": "brightness"
+          }
+        }
+      ],
+      "generator_template": "pin1 = Pin({PIN1})\npin2 = Pin({PIN2})\ntm1637 = TM1637(pin1, pin2, {BRIGHTNESS})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_brightness",
+      "message": "TM1637brightness val%1",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "VAL",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "val"
+          }
+        }
+      ],
+      "generator_template": "tm1637.brightness({VAL})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_write",
+      "message": "TM1637write segments%1 pos%2",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "SEGMENTS",
+          "input_type": "value",
+          "check_type": "Array",
+          "field": {
+            "field_type": "dummy",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "segments"
+          }
+        },
+        {
+          "name": "POS",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 0,
+            "min": null,
+            "max": null,
+            "label": "pos"
+          }
+        }
+      ],
+      "generator_template": "tm1637.write({SEGMENTS}, {POS})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_encode_digit",
+      "message": "TM1637encode_digit digit%1",
+      "colour": 230,
+      "output_type": "bytes",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "DIGIT",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "digit"
+          }
+        }
+      ],
+      "generator_template": "tm1637.encode_digit({DIGIT})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_encode_string",
+      "message": "TM1637encode_string string%1",
+      "colour": 230,
+      "output_type": "bytearray",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "STRING",
+          "input_type": "value",
+          "check_type": "String",
+          "field": {
+            "field_type": "text_input",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "string"
+          }
+        }
+      ],
+      "generator_template": "tm1637.encode_string({STRING})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_encode_char",
+      "message": "TM1637encode_char char%1",
+      "colour": 230,
+      "output_type": "bytes",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "CHAR",
+          "input_type": "value",
+          "check_type": "String",
+          "field": {
+            "field_type": "text_input",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "char"
+          }
+        }
+      ],
+      "generator_template": "tm1637.encode_char({CHAR})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_hex",
+      "message": "TM1637hex val%1",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "VAL",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "val"
+          }
+        }
+      ],
+      "generator_template": "tm1637.hex({VAL})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_number",
+      "message": "TM1637number num%1",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "NUM",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "num"
+          }
+        }
+      ],
+      "generator_template": "tm1637.number({NUM})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_numbers",
+      "message": "TM1637numbers num1%1 num2%2 colon%3",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "NUM1",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "num1"
+          }
+        },
+        {
+          "name": "NUM2",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "num2"
+          }
+        },
+        {
+          "name": "COLON",
+          "input_type": "value",
+          "check_type": "Boolean",
+          "field": {
+            "field_type": "checkbox",
+            "default": true,
+            "min": null,
+            "max": null,
+            "label": "colon"
+          }
+        }
+      ],
+      "generator_template": "tm1637.numbers({NUM1}, {NUM2}, {COLON})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_temperature",
+      "message": "TM1637temperature num%1",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "NUM",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "num"
+          }
+        }
+      ],
+      "generator_template": "tm1637.temperature({NUM})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_show",
+      "message": "TM1637show string%1 colon%2",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "STRING",
+          "input_type": "value",
+          "check_type": "String",
+          "field": {
+            "field_type": "text_input",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "string"
+          }
+        },
+        {
+          "name": "COLON",
+          "input_type": "value",
+          "check_type": "Boolean",
+          "field": {
+            "field_type": "checkbox",
+            "default": false,
+            "min": null,
+            "max": null,
+            "label": "colon"
+          }
+        }
+      ],
+      "generator_template": "tm1637.show({STRING}, {COLON})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "tm1637_method_scroll",
+      "message": "TM1637scroll string%1 delay%2",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [
+        {
+          "name": "STRING",
+          "input_type": "value",
+          "check_type": "String",
+          "field": {
+            "field_type": "text_input",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "string"
+          }
+        },
+        {
+          "name": "DELAY",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "numeric",
+            "default": 250,
+            "min": null,
+            "max": null,
+            "label": "delay"
+          }
+        }
+      ],
+      "generator_template": "tm1637.scroll({STRING}, {DELAY})",
+      "is_property": false,
+      "is_setter": false
+    }
+  ]
+}

@@ -1626,52 +1626,82 @@
       </block>
     </category>
 
-    <category name="DS1307">
+    <category name="MAX9814MIC">
       <label text="Library: https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython "></label>
-      <button text="Install ds1307 library" callbackKey="installPyLib"></button>
+      <button text="Install max9814mic library" callbackKey="installPyLib"></button>
       
-      <label text="DS1307 Module"></label>
-      <block type="ds1307_init">
-        <value name="i2c_id">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-        <value name="scl_pin">
+      <label text="MAX9814MIC Module"></label>
+      <block type="max9814mic_init">
+        <value name="adc_pin">
           <shadow type="pinout">
-            <field name="PIN">5</field>
+            <field name="PIN"></field>
           </shadow>
         </value>
-        <value name="sda_pin">
+        <value name="gain_pin">
           <shadow type="pinout">
-            <field name="PIN">4</field>
+            <field name="PIN"></field>
           </shadow>
         </value>
-        <value name="addr">
-          <shadow type="math_number">
-            <field name="NUM">104</field>
+        <value name="shdn_pin">
+          <shadow type="pinout">
+            <field name="PIN"></field>
           </shadow>
         </value>
       </block>
-      <block type="ds1307_datetime"></block>
-      <block type="ds1307_set_datetime">
-        <value name="datetime">
+      <block type="max9814mic_method_read"></block>
+      <block type="max9814mic_method_read_normalized"></block>
+      <block type="max9814mic_method_read_voltage">
+        <value name="vref">
           <shadow type="math_number">
-            <field name="NUM">0</field>
+            <field name="NUM">3.3</field>
           </shadow>
         </value>
       </block>
-      <block type="ds1307_datetimeRTC"></block>
-      <block type="ds1307_disable_oscillator"></block>
-      <block type="ds1307_set_disable_oscillator">
-        <value name="value">
+      <block type="max9814mic_method_enable"></block>
+      <block type="max9814mic_method_disable"></block>
+      <block type="max9814mic_method_set_gain">
+        <value name="high">
           <shadow type="logic_boolean">
             <field name="BOOL">FALSE</field>
           </shadow>
         </value>
       </block>
+      <block type="max9814mic_method_get_state"></block>
+      <block type="max9814mic_method_get_average_reading">
+        <value name="samples">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="max9814mic_method_get_peak_reading">
+        <value name="samples">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="max9814mic_method_detect_sound_level">
+        <value name="threshold">
+          <shadow type="math_number">
+            <field name="NUM">35000</field>
+          </shadow>
+        </value>
+        <value name="samples">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="max9814mic_method_calibrate_baseline">
+        <value name="samples">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
     </category>
-
+  
     <category name="AHT10/20 Sensor">
       <label text="Library: https://github.com/targetblank/micropython_ahtx0"></label>
       <button text="Install ahtx0 library" callbackKey="installPyLib"></button>

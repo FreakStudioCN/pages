@@ -14351,150 +14351,220 @@ Blockly.Blocks['ba111tds_set_ntc'] = {
 };
 
 
-// 自动生成的DS1307积木定义
-// PY文件路径：G:\BIPES\ui\pylibs\ds1307.py
-// 原始类：ds1307.DS1307
+/// Auto-generated for max9814_mic (BIPES Blockly Definition)
+/// Source: https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2
 
-// 1. 初始化积木
-Blockly.Blocks['ds1307_init'] = {
+Blockly.Blocks['max9814mic_init'] = {
   init: function() {
-    // 基础输入（图标+标题）
-    this.appendDummyInput()
-        .appendField("DS1307 Init")
-        .appendField(new Blockly.FieldImage(
-          "media/ds1307.png", 
-          300, 300, 
-          "*" 
-        ));
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicInitTitle'])
+      .appendField(new Blockly.FieldImage(
+          "media/max9814_mic.png",
+          300, 300,
+          "*"
+      ));
 
-    // 初始化参数
-    
-    this.appendValueInput("i2c_id")
+  this.appendValueInput("adc_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("I2C Bus ID")
-      ;
-      
-    
-    this.appendValueInput("scl_pin")
+      .appendField("ADC_PIN");
+
+  this.appendValueInput("gain_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("SCL Pin")
-      
-      .appendField(new Blockly.FieldNumber(5), "SCL_PIN");
-      
-    
-    this.appendValueInput("sda_pin")
+      .appendField("GAIN_PIN");
+
+  this.appendValueInput("shdn_pin")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("SDA Pin")
-      
-      .appendField(new Blockly.FieldNumber(4), "SDA_PIN");
-      
-    
-    this.appendValueInput("addr")
+      .appendField("SHDN_PIN");
+
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+
+  this.setColour(135);
+  this.setTooltip(MSG['MAX9814MicInitTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_read'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodReadTitle']);
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodReadTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_read_normalized'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodReadNormalizedTitle']);
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodReadNormalizedTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_read_voltage'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodReadVoltageTitle']);
+
+  this.appendValueInput("vref")
       .setCheck("Number")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("Addr")
-      
-      .appendField(new Blockly.FieldNumber(104), "ADDR");
-      
-    
+      .appendField(new Blockly.FieldNumber(3.3), "VREF_MSG");
 
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+  this.setOutput(true, null);
 
-    this.setColour(230);
-    this.setTooltip("Initialize self.  See help(type(self)) for accurate signature.");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodReadVoltageTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-// 2. 功能方法积木
-
-
-// 输出型积木（有返回值）
-Blockly.Blocks['ds1307_datetime'] = {
+Blockly.Blocks['max9814mic_method_enable'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("DS1307 datetime");
-    
-    this.setOutput(true, "Array");
-    this.setColour(230);
-    this.setTooltip("Get datetime from DS1307");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodEnableTitle']);
+
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodEnableTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-
-
-// 执行型积木（无返回值）
-Blockly.Blocks['ds1307_set_datetime'] = {
+Blockly.Blocks['max9814mic_method_disable'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("DS1307 set_datetime");
-    
-    this.appendValueInput("datetime")
-      .setCheck("Array")
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("datetime");
-    
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Set datetime for DS1307");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodDisableTitle']);
+
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodDisableTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
-
-
-// 输出型积木（有返回值）
-Blockly.Blocks['ds1307_datetimeRTC'] = {
+Blockly.Blocks['max9814mic_method_set_gain'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("DS1307 datetimeRTC");
-    
-    this.setOutput(true, "Array");
-    this.setColour(230);
-    this.setTooltip("Get datetimeRTC from DS1307");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodSetGainTitle']);
 
-
-
-// 输出型积木（有返回值）
-Blockly.Blocks['ds1307_disable_oscillator'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("DS1307 disable_oscillator");
-    
-    this.setOutput(true, "Boolean");
-    this.setColour(230);
-    this.setTooltip("Get disable_oscillator from DS1307");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
-  }
-};
-
-
-
-// 执行型积木（无返回值）
-Blockly.Blocks['ds1307_set_disable_oscillator'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("DS1307 set_disable_oscillator");
-    
-    this.appendValueInput("value")
+  this.appendValueInput("high")
       .setCheck("Boolean")
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("value");
-    
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip("Set disable_oscillator for DS1307");
-    this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+      .appendField(new Blockly.FieldCheckbox("FALSE"), "HIGH_MSG");
+
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodSetGainTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
   }
 };
 
+Blockly.Blocks['max9814mic_method_get_state'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodGetStateTitle']);
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodGetStateTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_get_average_reading'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodGetAverageReadingTitle']);
+
+  this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(new Blockly.FieldNumber(10), "SAMPLES_MSG");
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodGetAverageReadingTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_get_peak_reading'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodGetPeakReadingTitle']);
+
+  this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(new Blockly.FieldNumber(100), "SAMPLES_MSG");
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodGetPeakReadingTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_detect_sound_level'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodDetectSoundLevelTitle']);
+
+  this.appendValueInput("threshold")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(new Blockly.FieldNumber(35000), "THRESHOLD_MSG");
+
+  this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(new Blockly.FieldNumber(50), "SAMPLES_MSG");
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodDetectSoundLevelTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};
+
+Blockly.Blocks['max9814mic_method_calibrate_baseline'] = {
+  init: function() {
+  this.appendDummyInput()
+      .appendField(MSG['MAX9814MicMethodCalibrateBaselineTitle']);
+
+  this.appendValueInput("samples")
+      .setCheck("Number")
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(new Blockly.FieldNumber(100), "SAMPLES_MSG");
+
+  this.setOutput(true, null);
+
+  this.setColour(230);
+  this.setTooltip(MSG['MAX9814MicMethodCalibrateBaselineTitle']);
+  this.setHelpUrl("https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2");
+  }
+};

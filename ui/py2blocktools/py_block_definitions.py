@@ -9,24 +9,28 @@ from jinja2 import Template
 # ======================== 核心通用配置 ========================
 FIXED_HELP_URL = "https://freakstudio.cn/node/019b88b8-4451-7065-92ee-d20e8165a0c2"
 
+# 核心修正：补充pinout类型映射，适配硬件引脚
 TYPE_ANNOTATION_MAP = {
     int: "Number",
     float: "Number",
     str: "String",
     bool: "Boolean",
     tuple: "Array",
+    list: "Array",  # 新增：原生list对应Array
     typing.List: "Array",
     typing.Tuple: "Array",
-    None: None
+    None: None,
+    "pinout": "pinout"  # 硬件引脚类型
 }
+
 MACHINE_HW_TYPES = ["I2C", "Pin", "UART", "Timer", "ADC", "PWM", "SPI", "I2S", "CAN", "RTC"]
 
 COMPLEX_TYPE_MAP = {
     "I2C": {
-        "split_params": ["i2c_id", "scl_pin", "sda_pin"],
-        "param_types": ["Number", "pinout", "pinout"],
-        "friendly_names": ["I2C Bus ID", "SCL Pin", "SDA Pin"],
-        "defaults": [0, 5, 4]
+        "split_params": ["i2c_id", "scl_pin", "sda_pin", "addr"],  # 新增：补充addr参数
+        "param_types": ["Number", "pinout", "pinout", "Number"],  # 明确scl/sda为pinout
+        "friendly_names": ["I2C Bus ID", "SCL Pin", "SDA Pin", "I2C Address"],
+        "defaults": [0, 5, 4, 104]  # addr默认104（0x68）
     },
     "UART": {
         "split_params": ["uart_port", "tx_pin", "rx_pin", "baudrate"],
@@ -78,16 +82,12 @@ Blockly.Blocks['{{ class_info.class_name_lower }}_init'] = {
           "*" 
         ));
 
-    // 初始化参数
+    // 初始化参数（仅保留单一ValueInput入口，无额外FieldNumber）
     {% for param in class_info.init_params %}
     this.appendValueInput("{{ param.name }}")
-      .setCheck("{{ param.blockly_type }}")
+      .setCheck("{{ param.blockly_type or param.param_type }}")  // 修正：优先用param_type（pinout）
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("{{ param.friendly_name }}")
-      {% if param.default_value is not none and param.default_value != 0 %}
-      .appendField(new Blockly.FieldNumber({{ param.default_value }}), "{{ param.name | upper }}");
-      {% else %};
-      {% endif %}
+      .appendField("{{ param.friendly_name }}");
     {% endfor %}
 
     this.setPreviousStatement(true, null);
@@ -143,7 +143,7 @@ Blockly.Blocks['{{ class_info.class_name_lower }}_{{ method.name }}'] = {
 """
 
 
-# ======================== 工具函数（修复默认值+缩进） ========================
+# ======================== 工具函数（核心修复：类型映射+参数解析） ========================
 def get_type_basename(annotation: Any) -> str:
     if annotation is None or annotation == inspect.Parameter.empty:
         return ""
@@ -163,8 +163,16 @@ def get_blockly_type_from_annotation(annotation: Any) -> Optional[str]:
     if annotation is None or annotation == inspect.Parameter.empty:
         return None
     type_basename = get_type_basename(annotation).strip()
+
+    # 优先匹配硬件特殊类型（pinout）
     if type_basename in TYPE_ANNOTATION_MAP:
         return TYPE_ANNOTATION_MAP[type_basename]
+
+    # 显式匹配list/tuple→Array（覆盖原生/typing/字符串注解）
+    if type_basename in ["list", "tuple", "List", "Tuple"]:
+        return "Array"
+
+    # 原有逻辑（无需修改）
     for py_type, blockly_type in TYPE_ANNOTATION_MAP.items():
         if hasattr(py_type, "__name__") and py_type.__name__ == type_basename:
             return blockly_type
@@ -177,10 +185,9 @@ def get_blockly_type_from_annotation(annotation: Any) -> Optional[str]:
             return "String"
         elif type_basename == "bool":
             return "Boolean"
-        elif type_basename == "tuple":
+        elif type_basename in ["tuple", "list"]:  # 新增：兼容字符串形式的list注解
             return "Array"
     return None
-
 
 def extract_class_info(cls: Any) -> Dict[str, Any]:
     class_info = {
@@ -210,9 +217,8 @@ def extract_class_info(cls: Any) -> Dict[str, Any]:
         if complex_type:
             split_config = COMPLEX_TYPE_MAP[complex_type]
             for i, sp in enumerate(split_config["split_params"]):
+                # 核心修正3：保留原始param_type（pinout），不再过滤
                 split_blockly_type = split_config["param_types"][i]
-                if split_blockly_type not in ["Number", "String", "Boolean"]:
-                    split_blockly_type = None
 
                 # 修复默认值：None替换为0，DS1307 addr默认0x68
                 default_val = split_config["defaults"][i] if "defaults" in split_config else 0
@@ -221,13 +227,24 @@ def extract_class_info(cls: Any) -> Dict[str, Any]:
 
                 split_param = {
                     "name": sp,
-                    "param_type": split_config["param_types"][i],
-                    "blockly_type": split_blockly_type or blockly_type,
+                    "param_type": split_config["param_types"][i],  # 保留pinout类型
+                    "blockly_type": split_blockly_type,  # 不再设为None
                     "friendly_name": split_config["friendly_names"][i],
                     "default_value": default_val,
                     "dropdown_options": split_config.get("dropdown_options", [])
                 }
                 class_info["init_params"].append(split_param)
+
+                # 兼容原有addr参数（独立处理）
+                if param_name == "addr" and sp != "addr":
+                    class_info["init_params"].append({
+                        "name": "addr",
+                        "param_type": "Number",
+                        "blockly_type": "Number",
+                        "friendly_name": "I2C Address",
+                        "default_value": 104,
+                        "dropdown_options": []
+                    })
         else:
             # 修复默认值：None→0，addr→0x68
             default_val = param.default if param.default != inspect.Parameter.empty else 0
@@ -271,6 +288,7 @@ def extract_class_info(cls: Any) -> Dict[str, Any]:
                 for p_name, p in setter_sig.parameters.items():
                     if p_name == "self":
                         continue
+                    # 核心修正4：setter参数类型正确映射（tuple→Array，bool→Boolean）
                     p_blockly_type = get_blockly_type_from_annotation(p.annotation) or "Number"
                     setter_params.append({
                         "name": p_name,
@@ -423,7 +441,6 @@ def main():
     except Exception as e:
         print(f"❌ 转换失败：{str(e)}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

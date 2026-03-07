@@ -3,116 +3,63 @@
 # @Time    : 2026/3/6 下午10:58   
 # @Author  : 李清水            
 # @File    : py_xml.py       
-# @Description :
+# @Description : 纯JS解析生成BIPES XML，无硬耦合/无默认值硬编码
 
 import re
 import os
 import argparse
 
-# ===================== 通用配置（无模块类型耦合，适配多接口/多参数） =====================
-# 固定库地址（用户要求的统一地址）
+# ===================== 通用配置（仅固定BIPES规范配置，无业务耦合） =====================
+# 固定库地址（BIPES规范要求的统一地址）
 DEFAULT_LIB_URL = "https://github.com/FreakStudioCN/GraftSense-Drivers-MicroPython"
-# 固定回调键（对齐BIPES示例）
+# 固定回调键（BIPES规范要求）
 DEFAULT_CALLBACK_KEY = "installPyLib"
-# 2空格缩进（严格对齐BIPES示例格式）
+# 2空格缩进（BIPES XML格式规范）
 XML_INDENT = "  "
 
-
-# ===================== Grove接口通用默认规则（按特征匹配，支持多参数） =====================
-def get_grove_default_value(param_name: str) -> int:
-    """
-    按参数名特征返回Grove接口默认值（通用适配多ADC/多PIN等场景）
-    规则：
-    - I2C类：i2c/i2c1/i2c2 → 0/1/2；sda/sda1/sda2 → 4/5/6；scl/scl1/scl2 →5/6/7；addr →104
-    - UART类：uart/uart1/uart2 →0/1/2；tx/rx/tx1/rx1 →16/17/18/19；baudrate →9600
-    - 模拟类：adc/adc1/adc2 →26/26/27；analog/analog1 →26/27
-    - 数字类：pin/pin1/pin2 →0/1/2；digital/digital1 →0/1
-    """
-    param_lower = param_name.lower()
-
-    # I2C接口规则（支持多I2C）
-    if re.match(r"i2c(\d+)?", param_lower):
-        num = re.findall(r"i2c(\d+)", param_lower)
-        return int(num[0]) if num else 0
-    elif re.match(r"sda(\d+)?", param_lower):
-        num = re.findall(r"sda(\d+)", param_lower)
-        return 4 + int(num[0]) if num else 4
-    elif re.match(r"scl(\d+)?", param_lower):
-        num = re.findall(r"scl(\d+)", param_lower)
-        return 5 + int(num[0]) if num else 5
-    elif "addr" in param_lower:
-        return 104
-
-    # UART接口规则（支持多UART）
-    elif re.match(r"uart(\d+)?", param_lower) or re.match(r"uart_port(\d+)?", param_lower):
-        num = re.findall(r"uart(\d+)", param_lower) or re.findall(r"uart_port(\d+)", param_lower)
-        return int(num[0]) if num else 0
-    elif re.match(r"tx(\d+)?", param_lower) or re.match(r"tx_pin(\d+)?", param_lower):
-        num = re.findall(r"tx(\d+)", param_lower) or re.findall(r"tx_pin(\d+)", param_lower)
-        return 16 + int(num[0]) if num else 16
-    elif re.match(r"rx(\d+)?", param_lower) or re.match(r"rx_pin(\d+)?", param_lower):
-        num = re.findall(r"rx(\d+)", param_lower) or re.findall(r"rx_pin(\d+)", param_lower)
-        return 17 + int(num[0]) if num else 17
-    elif "baudrate" in param_lower:
-        return 9600
-
-    # 模拟接口规则（支持多ADC，如PS2模块双ADC）
-    elif re.match(r"adc(\d+)?", param_lower):
-        num = re.findall(r"adc(\d+)", param_lower)
-        return 26 + int(num[0]) if num and int(num[0]) > 0 else 26
-    elif re.match(r"analog(\d+)?", param_lower):
-        num = re.findall(r"analog(\d+)", param_lower)
-        return 26 + int(num[0]) if num and int(num[0]) > 0 else 26
-
-    # 数字接口规则（支持多PIN）
-    elif re.match(r"pin(\d+)?", param_lower) or re.match(r"digital(\d+)?", param_lower):
-        num = re.findall(r"pin(\d+)", param_lower) or re.findall(r"digital(\d+)", param_lower)
-        return int(num[0]) if num else 0
-
-    # 默认值
-    else:
-        return 0
+# ===================== Field类型映射（仅BIPES规范映射，无业务逻辑） =====================
+FIELD_TYPE_MAP = {
+    # JS Field类型 → BIPES Shadow类型 + Field名
+    "FieldNumber": ("math_number", "NUM"),
+    "FieldCheckbox": ("logic_boolean", "BOOL"),
+    "FieldTextInput": ("text", "TEXT"),
+    "FieldDropdown": ("dropdown", "DROP"),
+    "pinout_label": ("pinout", "PIN"),  # 引脚类静态标签 → pinout类型
+    "FieldArray": ("array", "ARRAY"),
+    "default": ("math_number", "NUM")   # 兜底默认
+}
 
 
-def get_shadow_type_and_value(param_name: str, block_type: str = "", custom_defaults: dict = None) -> tuple:
-    """
-    按参数名+积木类型返回Shadow类型、Field名、默认值
-    返回：(shadow_type, field_name, default_val)
-    - 引脚类（pin/sda/scl/tx/rx）→ pinout + PIN + 对应默认值
-    - 布尔型参数（如set_disable_oscillator的value）→ logic_boolean + BOOL + FALSE
-    - 其他数字类 → math_number + NUM + 对应默认值
-    """
-    custom_defaults = custom_defaults or {}
-    param_lower = param_name.lower()
-
-    # 特殊处理布尔型参数
-    if block_type.endswith("_set_disable_oscillator") and param_lower == "value":
-        default_val = custom_defaults.get(param_name, "FALSE")
-        return ("logic_boolean", "BOOL", default_val)
-    # 引脚类参数
-    elif any(key in param_lower for key in ["pin", "sda", "scl", "tx", "rx"]):
-        default_val = custom_defaults.get(param_name, get_grove_default_value(param_name))
-        return ("pinout", "PIN", default_val)
-    # 普通数字类参数
-    else:
-        default_val = custom_defaults.get(param_name, get_grove_default_value(param_name))
-        return ("math_number", "NUM", default_val)
-
-
-# ===================== 工具函数：解析Blockly JS文件（纯结构化，精准匹配init内参数） =====================
+# ===================== 工具函数：深度解析Blockly JS（提取参数+Field类型+默认值） =====================
 def parse_blockly_js(js_path: str) -> dict:
     """
-    解析Blockly JS文件，提取积木信息（仅结构化解析，无模块类型判断）
-    核心优化：先提取每个积木的init函数块，再在块内精准匹配appendValueInput，避免跨积木误匹配
+    深度解析Blockly JS文件，仅从JS内容提取：
+    1. 积木类型
+    2. 参数名
+    3. 参数对应的Field类型（从appendField推导）
+    4. 参数对应的默认值（从JS的Field构造函数提取）
+    无任何硬编码默认值/模块专属规则
     返回格式：
     {
         "blocks": [
-            {"type": "ps2_init", "params": ["adc1", "adc2", "pin1"]},
-            {"type": "ps2_read", "params": []},
-            ...
+            {
+                "type": "max9814mic_init",
+                "params": [
+                    {
+                        "name": "adc_pin",
+                        "field_type": "pinout_label",
+                        "default_val": ""
+                    },
+                    {
+                        "name": "vref",
+                        "field_type": "FieldNumber",
+                        "default_val": 3.3
+                    }
+                ]
+            }
         ],
-        "prefix": "ps2",  # 积木前缀（从第一个积木type推导）
-        "filename_prefix": "ps2"  # 文件名前缀（如ps2_blocks.js → ps2）
+        "prefix": "max9814mic",  # 积木前缀（从第一个积木type推导）
+        "filename_prefix": "max9814mic"  # 文件名前缀
     }
     """
     if not os.path.exists(js_path):
@@ -127,30 +74,70 @@ def parse_blockly_js(js_path: str) -> dict:
     if not block_types:
         raise ValueError("JS文件中未找到Blockly积木定义（Blockly.Blocks）")
 
-    # 2. 提取每个积木的参数（精准到当前积木的init函数内）
+    # 2. 深度解析每个积木的参数（仅从JS提取，无外部规则）
     blocks_info = []
     for block_type in block_types:
-        # 先提取该积木的init函数完整内容（避免跨积木匹配）
+        # 提取该积木的init函数完整内容（避免跨积木匹配）
         block_init_pattern = re.compile(
             rf"Blockly\.Blocks\['{block_type}'\]\s*=\s*\{{\s*init:\s*function\(\)\s*\{{(.*?)\}}\s*\}};",
             re.DOTALL | re.MULTILINE
         )
         init_match = block_init_pattern.search(js_content)
+        params = []
 
         if init_match:
             init_content = init_match.group(1)
-            # 在init函数内精准匹配appendValueInput的参数名
-            param_pattern = re.compile(r'appendValueInput\("([a-zA-Z0-9_]+)"\)')
-            params = param_pattern.findall(init_content)
-        else:
-            params = []
+            # 匹配所有appendValueInput块（提取参数名+Field信息）
+            value_input_pattern = re.compile(
+                r'appendValueInput\("([a-zA-Z0-9_]+)"\)(.*?);',
+                re.DOTALL | re.MULTILINE
+            )
+            value_input_matches = value_input_pattern.findall(init_content)
+
+            for param_name, field_content in value_input_matches:
+                param_info = {
+                    "name": param_name,
+                    "field_type": "default",
+                    "default_val": ""
+                }
+
+                # 解析Field类型和默认值（仅从JS提取）
+                # 匹配FieldNumber：new Blockly.FieldNumber(3.3)
+                field_number_pattern = re.compile(r"new Blockly\.FieldNumber\(([\d\.]+)\)")
+                field_number_match = field_number_pattern.search(field_content)
+                if field_number_match:
+                    param_info["field_type"] = "FieldNumber"
+                    param_info["default_val"] = field_number_match.group(1)
+
+                # 匹配FieldCheckbox：new Blockly.FieldCheckbox("FALSE")
+                field_checkbox_pattern = re.compile(r"new Blockly\.FieldCheckbox\(\"([A-Z]+)\"\)")
+                field_checkbox_match = field_checkbox_pattern.search(field_content)
+                if field_checkbox_match:
+                    param_info["field_type"] = "FieldCheckbox"
+                    param_info["default_val"] = field_checkbox_match.group(1)
+
+                # 匹配引脚类静态标签：.appendField("ADC_PIN")
+                field_pin_label_pattern = re.compile(r"\.appendField\(\"([A-Z_]+_PIN)\"\)")
+                field_pin_label_match = field_pin_label_pattern.search(field_content)
+                if field_pin_label_match:
+                    param_info["field_type"] = "pinout_label"
+                    param_info["default_val"] = ""  # 引脚无硬编码默认值，由BIPES动态提供
+
+                # 匹配FieldTextInput：new Blockly.FieldTextInput("xxx")
+                field_text_pattern = re.compile(r"new Blockly\.FieldTextInput\(\"(.*?)\"\)")
+                field_text_match = field_text_pattern.search(field_content)
+                if field_text_match:
+                    param_info["field_type"] = "FieldTextInput"
+                    param_info["default_val"] = field_text_match.group(1)
+
+                params.append(param_info)
 
         blocks_info.append({
             "type": block_type,
             "params": params
         })
 
-    # 3. 推导积木前缀
+    # 3. 推导积木前缀（纯字符串解析，无业务规则）
     block_prefix = ""
     if blocks_info:
         first_block_type = blocks_info[0]["type"]
@@ -158,7 +145,7 @@ def parse_blockly_js(js_path: str) -> dict:
         if prefix_match:
             block_prefix = prefix_match.group(1)
 
-    # 4. 推导文件名前缀
+    # 4. 推导文件名前缀（纯字符串解析）
     filename = os.path.basename(js_path)
     filename_prefix = re.sub(r"_blocks\.js$|\.js$", "", filename)
 
@@ -169,21 +156,21 @@ def parse_blockly_js(js_path: str) -> dict:
     }
 
 
-# ===================== 工具函数：生成BIPES XML（纯字符串拼接，100%控制格式） =====================
+# ===================== 工具函数：生成BIPES XML（仅用解析结果，无硬编码） =====================
 def generate_bipes_xml(
         js_parse_result: dict,
         category_name: str = None,
         block_desc: str = None,
-        lib_name: str = None,
-        custom_defaults: dict = None
+        lib_name: str = None
 ) -> str:
     """
-    生成BIPES标准XML（纯字符串拼接，彻底避免自闭合标签，精准控制格式）
+    生成BIPES标准XML：
+    1. 仅使用JS解析结果，无任何硬编码默认值/模块规则
+    2. 纯字符串拼接，严格遵循BIPES格式规范
     """
-    custom_defaults = custom_defaults or {}
     prefix = js_parse_result["prefix"]
 
-    # 推导基础配置
+    # 推导基础配置（纯字符串解析，无业务耦合）
     category_name = category_name or prefix.upper()
     block_desc = block_desc or f"{prefix.upper()} Module"
     lib_name = lib_name or prefix.lower()
@@ -192,20 +179,20 @@ def generate_bipes_xml(
     xml_lines = []
     xml_lines.append(f"<category name=\"{category_name}\">")
 
-    # 1. 库地址Label（完整闭合）
+    # 1. 库地址Label（完整闭合，BIPES规范）
     xml_lines.append(f"{XML_INDENT}<label text=\"Library: {DEFAULT_LIB_URL} \"></label>")
 
-    # 2. Install按钮（完整闭合）
+    # 2. Install按钮（完整闭合，BIPES规范）
     xml_lines.append(
         f"{XML_INDENT}<button text=\"Install {lib_name} library\" callbackKey=\"{DEFAULT_CALLBACK_KEY}\"></button>")
 
-    # 3. 空行（对齐官方示例）
+    # 3. 空行（对齐BIPES示例格式）
     xml_lines.append("")
 
     # 4. 模块描述Label（完整闭合）
     xml_lines.append(f"{XML_INDENT}<label text=\"{block_desc}\"></label>")
 
-    # 5. 遍历生成每个积木的block节点（核心修改：区分有/无参数block）
+    # 5. 遍历生成每个积木的block节点（仅用解析结果）
     for block in js_parse_result["blocks"]:
         block_type = block["type"]
         params = block["params"]
@@ -213,86 +200,66 @@ def generate_bipes_xml(
         # 无参数block：单行完整闭合
         if not params:
             xml_lines.append(f"{XML_INDENT}<block type=\"{block_type}\"></block>")
-        # 有参数block：多行缩进
+        # 有参数block：多行缩进（仅用解析的Field类型/默认值）
         else:
-            # 开始block标签
             xml_lines.append(f"{XML_INDENT}<block type=\"{block_type}\">")
 
-            # 生成每个参数的value/shadow节点
+            # 生成每个参数的value/shadow节点（仅用解析结果）
             for param in params:
-                shadow_type, field_name, default_val = get_shadow_type_and_value(param, block_type, custom_defaults)
+                param_name = param["name"]
+                field_type = param["field_type"]
+                default_val = param["default_val"]
 
-                # value节点
-                xml_lines.append(f"{XML_INDENT * 2}<value name=\"{param}\">")
-                # shadow节点
+                # 映射BIPES Shadow类型（仅用规范映射，无业务规则）
+                shadow_type, field_name = FIELD_TYPE_MAP.get(field_type, FIELD_TYPE_MAP["default"])
+
+                # 生成XML节点（无硬编码值）
+                xml_lines.append(f"{XML_INDENT * 2}<value name=\"{param_name}\">")
                 xml_lines.append(f"{XML_INDENT * 3}<shadow type=\"{shadow_type}\">")
-                # field节点
                 xml_lines.append(f"{XML_INDENT * 4}<field name=\"{field_name}\">{default_val}</field>")
-                # 闭合shadow
                 xml_lines.append(f"{XML_INDENT * 3}</shadow>")
-                # 闭合value
                 xml_lines.append(f"{XML_INDENT * 2}</value>")
 
-            # 闭合block标签
             xml_lines.append(f"{XML_INDENT}</block>")
 
     # 闭合根节点
     xml_lines.append("</category>")
 
-    # 拼接所有行，处理空行缩进
+    # 拼接并格式化（仅格式处理，无业务逻辑）
     xml_content = "\n".join(xml_lines)
-    # 修复空行的缩进（确保空行后内容仍有2空格缩进）
+    # 修复空行缩进（符合BIPES格式）
     xml_content = re.sub(r"\n\s*\n", f"\n{XML_INDENT}\n", xml_content)
 
     return xml_content
 
-# ===================== 主函数：命令行交互 =====================
+
+# ===================== 主函数：命令行交互（仅解析+生成，无业务逻辑） =====================
 def main():
-    parser = argparse.ArgumentParser(description="Blockly JS → BIPES XML 转换工具（通用Grove接口，无模块类型耦合）")
-    parser.add_argument("--js-path", required=True, help="Blockly JS文件路径（必填，如ds1307_blocks.js）")
-    parser.add_argument("--category", help="XML分类名（可选，默认从JS文件名推导，如PS2）")
-    parser.add_argument("--desc", help="模块描述（可选，默认：前缀+Module，如PS2 Module）")
-    parser.add_argument("--lib-name", help="库名（用于Install按钮，可选，默认前缀小写，如ps2）")
-    parser.add_argument("--defaults", help="自定义参数默认值（可选，格式：adc1=26,adc2=27,pin1=0）")
+    parser = argparse.ArgumentParser(description="Blockly JS → BIPES XML 转换工具（纯JS解析，无硬耦合）")
+    parser.add_argument("--js-path", required=True, help="Blockly JS文件路径（必填，如max9814_mic.js）")
+    parser.add_argument("--category", help="XML分类名（可选，默认从JS文件名推导）")
+    parser.add_argument("--desc", help="模块描述（可选，默认：前缀+Module）")
+    parser.add_argument("--lib-name", help="库名（用于Install按钮，可选，默认前缀小写）")
     parser.add_argument("--output", help="XML输出路径（可选，默认：JS同目录/前缀.xml）")
     args = parser.parse_args()
 
     try:
-        # 1. 解析JS文件
+        # 1. 解析JS文件（纯解析，无硬编码）
         js_info = parse_blockly_js(args.js_path)
         print(f"✅ 解析JS成功，提取到 {len(js_info['blocks'])} 个积木，前缀：{js_info['prefix']}")
 
-        # 2. 解析自定义默认值
-        custom_defaults = {}
-        if args.defaults:
-            for item in args.defaults.split(","):
-                if "=" in item:
-                    k, v = item.split("=", 1)
-                    k = k.strip()
-                    v = v.strip()
-                    # 兼容布尔型默认值
-                    if v.upper() in ["TRUE", "FALSE"]:
-                        custom_defaults[k] = v.upper()
-                    else:
-                        try:
-                            custom_defaults[k] = int(v)
-                        except ValueError:
-                            custom_defaults[k] = v
-
-        # 3. 生成XML
+        # 2. 生成XML（仅用解析结果）
         xml_content = generate_bipes_xml(
             js_parse_result=js_info,
             category_name=args.category,
             block_desc=args.desc,
-            lib_name=args.lib_name,
-            custom_defaults=custom_defaults
+            lib_name=args.lib_name
         )
 
-        # 4. 输出XML文件
+        # 3. 输出XML文件
         if args.output:
             output_path = args.output
         else:
-            # 默认输出路径：JS同目录/前缀.xml
             js_dir = os.path.dirname(args.js_path)
             output_path = os.path.join(js_dir, f"{js_info['prefix']}.xml")
 
@@ -301,7 +268,7 @@ def main():
 
         print(f"✅ XML生成成功！输出路径：{output_path}")
         print("\n📌 生成的XML预览：")
-        print(xml_content[:500] + "..." if len(xml_content) > 500 else xml_content)
+        print(xml_content[:800] + "..." if len(xml_content) > 800 else xml_content)
 
     except Exception as e:
         print(f"❌ 执行失败：{str(e)}")

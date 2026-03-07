@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "module_name": "relay",
+    "class_name": "RelayController",
+    "version": "1.0.0"
+  },
+  "dependencies": [
+    "machine.Pin",
+    "machine.Timer"
+  ],
+  "blocks": [
+    {
+      "type": "relaycontroller_init",
+      "message": "RelayController __init__ relay_type%1 pin1%2 pin2 (optional)%3",
+      "colour": 135,
+      "output_type": "RelayController",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "RELAY_TYPE",
+          "input_type": "value",
+          "check_type": "String",
+          "field": {
+            "field_type": "text_input",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "relay_type"
+          }
+        },
+        {
+          "name": "PIN1",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "pin1"
+          }
+        },
+        {
+          "name": "PIN2",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "pin2 (optional)",
+            "optional": true
+          }
+        }
+      ],
+      "generator_template": "relaycontroller = RelayController({RELAY_TYPE}, {PIN1}, {PIN2})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "relaycontroller_method_get_state",
+      "message": "RelayController get_state",
+      "colour": 230,
+      "output_type": "Boolean",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "relaycontroller.get_state()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "relaycontroller_method_on",
+      "message": "RelayController on",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "relaycontroller.on()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "relaycontroller_method_off",
+      "message": "RelayController off",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "relaycontroller.off()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "relaycontroller_method_toggle",
+      "message": "RelayController toggle",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "relaycontroller.toggle()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "relaycontroller_method_deinit",
+      "message": "RelayController deinit",
+      "colour": 230,
+      "output_type": false,
+      "previous_statement": true,
+      "next_statement": true,
+      "inputs": [],
+      "generator_template": "relaycontroller.deinit()",
+      "is_property": false,
+      "is_setter": false
+    }
+  ]
+}

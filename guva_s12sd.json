@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "module_name": "guva_s12sd",
+    "class_name": "GUVA_S12SD",
+    "version": "1.0.0"
+  },
+  "dependencies": [
+    "time",
+    "machine.ADC"
+  ],
+  "blocks": [
+    {
+      "type": "guva_s12sd_init",
+      "message": "GUVA_S12SD__init__ analog_pin%1",
+      "colour": 135,
+      "output_type": "GUVA_S12SD",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [
+        {
+          "name": "ANALOG_PIN",
+          "input_type": "value",
+          "check_type": "Number",
+          "field": {
+            "field_type": "pinout",
+            "default": null,
+            "min": null,
+            "max": null,
+            "label": "analog_pin"
+          }
+        }
+      ],
+      "generator_template": "guva_s12sd = GUVA_S12SD({ANALOG_PIN})",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "guva_s12sd_method_read",
+      "message": "GUVA_S12SDread",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "guva_s12sd.read()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "guva_s12sd_method_get_uv_index",
+      "message": "GUVA_S12SDget_uv_index",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "guva_s12sd.get_uv_index()",
+      "is_property": false,
+      "is_setter": false
+    },
+    {
+      "type": "guva_s12sd_property_voltage",
+      "message": "GUVA_S12SDvoltage",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "guva_s12sd.voltage",
+      "is_property": true,
+      "is_setter": false
+    },
+    {
+      "type": "guva_s12sd_property_uvi",
+      "message": "GUVA_S12SDuvi",
+      "colour": 230,
+      "output_type": "Number",
+      "previous_statement": false,
+      "next_statement": false,
+      "inputs": [],
+      "generator_template": "guva_s12sd.uvi",
+      "is_property": true,
+      "is_setter": false
+    }
+  ]
+}
